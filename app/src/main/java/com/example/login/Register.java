@@ -31,6 +31,18 @@ public class Register extends AppCompatActivity {
     TextView textView;
 
     @Override
+    public void onStart() {
+        super.onStart();
+        // Prüft ob User bereits eingeloggt ist und ruft ggf. MainActivity auf
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
@@ -74,7 +86,9 @@ public class Register extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(Register.this, "Account erstellt",
                                             Toast.LENGTH_SHORT).show();
-
+                                    Intent intent = new Intent(getApplication(), Login.class);
+                                    startActivity(intent);
+                                    finish();
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Toast.makeText(Register.this, "Authentifizierungsfehler",

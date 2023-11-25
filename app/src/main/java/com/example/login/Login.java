@@ -28,6 +28,18 @@ public class Login extends AppCompatActivity {
     TextView textView;
 
     @Override
+    public void onStart() {
+        super.onStart();
+        // Prüft ob User bereits eingeloggt ist und ruft ggf. MainActivity auf
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -66,13 +78,15 @@ public class Login extends AppCompatActivity {
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
+                                progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
                                     Toast.makeText(getApplicationContext(), "Login erfolgreich", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplication(), MainActivity.class);
+                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
                                 } else {
                                     Toast.makeText(Login.this, "Authentifizierungsfehler",
                                             Toast.LENGTH_SHORT).show();
-                                   
                                 }
                             }
                         });
