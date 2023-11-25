@@ -12,7 +12,7 @@ public class InputActivity extends AppCompatActivity {
 
     EditText userEditText, passwordEditText;
     Button loginButton;
-
+    //test
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
