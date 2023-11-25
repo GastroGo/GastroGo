@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "927912877297",
+    "project_id": "g4stro",
+    "storage_bucket": "g4stro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927912877297:android:c560441dc31dc544a5dd50",
+        "android_client_info": {
+          "package_name": "com.example.login"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5W8McTzUR98wgasKyvoaCaqmdk03nIaA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
