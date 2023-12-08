@@ -34,7 +34,7 @@ public class Login extends AppCompatActivity {
         // Prüft ob User bereits eingeloggt ist und ruft ggf. MainActivity auf
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), Startseite.class);
             startActivity(intent);
             finish();
         }
@@ -48,8 +48,8 @@ public class Login extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
-        buttonLogin = findViewById(R.id.btn_login);
-        progressBar = findViewById(R.id.porgressBar);
+        buttonLogin = findViewById(R.id.btn_register);
+        progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.registerNow);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +83,7 @@ public class Login extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
                                     Toast.makeText(getApplicationContext(), "Login erfolgreich", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    Intent intent = new Intent(getApplicationContext(), Startseite.class);
                                     startActivity(intent);
                                     finish();
                                 } else {
