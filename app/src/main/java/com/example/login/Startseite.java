@@ -24,7 +24,6 @@ public class Startseite extends AppCompatActivity {
 
     FirebaseAuth auth;
     FirebaseUser user;
-    DatabaseReference dbRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

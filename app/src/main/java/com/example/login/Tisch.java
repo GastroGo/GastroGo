@@ -8,7 +8,11 @@ public class Tisch {
 
     public Tisch(Map<String, Integer> bestellungen, int personen) {
         this.bestellungen = bestellungen;
+
         this.personen = personen;
+    }
+
+    public Tisch() {
     }
 
     public Map<String, Integer> getBestellungen() {
