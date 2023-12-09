@@ -34,7 +34,7 @@ public class Register extends AppCompatActivity {
         super.onStart();
         // Prüft ob User bereits eingeloggt ist und ruft ggf. MainActivity auf
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
+        if (currentUser != null) {
             Intent intent = new Intent(getApplicationContext(), Startseite.class);
             startActivity(intent);
             finish();

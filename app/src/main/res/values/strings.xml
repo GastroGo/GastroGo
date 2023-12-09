@@ -1,12 +1,17 @@
 <resources>
-    <string name="app_name">Login</string>
-    <string name="login">Login</string>
+    <string name="app_name"></string>
+    <string name="login">Anmelden</string>
     <string name="email">Email</string>
-    <string name="password">Password</string>
+    <string name="password">Passwort</string>
+    <string name="place">Ort</string>
+    <string name="zip">Plz</string>
     <string name="street">Straße</string>
-    <string name="register">Register</string>
-    <string name="click_to_login">Click to login</string>
-    <string name="click_to_register">Click to register</string>
-    <string name="logout">Logout</string>
-
+    <string name="name">Name</string>
+    <string name="register">Registrieren</string>
+    <string name="click_to_login">Klicken zum anmelden</string>
+    <string name="click_to_register">Klicken zum registrieren</string>
+    <string name="logout">Ausloggen</string>
+    <string name="click_to_create_restaurant">Restaurant erstellen</string>
+    <string name="back">Zurück</string>
+    <string name="housenr">Hausnummer</string>
 </resources>
