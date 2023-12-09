@@ -2,13 +2,16 @@ package com.example.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -20,8 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 public class Startseite extends AppCompatActivity {
 
     FirebaseAuth auth;
-    Button button;
-    TextView textView;
     FirebaseUser user;
     DatabaseReference dbRef;
 
@@ -30,25 +31,29 @@ public class Startseite extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startseite);
         auth = FirebaseAuth.getInstance();
-        button = findViewById(R.id.logout);
-        textView = findViewById(R.id.user_details);
+
         user = auth.getCurrentUser();
         if (user == null) {
             Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
             finish();
         } else {
-            textView.setText(user.getEmail());
             checkUserInDatabase(user.getUid());
         }
-
-        button.setOnClickListener(new View.OnClickListener() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getApplicationContext(), Login.class);
-                startActivity(intent);
-                finish();
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.menuAccount) {
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent = new Intent(getApplicationContext(), Login.class);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                }
+                //Weitere If Anweisungen für andere Icons
+                return false;
             }
         });
     }
