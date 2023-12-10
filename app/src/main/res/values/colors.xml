@@ -11,4 +11,7 @@
     <color name="colorTrendingStart">#00B09B</color>
     <color name="colorTrendingEnd">#96C93D</color>
     <color name="colorDivider">#D6D6D6</color>
+    <color name="statusBarColor">#000000</color>
+    <color name="navigationBarColor">#181818</color>
+    <color name="windowBackground">#FFFFFF</color>
 </resources>
