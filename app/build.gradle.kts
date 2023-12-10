@@ -9,12 +9,13 @@ android {
 
     defaultConfig {
         applicationId = "com.example.login"
-        minSdk = 24
+        minSdk = 19
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled = true // Enable multiDex here
     }
 
     buildTypes {
@@ -45,4 +46,5 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation ("com.google.android.material:material:1.10.0")
+    implementation("androidx.multidex:multidex:2.0.1") // Add multiDex dependency here
 }

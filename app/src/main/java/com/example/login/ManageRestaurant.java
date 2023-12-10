@@ -28,7 +28,8 @@ public class ManageRestaurant extends AppCompatActivity {
     DatabaseReference dbRef;
     TextView name;
     Button menu;
-    Daten restaurantDaten; //Hinzufügen einer neuen Variablen auf Klassenebene
+    Button delete;
+    Daten restaurantDaten;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class ManageRestaurant extends AppCompatActivity {
         setContentView(R.layout.activity_manage_restaurant);
         name = findViewById(R.id.text);
         menu = findViewById(R.id.buttonMenu);
+        delete = findViewById(R.id.buttonDelete);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         if (user == null) {
@@ -60,12 +62,7 @@ public class ManageRestaurant extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), ManageRestaurant.class);
                     startActivity(intent);
                     finish();
-                } /* else if (id == R.id.menuSettings) {
-                    Intent intent = new Intent(getApplicationContext(), Settings.class);
-                    startActivity(intent);
-                    finish();
-                } */
-                //Weitere If Anweisungen für andere Icons
+                }
                 return false;
             }
         });
@@ -76,7 +73,14 @@ public class ManageRestaurant extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteRestaurant(user.getUid());
+            }
+        });
     }
+
     private void getData(String uid) {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Restaurants");
         dbRef.orderByChild("daten/uid").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -85,7 +89,7 @@ public class ManageRestaurant extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot restaurantSnapshot: dataSnapshot.getChildren()) {
                         Restaurant restaurant = restaurantSnapshot.getValue(Restaurant.class);
-                        restaurantDaten = restaurant.getDaten(); //Speichern der Daten auf Klassenebene
+                        restaurantDaten = restaurant.getDaten();
                         Map<String, String> schluessel = restaurant.getSchluessel();
                         Map<String, Speisekarte> speisekarte = restaurant.getSpeisekarte();
                         Map<String, Tisch> tische = restaurant.getTische();
@@ -95,12 +99,42 @@ public class ManageRestaurant extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}    //kys wenn Fehler
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
     }
+
     private void displayData() {
         if (restaurantDaten != null) {
-            name.setText(restaurantDaten.getName()); //Setzen des Restaurantnamens im TextView
+            name.setText(restaurantDaten.getName());
         }
+    }
+
+    private void deleteRestaurant(String uid) {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Restaurants");
+        dbRef.orderByChild("daten/uid").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot restaurantSnapshot: dataSnapshot.getChildren()) {
+                        restaurantSnapshot.getRef().removeValue();
+                    }
+                    // Delete the user from Firebase Authentication
+                    user.delete().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            // User deleted successfully, navigate to login screen
+                            Intent intent = new Intent(getApplicationContext(), Login.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            // Handle failure to delete the user
+                            // ...
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
     }
 }

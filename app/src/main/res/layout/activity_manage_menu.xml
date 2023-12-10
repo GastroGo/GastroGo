@@ -80,7 +80,9 @@
         android:overScrollMode="never"
         android:scrollbars="none"
         app:layout_constraintBottom_toTopOf="@id/viewDivider"
-        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="-45dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -90,56 +92,56 @@
                 android:id="@+id/buttonMenu"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:text="Speisekarte"
+                android:layout_marginTop="150dp"
                 android:drawableLeft="@drawable/ic_restaurant_menu"
                 android:drawableTint="@color/colorWhite"
                 android:gravity="center"
+                android:text="Speisekarte"
                 android:textSize="18sp"
-                android:layout_marginTop="200dp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/buttonOrders"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:text="Bestellungen"
+                android:layout_marginTop="20dp"
                 android:drawableLeft="@drawable/ic_orders"
                 android:drawableTint="@color/colorWhite"
                 android:gravity="center"
+                android:text="Bestellungen"
                 android:textSize="18sp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/buttonMenu" />
 
             <Button
                 android:id="@+id/buttonEmployeeKeys"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:text="Mitarbeiterschlüssel"
+                android:layout_marginTop="20dp"
                 android:drawableLeft="@drawable/ic_key"
                 android:drawableTint="@color/colorWhite"
                 android:gravity="center"
+                android:text="Mitarbeiterschlüssel"
                 android:textSize="18sp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/buttonOrders" />
 
             <Button
                 android:id="@+id/buttonGenerateQR"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:text="Tisch QR Codes"
+                android:layout_marginTop="20dp"
                 android:drawableLeft="@drawable/ic_qrcode"
                 android:drawableTint="@color/colorWhite"
                 android:gravity="center"
+                android:text="Tisch QR Codes"
                 android:textSize="18sp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/buttonEmployeeKeys" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
