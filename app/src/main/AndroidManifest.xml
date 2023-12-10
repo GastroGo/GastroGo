@@ -12,19 +12,23 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Material3.Light"
+        android:theme="@style/Theme.Login"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".ManageRestaurant"
             android:exported="false" />
         <activity
-            android:name=".Login"
-            android:exported="false"
-            android:theme="@style/Theme.Material3.Light.NoActionBar"></activity>
+            android:name=".Startseite"
+            android:exported="false" />
+        <activity
+            android:name=".CreateRestaurant"
+            android:exported="false" />
         <activity
             android:name=".Register"
-            android:exported="true"
-            android:theme="@style/Theme.Material3.Light.NoActionBar">
+            android:exported="true" />
+        <activity
+            android:name=".Login"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

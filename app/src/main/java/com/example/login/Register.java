@@ -17,9 +17,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Register extends AppCompatActivity {
@@ -28,15 +28,15 @@ public class Register extends AppCompatActivity {
     Button buttonReg;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
-    TextView textView;
+    TextView textView, textView2;
+    InputValidator inputValidator;
 
     @Override
-    public void onStart() {
+    public void onStart() {     //Prüft ob User bereits eingeloggt ist und ruft ggf. MainActivity auf
         super.onStart();
-        // Prüft ob User bereits eingeloggt ist und ruft ggf. MainActivity auf
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        if (currentUser != null) {
+            Intent intent = new Intent(getApplicationContext(), Startseite.class);
             startActivity(intent);
             finish();
         }
@@ -52,10 +52,20 @@ public class Register extends AppCompatActivity {
         buttonReg = findViewById(R.id.btn_register);
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.loginNow);
+        textView2 = findViewById(R.id.registerRestaurant);
+        inputValidator = new InputValidator(this);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplication(), Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        textView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplication(), CreateRestaurant.class);
                 startActivity(intent);
                 finish();
             }
@@ -68,13 +78,14 @@ public class Register extends AppCompatActivity {
                 String email = String.valueOf(editTextEmail.getText());
                 String password = String.valueOf(editTextPassword.getText());
 
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(Register.this, "Email eingeben", Toast.LENGTH_SHORT).show();
+                if (!inputValidator.validateInput(editTextEmail, "Email eingeben") ||
+                        !inputValidator.validateInput(editTextPassword, "Passwort eingeben")) {
+                    progressBar.setVisibility(View.GONE);
                     return;
                 }
 
-                if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(Register.this, "Passwort eingeben", Toast.LENGTH_SHORT).show();
+                if (!inputValidator.isPasswordValid(editTextPassword)) {
+                    progressBar.setVisibility(View.GONE);
                     return;
                 }
 
@@ -90,10 +101,13 @@ public class Register extends AppCompatActivity {
                                     startActivity(intent);
                                     finish();
                                 } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w("AuthError", "createUserWithEmail:failure", task.getException());
-                                    Toast.makeText(Register.this, "Authentifizierungsfehler: " + task.getException().getMessage(),
-                                            Toast.LENGTH_LONG).show();
+                                    if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                        editTextEmail.setError("Diese E-Mail ist bereits registriert");
+                                    } else {
+                                        Log.w("AuthError", "createUserWithEmail:failure", task.getException());
+                                        Toast.makeText(Register.this, "Authentifizierungsfehler: " + task.getException().getMessage(),
+                                                Toast.LENGTH_LONG).show();
+                                    }
                                 }
                             }
                         });
