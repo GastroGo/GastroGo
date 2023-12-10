@@ -1,12 +1,10 @@
 package com.example.login;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,6 +27,7 @@ public class ManageRestaurant extends AppCompatActivity {
     FirebaseUser user;
     DatabaseReference dbRef;
     TextView name;
+    Button menu;
     Daten restaurantDaten; //Hinzufügen einer neuen Variablen auf Klassenebene
 
     @Override
@@ -36,6 +35,7 @@ public class ManageRestaurant extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_restaurant);
         name = findViewById(R.id.text);
+        menu = findViewById(R.id.buttonMenu);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         if (user == null) {
@@ -56,9 +56,24 @@ public class ManageRestaurant extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                     return true;
-                }
+                } else if (id == R.id.menuHome) {
+                    Intent intent = new Intent(getApplicationContext(), ManageRestaurant.class);
+                    startActivity(intent);
+                    finish();
+                } /* else if (id == R.id.menuSettings) {
+                    Intent intent = new Intent(getApplicationContext(), Settings.class);
+                    startActivity(intent);
+                    finish();
+                } */
                 //Weitere If Anweisungen für andere Icons
                 return false;
+            }
+        });
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ManageMenu.class);
+                startActivity(intent);
             }
         });
     }

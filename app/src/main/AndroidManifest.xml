@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Login"
         tools:targetApi="31">
         <activity
+            android:name=".ManageMenu"
+            android:exported="false" />
+        <activity
             android:name=".ManageRestaurant"
             android:exported="false" />
         <activity
