@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
@@ -27,11 +29,11 @@ public class Login extends AppCompatActivity {
     FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textView;
+    InputValidator inputValidator;
 
     @Override
-    public void onStart() {
+    public void onStart() {     //Prüft ob User bereits eingeloggt ist und ruft ggf. MainActivity auf
         super.onStart();
-        // Prüft ob User bereits eingeloggt ist und ruft ggf. MainActivity auf
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             Intent intent = new Intent(getApplicationContext(), Startseite.class);
@@ -40,7 +42,6 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +52,7 @@ public class Login extends AppCompatActivity {
         buttonLogin = findViewById(R.id.btn_register);
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.registerNow);
+        inputValidator = new InputValidator(this);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,13 +69,10 @@ public class Login extends AppCompatActivity {
                 String email = String.valueOf(editTextEmail.getText());
                 String password = String.valueOf(editTextPassword.getText());
 
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(Login.this, "Email eingeben", Toast.LENGTH_SHORT).show();
+                if (!inputValidator.validateInput(editTextEmail, "Email eingeben") ||
+                        !inputValidator.validateInput(editTextPassword, "Passwort eingeben")) {
+                    progressBar.setVisibility(View.GONE);
                     return;
-                }
-
-                if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(Login.this, "Passwort eingeben", Toast.LENGTH_SHORT).show();
                 }
 
                 mAuth.signInWithEmailAndPassword(email, password)
@@ -87,8 +86,14 @@ public class Login extends AppCompatActivity {
                                     startActivity(intent);
                                     finish();
                                 } else {
-                                    Toast.makeText(Login.this, "Authentifizierungsfehler",
-                                            Toast.LENGTH_SHORT).show();
+                                    if (task.getException() instanceof FirebaseAuthInvalidUserException) {
+                                        editTextEmail.setError("Diese E-Mail ist nicht registriert");
+                                    } else if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                        editTextPassword.setError("Falsches Passwort");
+                                    } else {
+                                        Toast.makeText(Login.this, "Authentifizierungsfehler",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             }
                         });

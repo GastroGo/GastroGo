@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -32,6 +33,7 @@ public class CreateRestaurant extends AppCompatActivity {
     DatabaseReference dbRef;
     ProgressBar progressBar;
     Restaurant newRestaurant;
+    InputValidator inputValidator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,8 @@ public class CreateRestaurant extends AppCompatActivity {
                 finish();
             }
         });
+        inputValidator = new InputValidator(this);
+
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,39 +70,25 @@ public class CreateRestaurant extends AppCompatActivity {
                 String password = String.valueOf(editTextPassword.getText());
                 String name = String.valueOf(editTextName.getText());
                 String place = String.valueOf(editTextPlace.getText());
-                int zip = Integer.parseInt(String.valueOf(editTextZip.getText()));
+                String zipString = String.valueOf(editTextZip.getText());
                 String street = String.valueOf(editTextStreet.getText());
-                int housenr = Integer.parseInt(String.valueOf(editTextHousenr.getText()));
+                String housenrString = String.valueOf(editTextHousenr.getText());
 
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(CreateRestaurant.this, "Email eingeben", Toast.LENGTH_SHORT).show();
+                if (!inputValidator.validateInput(editTextEmail, "Email eingeben") ||
+                        !inputValidator.isPasswordValid(editTextPassword) ||
+                        !inputValidator.validateInput(editTextName, "Name eingeben") ||
+                        !inputValidator.validateInput(editTextPlace, "Ort eingeben") ||
+                        !inputValidator.validateInput(editTextZip, "Postleitzahl eingeben") ||
+                        !inputValidator.validateInput(editTextStreet, "Straße eingeben") ||
+                        !inputValidator.validateInput(editTextHousenr, "Hausnummer eingeben") ||
+                        !inputValidator.isNumeric(zipString, "Postleitzahl muss eine Zahl sein") ||
+                        !inputValidator.isNumeric(housenrString, "Hausnummer muss eine Zahl sein")) {
+                    progressBar.setVisibility(View.GONE);
                     return;
                 }
 
-                if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(CreateRestaurant.this, "Passwort eingeben", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (TextUtils.isEmpty(name)) {
-                    Toast.makeText(CreateRestaurant.this, "Name eingeben", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (TextUtils.isEmpty(place)) {
-                    Toast.makeText(CreateRestaurant.this, "Ort eingeben", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (zip == 0) {
-                    Toast.makeText(CreateRestaurant.this, "Postleitzahl eingeben", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (TextUtils.isEmpty(street)) {
-                    Toast.makeText(CreateRestaurant.this, "Straße eingeben", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (housenr == 0) {
-                    Toast.makeText(CreateRestaurant.this, "Hausnummer eingeben", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                int zip = Integer.parseInt(zipString);
+                int housenr = Integer.parseInt(housenrString);
 
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -113,13 +103,16 @@ public class CreateRestaurant extends AppCompatActivity {
                                     startActivity(intent);
                                     finish();
                                 } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w("AuthError", "createUserWithEmail:failure", task.getException());
-                                    Toast.makeText(CreateRestaurant.this, "Authentifizierungsfehler: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                    if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                        editTextEmail.setError("Diese E-Mail ist bereits registriert");
+                                    } else {
+                                        Log.w("AuthError", "createUserWithEmail:failure", task.getException());
+                                        Toast.makeText(CreateRestaurant.this, "Authentifizierungsfehler: " + task.getException().getMessage(),
+                                                Toast.LENGTH_LONG).show();
+                                    }
                                 }
                             }
                         });
-
             }
         });
 
