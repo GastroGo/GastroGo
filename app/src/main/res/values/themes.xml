@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.Login" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
@@ -6,8 +6,10 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item> <!-- Menu bar color -->
         <item name="colorAccent">@color/colorAccent</item> <!-- Secondary text color -->
         <item name="android:statusBarColor">@color/statusBarColor</item> <!-- Top gradient color -->
-        <item name="android:navigationBarColor">@color/navigationBarColor</item> <!-- Bottom gradient color -->
-        <item name="android:windowBackground">@color/windowBackground</item> <!-- Background color -->
+        <item name="android:navigationBarColor">@color/navigationBarColor
+        </item> <!-- Bottom gradient color -->
+        <item name="android:windowBackground">@color/windowBackground
+        </item> <!-- Background color -->
     </style>
 
     <style name="Theme.Login" parent="Base.Theme.Login" />

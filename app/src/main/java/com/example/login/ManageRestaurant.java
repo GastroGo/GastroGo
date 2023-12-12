@@ -40,6 +40,8 @@ public class ManageRestaurant extends AppCompatActivity {
         delete = findViewById(R.id.buttonDelete);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        NavigationManager.setupBottomNavigationView(bottomNavigationView, this);
         if (user == null) {
             Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
@@ -47,25 +49,7 @@ public class ManageRestaurant extends AppCompatActivity {
         } else {
             getData(user.getUid());
         }
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                if (id == R.id.menuAccount) {
-                    FirebaseAuth.getInstance().signOut();
-                    Intent intent = new Intent(getApplicationContext(), Login.class);
-                    startActivity(intent);
-                    finish();
-                    return true;
-                } else if (id == R.id.menuHome) {
-                    Intent intent = new Intent(getApplicationContext(), ManageRestaurant.class);
-                    startActivity(intent);
-                    finish();
-                }
-                return false;
-            }
-        });
+
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,7 +71,7 @@ public class ManageRestaurant extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    for (DataSnapshot restaurantSnapshot: dataSnapshot.getChildren()) {
+                    for (DataSnapshot restaurantSnapshot : dataSnapshot.getChildren()) {
                         Restaurant restaurant = restaurantSnapshot.getValue(Restaurant.class);
                         restaurantDaten = restaurant.getDaten();
                         Map<String, String> schluessel = restaurant.getSchluessel();
@@ -99,7 +83,8 @@ public class ManageRestaurant extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
         });
     }
 
@@ -115,7 +100,7 @@ public class ManageRestaurant extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    for (DataSnapshot restaurantSnapshot: dataSnapshot.getChildren()) {
+                    for (DataSnapshot restaurantSnapshot : dataSnapshot.getChildren()) {
                         restaurantSnapshot.getRef().removeValue();
                     }
                     // Delete the user from Firebase Authentication
@@ -134,7 +119,8 @@ public class ManageRestaurant extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
         });
     }
 }

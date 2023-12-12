@@ -41,6 +41,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text"
             app:tint="@color/colorWhite" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,17 +59,17 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
-                android:paddingStart="0dp"
-                android:paddingEnd="15dp"
-                android:textColor="@color/white"
-                android:text="Zurück"
-                android:drawableLeft="@drawable/ic_arrow_back"
-                android:drawableTint="@color/colorWhite"
-                android:drawablePadding="5dp"
-                android:paddingTop="10dp"
                 android:background="@color/colorPrimary"
-                android:textSize="20sp"
-                android:importantForAutofill="no"/>
+                android:drawableLeft="@drawable/ic_arrow_back"
+                android:drawablePadding="5dp"
+                android:drawableTint="@color/colorWhite"
+                android:importantForAutofill="no"
+                android:paddingStart="0dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="15dp"
+                android:text="Zurück"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -89,60 +90,46 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/buttonMenu"
+                android:id="@+id/buttonCreate"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_marginTop="150dp"
-                android:drawableLeft="@drawable/ic_restaurant_menu"
+                android:drawableLeft="@drawable/ic_add"
                 android:drawableTint="@color/colorWhite"
                 android:gravity="center"
-                android:text="Speisekarte"
+                android:text="Erstellen"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/buttonOrders"
+                android:id="@+id/buttonEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_marginTop="20dp"
-                android:drawableLeft="@drawable/ic_orders"
+                android:drawableLeft="@drawable/ic_edit"
                 android:drawableTint="@color/colorWhite"
                 android:gravity="center"
-                android:text="Bestellungen"
+                android:text="Bearbeiten"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/buttonMenu" />
+                app:layout_constraintTop_toBottomOf="@id/buttonCreate" />
 
             <Button
-                android:id="@+id/buttonEmployeeKeys"
+                android:id="@+id/buttonScan"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:layout_marginTop="20dp"
-                android:drawableLeft="@drawable/ic_key"
+                android:drawableLeft="@drawable/ic_scan"
                 android:drawableTint="@color/colorWhite"
                 android:gravity="center"
-                android:text="Mitarbeiterschlüssel"
+                android:layout_marginTop="20dp"
+                android:text="Einscannen"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/buttonOrders" />
-
-            <Button
-                android:id="@+id/buttonGenerateQR"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_marginTop="20dp"
-                android:drawableLeft="@drawable/ic_qrcode"
-                android:drawableTint="@color/colorWhite"
-                android:gravity="center"
-                android:text="Tisch QR Codes"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/buttonEmployeeKeys" />
+                app:layout_constraintTop_toBottomOf="@id/buttonEdit" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

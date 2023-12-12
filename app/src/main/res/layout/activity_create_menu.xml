@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ManageRestaurant">
+    tools:context=".CreateMenu">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutHeader"
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
-            android:text=""
+            android:text="Speisekarte erstellen"
             android:textColor="@color/colorWhite"
             android:textSize="25sp"
             android:textStyle="bold"
@@ -55,14 +55,19 @@
             app:layout_constraintTop_toBottomOf="@id/imageMenu">
 
             <TextView
+                android:id="@+id/textViewBack"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
+                android:drawableLeft="@drawable/ic_arrow_back"
+                android:drawablePadding="5dp"
+                android:drawableTint="@color/colorWhite"
                 android:importantForAutofill="no"
                 android:paddingStart="0dp"
+                android:paddingTop="10dp"
                 android:paddingEnd="15dp"
-                android:text="Dashboard"
+                android:text="Zurück"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -76,81 +81,55 @@
         android:overScrollMode="never"
         android:scrollbars="none"
         app:layout_constraintBottom_toTopOf="@id/viewDivider"
-        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="-45dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/buttonMenu"
+                android:id="@+id/buttonCreate"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:layout_marginTop="200dp"
-                android:drawableLeft="@drawable/ic_restaurant_menu"
+                android:layout_marginTop="150dp"
+                android:drawableLeft="@drawable/ic_add"
                 android:drawableTint="@color/colorWhite"
                 android:gravity="center"
-                android:text="Speisekarte"
+                android:text="Erstellen"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/buttonOrders"
+                android:id="@+id/buttonEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_marginTop="20dp"
-                android:drawableLeft="@drawable/ic_orders"
+                android:drawableLeft="@drawable/ic_edit"
                 android:drawableTint="@color/colorWhite"
                 android:gravity="center"
-                android:text="Bestellungen"
+                android:text="Bearbeiten"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/buttonMenu" />
+                app:layout_constraintTop_toBottomOf="@id/buttonCreate" />
 
             <Button
-                android:id="@+id/buttonEmployeeKeys"
+                android:id="@+id/buttonScan"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:layout_marginTop="20dp"
-                android:drawableLeft="@drawable/ic_key"
+                android:drawableLeft="@drawable/ic_scan"
                 android:drawableTint="@color/colorWhite"
                 android:gravity="center"
-                android:text="Mitarbeiterschlüssel"
+                android:layout_marginTop="20dp"
+                android:text="Einscannen"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/buttonOrders" />
-
-            <Button
-                android:id="@+id/buttonGenerateQR"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_marginTop="20dp"
-                android:drawableLeft="@drawable/ic_qrcode"
-                android:drawableTint="@color/colorWhite"
-                android:gravity="center"
-                android:text="Tisch QR Codes"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/buttonEmployeeKeys" />
-
-            <Button
-                android:id="@+id/buttonDelete"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_marginTop="20dp"
-                android:drawableLeft="@drawable/ic_delete"
-                android:drawableTint="@color/colorWhite"
-                android:gravity="center"
-                android:text="Restaurant löschen"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/buttonGenerateQR" />
+                app:layout_constraintTop_toBottomOf="@id/buttonEdit" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

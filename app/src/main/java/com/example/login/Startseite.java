@@ -2,11 +2,6 @@ package com.example.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,22 +35,9 @@ public class Startseite extends AppCompatActivity {
             checkUserInDatabase(user.getUid());
         }
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                if (id == R.id.menuAccount) {
-                    FirebaseAuth.getInstance().signOut();
-                    Intent intent = new Intent(getApplicationContext(), Login.class);
-                    startActivity(intent);
-                    finish();
-                    return true;
-                }
-                //Weitere If Anweisungen für andere Icons
-                return false;
-            }
-        });
+        NavigationManager.setupBottomNavigationView(bottomNavigationView, this);
     }
+
     private void checkUserInDatabase(String uid) {  //überprüft ob es sich um Restaurant handelt
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Restaurants");
         dbRef.orderByChild("daten/uid").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {

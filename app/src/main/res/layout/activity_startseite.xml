@@ -51,7 +51,7 @@
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageMenu">
-            
+
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="40dp"
@@ -59,12 +59,12 @@
                 android:background="@null"
                 android:hint="Suchen"
                 android:imeOptions="actionSearch"
+                android:importantForAutofill="no"
                 android:inputType="text"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
                 android:textColor="@color/colorAccent"
-                android:textSize="16sp"
-                android:importantForAutofill="no"/>
+                android:textSize="16sp" />
 
             <ImageView
                 android:layout_width="40dp"
@@ -89,11 +89,11 @@
         app:layout_constraintBottom_toTopOf="@id/viewDivider"
         app:layout_constraintTop_toBottomOf="@id/layoutHeader">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
@@ -105,12 +105,12 @@
         app:itemIconSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/navigation_menu" />
-    
+
     <View
         android:id="@+id/viewDivider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/colorDivider"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"/>
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
