@@ -97,7 +97,7 @@
                 android:drawableLeft="@drawable/ic_add"
                 android:drawableTint="@color/colorWhite"
                 android:gravity="center"
-                android:text="Erstellen"
+                android:text="Gericht hinzufügen"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
