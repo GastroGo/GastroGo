@@ -16,6 +16,10 @@ public class Speisekarte {
         this.allergien = allergien;
         this.zutaten = zutaten;
     }
+    public Speisekarte(String gericht, double preis) {
+        this.gericht = gericht;
+        this.preis = preis;
+    }
 
     public String getGericht() {
         return gericht;

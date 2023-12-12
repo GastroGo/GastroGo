@@ -54,6 +54,7 @@ public class ManageRestaurant extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ManageMenu.class);
+                intent.putExtra("restaurantId", restaurantDaten.getId()); // Pass the restaurant ID to CreateMenu activity
                 startActivity(intent);
             }
         });

@@ -89,51 +89,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/buttonCreate"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_marginTop="150dp"
-                android:drawableLeft="@drawable/ic_add"
-                android:drawableTint="@color/colorWhite"
-                android:gravity="center"
-                android:text="Erstellen"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/buttonEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_marginTop="20dp"
-                android:drawableLeft="@drawable/ic_edit"
-                android:drawableTint="@color/colorWhite"
-                android:gravity="center"
-                android:text="Bearbeiten"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/buttonCreate" />
-
-            <Button
-                android:id="@+id/buttonScan"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:drawableLeft="@drawable/ic_scan"
-                android:drawableTint="@color/colorWhite"
-                android:gravity="center"
-                android:layout_marginTop="20dp"
-                android:text="Einscannen"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/buttonEdit" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+    <Button
+        android:id="@+id/buttonAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginBottom="10dp"
+        android:drawableLeft="@drawable/ic_add"
+        android:drawableTint="@color/colorWhite"
+        android:gravity="center"
+        android:text="Hinzufügen"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/buttonScan" />
+
+    <Button
+        android:id="@+id/buttonScan"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginBottom="100dp"
+        android:drawableLeft="@drawable/ic_scan"
+        android:drawableTint="@color/colorWhite"
+        android:gravity="center"
+        android:text="Einscannen"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
