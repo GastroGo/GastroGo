@@ -53,7 +53,7 @@ public class Einstellungen extends AppCompatActivity {
         });
 
         findViewById(R.id.mitarbeiterLogin).setOnClickListener(view -> saveSchluessel());
-        findViewById(R.id.zurueck).setOnClickListener(view -> startActivity(new Intent(view.getContext(), Startseite.class)));
+        findViewById(R.id.zurueck).setOnClickListener(view -> finish());
 
         darkmode.setOnCheckedChangeListener(this::onDarkModeChanged);
         benachrichtigungen.setOnCheckedChangeListener(this::onBenachrichtigungenChanged);
@@ -64,7 +64,7 @@ public class Einstellungen extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {} //wähl was aus du spast
         });
     }
 
