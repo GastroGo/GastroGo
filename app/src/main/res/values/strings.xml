@@ -14,4 +14,8 @@
     <string name="click_to_create_restaurant">Restaurant erstellen</string>
     <string name="back">Zurück</string>
     <string name="housenr">Hausnummer</string>
+	<string-array name="languages">
+        <item>Deutsch</item>
+        <item>Englisch</item>"
+    </string-array>
 </resources>

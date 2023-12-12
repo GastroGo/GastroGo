@@ -25,6 +25,10 @@ public class NavigationManager {
                     Intent intent = new Intent(context, Startseite.class);
                     context.startActivity(intent);
                     return true;
+                } else if (id == R.id.menuSettings) {
+                    Intent intent = new Intent(context, Einstellungen.class);
+                    context.startActivity(intent);
+                    return true;
                 }
                 //Weitere If Anweisungen für andere Icons
                 return false;

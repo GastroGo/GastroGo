@@ -33,6 +33,9 @@
             android:name=".CreateRestaurant"
             android:exported="false" />
         <activity
+            android:name=".Einstellungen"
+            android:exported="false" />
+        <activity
             android:name=".Register"
             android:exported="true" />
         <activity
