@@ -22,7 +22,6 @@ public class ManageMenu extends AppCompatActivity {
     TextView back;
     Button buttonAdd;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,9 +66,7 @@ public class ManageMenu extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        // Handle possible errors.
-                    }
+                    public void onCancelled(DatabaseError databaseError) {}
                 });
             });
 
