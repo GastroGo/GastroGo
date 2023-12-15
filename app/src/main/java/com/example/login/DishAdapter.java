@@ -8,14 +8,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.login.R;
-import com.example.login.Speisekarte;
-
 import java.util.List;
 
 public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder> {
 
-    private List<Speisekarte> dishes;
+    private final List<Speisekarte> dishes;
 
     public DishAdapter(List<Speisekarte> dishes) {
         this.dishes = dishes;
