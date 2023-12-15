@@ -1,20 +1,19 @@
 package com.example.login;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TextView;
+import android.widget.Button;
+import android.view.View;
+import android.view.LayoutInflater;
+import android.app.AlertDialog;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,11 +25,10 @@ import java.util.List;
 
 public class ManageMenu extends AppCompatActivity {
 
-    TextView back;
-    Button buttonAdd;
-    InputValidator inputValidator;
     private DishAdapter dishAdapter;
     private List<Speisekarte> dishes;
+    TextView back;
+    Button buttonAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +40,6 @@ public class ManageMenu extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavigationManager.setupBottomNavigationView(bottomNavigationView, this);
         String restaurantId = getIntent().getStringExtra("restaurantId");
-        inputValidator = new InputValidator(this);
 
         back.setOnClickListener(v -> {
             finish();
@@ -54,8 +51,8 @@ public class ManageMenu extends AppCompatActivity {
             View view = inflater.inflate(R.layout.dialog_add_dish, null);
             builder.setView(view);
 
-            TextInputEditText dishName = view.findViewById(R.id.dish_name);
-            TextInputEditText dishPrice = view.findViewById(R.id.dish_price);
+            EditText dishName = view.findViewById(R.id.dish_name);
+            EditText dishPrice = view.findViewById(R.id.dish_price);
             Button addDishButton = view.findViewById(R.id.add_dish_button);
 
             AlertDialog dialog = builder.create();
@@ -64,17 +61,14 @@ public class ManageMenu extends AppCompatActivity {
                 String name = dishName.getText().toString();
                 String priceString = dishPrice.getText().toString();
 
-                /*if (name.isEmpty() || priceString.isEmpty()) {  //
+                if (name.isEmpty() || priceString.isEmpty()) {
                     Toast.makeText(ManageMenu.this, "Eingabe unvollständig", Toast.LENGTH_SHORT).show();
-                    return;
-                } */
-                if (!inputValidator.validateInput(dishName, "Email eingeben") ||
-                        !inputValidator.validateInput(dishPrice, "Passwort eingeben")) {
                     return;
                 }
 
                 double price = Double.parseDouble(priceString);
                 Speisekarte gericht = new Speisekarte(name, price);
+
 
                 DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantId).child("speisekarte");
                 dbRef.addListenerForSingleValueEvent(new ValueEventListener() { //Anzahl Gerichte
@@ -85,6 +79,7 @@ public class ManageMenu extends AppCompatActivity {
 
                         dbRef.child(dishKey).setValue(gericht);
 
+                        // Add the dish to the list and update the RecyclerView
                         dishes.add(gericht);
                         dishAdapter.notifyDataSetChanged();
 
@@ -92,8 +87,7 @@ public class ManageMenu extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
+                    public void onCancelled(DatabaseError databaseError) {}
                 });
             });
 
