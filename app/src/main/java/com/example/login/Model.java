@@ -4,17 +4,16 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class Model {
-    private static Model instance;
-    private int darkmode;
-    private int benachrichtigungen;
-    private int language;
-    private String schluessel;
-
     private static final String PREF_NAME = "UserData";
     private static final int KEY_DARKMODE = 0;
     private static final int KEY_BENACHRICHTIGUNGEN = 0;
     private static final int KEY_LANGUAGE = 0;
     private static final String KEY_SCHLUESSEL = null;
+    private static Model instance;
+    private int darkmode;
+    private int benachrichtigungen;
+    private int language;
+    private String schluessel;
 
     private Model() {
     }
@@ -45,36 +44,36 @@ public class Model {
         schluessel = sharedPref.getString("KEY_SCHLUESSEL", KEY_SCHLUESSEL);
     }
 
-    public void setDarkmode(int darkmode) {
-        this.darkmode = darkmode;
-    }
-
     public int getDarkmode() {
         return darkmode;
     }
 
-    public void setBenachrichtigungen(int benachrichtigungen) {
-        this.benachrichtigungen = benachrichtigungen;
+    public void setDarkmode(int darkmode) {
+        this.darkmode = darkmode;
     }
 
     public int getBenachrichtigungen() {
         return benachrichtigungen;
     }
 
-    public void setLanguage(int language) {
-        this.language = language;
+    public void setBenachrichtigungen(int benachrichtigungen) {
+        this.benachrichtigungen = benachrichtigungen;
     }
 
     public int getLanguage() {
         return language;
     }
 
-    public void setSchluessel(String schluessel) {
-        this.schluessel = schluessel;
+    public void setLanguage(int language) {
+        this.language = language;
     }
 
     public String getSchluessel() {
         return schluessel;
+    }
+
+    public void setSchluessel(String schluessel) {
+        this.schluessel = schluessel;
     }
 
 }

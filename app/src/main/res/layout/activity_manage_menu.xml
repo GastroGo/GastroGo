@@ -93,6 +93,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
     <Button
         android:id="@+id/buttonAdd"
         android:layout_width="wrap_content"
@@ -103,9 +104,9 @@
         android:gravity="center"
         android:text="Hinzufügen"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/buttonScan"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/buttonScan" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonScan"
@@ -117,10 +118,10 @@
         android:gravity="center"
         android:text="Einscannen"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
