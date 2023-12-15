@@ -59,8 +59,16 @@ public class ManageMenu extends AppCompatActivity {
 
             addDishButton.setOnClickListener(v1 -> {
                 String name = dishName.getText().toString();
-                double price = Double.parseDouble(dishPrice.getText().toString());
+                String priceString = dishPrice.getText().toString();
+
+                if (name.isEmpty() || priceString.isEmpty()) {
+                    Toast.makeText(ManageMenu.this, "Eingabe unvollständig", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                double price = Double.parseDouble(priceString);
                 Speisekarte gericht = new Speisekarte(name, price);
+
 
                 DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantId).child("speisekarte");
                 dbRef.addListenerForSingleValueEvent(new ValueEventListener() { //Anzahl Gerichte
@@ -70,6 +78,10 @@ public class ManageMenu extends AppCompatActivity {
                         String dishKey = "G00" + (count + 1);
 
                         dbRef.child(dishKey).setValue(gericht);
+
+                        // Add the dish to the list and update the RecyclerView
+                        dishes.add(gericht);
+                        dishAdapter.notifyDataSetChanged();
 
                         dialog.dismiss();
                     }
