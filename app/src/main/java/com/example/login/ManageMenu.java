@@ -22,6 +22,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 public class ManageMenu extends AppCompatActivity {
 
@@ -39,7 +41,7 @@ public class ManageMenu extends AppCompatActivity {
         buttonAdd = findViewById(R.id.buttonAdd);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavigationManager.setupBottomNavigationView(bottomNavigationView, this);
-        String restaurantId = getIntent().getStringExtra("restaurantId");
+        String restaurantId = getIntent().getStringExtra("restaurantId");   //Übergabe der Restaurant ID
 
         back.setOnClickListener(v -> {
             finish();
@@ -67,21 +69,42 @@ public class ManageMenu extends AppCompatActivity {
                 }
 
                 double price = Double.parseDouble(priceString);
-                Speisekarte gericht = new Speisekarte(name, price);
 
+                // Erstellen Sie eine vordefinierte Liste von Zutaten
+                Map<String, Boolean> zutaten = new HashMap<>();
+                zutaten.put("eier", false);
+                zutaten.put("fleisch", false);
+                zutaten.put("milch", false);
 
-                DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantId).child("speisekarte");
-                dbRef.addListenerForSingleValueEvent(new ValueEventListener() { //Anzahl Gerichte
+                Speisekarte gericht = new Speisekarte(name, price, null, zutaten);
+
+                DatabaseReference dbRefDishes = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantId).child("speisekarte");
+                dbRefDishes.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         long count = dataSnapshot.getChildrenCount();
-                        String dishKey = "G00" + (count + 1);
+                        String dishKey = "G" + String.format("%03d", count + 1);
 
-                        dbRef.child(dishKey).setValue(gericht);
+                        dbRefDishes.child(dishKey).setValue(gericht);
 
-                        // Add the dish to the list and update the RecyclerView
                         dishes.add(gericht);
                         dishAdapter.notifyDataSetChanged();
+
+                        DatabaseReference dbRefTables = FirebaseDatabase.getInstance()
+                                .getReference("Restaurants")
+                                .child(restaurantId)
+                                .child("tische");
+                        dbRefTables.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot tableSnapshot : dataSnapshot.getChildren()) {
+                                    tableSnapshot.getRef().child("bestellungen").child(dishKey).setValue(0);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {}
+                        });
 
                         dialog.dismiss();
                     }
@@ -95,13 +118,35 @@ public class ManageMenu extends AppCompatActivity {
         });
 
         dishes = new ArrayList<>();
-        dishAdapter = new DishAdapter(dishes);
+        dishAdapter = new DishAdapter(dishes, restaurantId);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(dishAdapter);
 
         loadDishes();
+
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantId).child("speisekarte");
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dishSnapshot : dataSnapshot.getChildren()) {  //Geht durch alle Gerichte in Speisekarte
+
+                    Speisekarte dish = dishSnapshot.getValue(Speisekarte.class);
+
+                    Map<String, Boolean> zutaten = dish.getZutaten();
+
+                    if (zutaten != null) {
+                        for (String zutat : zutaten.keySet()) {
+                            dbRef.child(dishSnapshot.getKey()).child("zutaten").child(zutat).setValue(true);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}     //Carglass
+        });
     }
 
     private void loadDishes() {
