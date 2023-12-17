@@ -14,8 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 import java.util.Map;
@@ -65,9 +68,9 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
                 View view = inflater.inflate(R.layout.dialog_edit_dish, null);
                 builder.setView(view);
 
-                @SuppressLint({"MissingInflatedId", "LocalSuppress"}) EditText editDishName = view.findViewById(R.id.edit_dish_name);
-                @SuppressLint({"MissingInflatedId", "LocalSuppress"}) EditText editDishPrice = view.findViewById(R.id.edit_dish_price);
-                @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button saveButton = view.findViewById(R.id.save_button);
+                EditText editDishName = view.findViewById(R.id.edit_dish_name);
+                EditText editDishPrice = view.findViewById(R.id.edit_dish_price);
+                Button saveButton = view.findViewById(R.id.save_button);
 
                 editDishName.setText(dish.getGericht());
                 editDishPrice.setText(String.valueOf(dish.getPreis()));
@@ -109,26 +112,63 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
                 View view = inflater.inflate(R.layout.dialog_delete_dish, null);
                 builder.setView(view);
 
-                @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button deleteButton = view.findViewById(R.id.delete_button);
+                Button deleteButton = view.findViewById(R.id.delete_button);
 
                 AlertDialog dialog = builder.create();
 
                 deleteButton.setOnClickListener(v1 -> {
                     int currentPosition = holder.getAdapterPosition();
+                    String dishKey = "G" + String.format("%03d", currentPosition + 1);
                     DatabaseReference dbRefDishes = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantId).child("speisekarte");
-                    dbRefDishes.child("G" + String.format("%03d", currentPosition + 1)).removeValue();
+                    dbRefDishes.child(dishKey).removeValue();
+
+                    DatabaseReference dbRefTables = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantId).child("tische");
+                    dbRefTables.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot tableSnapshot : dataSnapshot.getChildren()) {
+                                tableSnapshot.getRef().child("bestellungen").child(dishKey).removeValue();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {}
+                    });
 
                     dishes.remove(currentPosition);
                     notifyItemRemoved(currentPosition);
 
-                    // Löschen aller Gerichte aus der Datenbank
-                    for (int i = 0; i < dishes.size(); i++) {
-                        dbRefDishes.child("G" + String.format("%03d", i + 1)).removeValue();
+                    //Aktualisieren der Bestellungen in den Tischen
+                    dbRefTables.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot tableSnapshot : dataSnapshot.getChildren()) {
+                                DataSnapshot bestellungenSnapshot = tableSnapshot.child("bestellungen");
+                                for (int i = currentPosition + 1; i <= dishes.size(); i++) {
+                                    String oldDishKey = "G" + String.format("%03d", i + 1);
+                                    String newDishKey = "G" + String.format("%03d", i);
+                                    Object value = bestellungenSnapshot.child(oldDishKey).getValue();
+                                    if (value != null) {
+                                        tableSnapshot.getRef().child("bestellungen").child(newDishKey).setValue(value);
+                                        tableSnapshot.getRef().child("bestellungen").child(oldDishKey).removeValue();
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {}
+                    });
+
+                    //Löschen aller Gerichte aus der Datenbank
+                    for (int i = currentPosition; i < dishes.size(); i++) {
+                        dbRefDishes.child("G" + String.format("%03d", i + 2)).removeValue();
                     }
 
-                    // Hinzufügen der Gerichte zurück in die Datenbank mit der richtigen Nummerierung
-                    for (int i = 0; i < dishes.size(); i++) {
-                        dbRefDishes.child("G" + String.format("%03d", i + 1)).setValue(dishes.get(i));
+                    //Hinzufügen der Gerichte zurück in die Datenbank mit der richtigen Nummerierung
+                    for (int i = currentPosition; i < dishes.size(); i++) {
+                        String newDishKey = "G" + String.format("%03d", i + 1);
+                        dbRefDishes.child(newDishKey).setValue(dishes.get(i));
                     }
 
                     dialog.dismiss();

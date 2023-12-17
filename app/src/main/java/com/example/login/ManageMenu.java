@@ -70,7 +70,7 @@ public class ManageMenu extends AppCompatActivity {
 
                 double price = Double.parseDouble(priceString);
 
-                // Erstellen Sie eine vordefinierte Liste von Zutaten
+                //Erstellen Sie eine vordefinierte Liste von Zutaten
                 Map<String, Boolean> zutaten = new HashMap<>();
                 zutaten.put("eier", false);
                 zutaten.put("fleisch", false);
@@ -78,7 +78,10 @@ public class ManageMenu extends AppCompatActivity {
 
                 Speisekarte gericht = new Speisekarte(name, price, null, zutaten);
 
-                DatabaseReference dbRefDishes = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantId).child("speisekarte");
+                DatabaseReference dbRefDishes = FirebaseDatabase.getInstance()
+                        .getReference("Restaurants")
+                        .child(restaurantId)
+                        .child("speisekarte");
                 dbRefDishes.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -98,7 +101,10 @@ public class ManageMenu extends AppCompatActivity {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for (DataSnapshot tableSnapshot : dataSnapshot.getChildren()) {
-                                    tableSnapshot.getRef().child("bestellungen").child(dishKey).setValue(0);
+                                    tableSnapshot.getRef()
+                                            .child("bestellungen")
+                                            .child(dishKey)
+                                            .setValue(0);
                                 }
                             }
 
