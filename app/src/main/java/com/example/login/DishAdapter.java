@@ -71,6 +71,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
                 EditText editDishName = view.findViewById(R.id.edit_dish_name);
                 EditText editDishPrice = view.findViewById(R.id.edit_dish_price);
                 Button saveButton = view.findViewById(R.id.save_button);
+                Button cancelButton = view.findViewById(R.id.cancel_button);
 
                 editDishName.setText(dish.getGericht());
                 editDishPrice.setText(String.valueOf(dish.getPreis()));
@@ -99,6 +100,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
 
                     dialog.dismiss();
                 });
+                cancelButton.setOnClickListener(v2 -> dialog.dismiss());
 
                 dialog.show();
             }
@@ -113,6 +115,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
                 builder.setView(view);
 
                 Button deleteButton = view.findViewById(R.id.delete_button);
+                Button cancelButton = view.findViewById(R.id.cancel_button);
 
                 AlertDialog dialog = builder.create();
 
@@ -173,6 +176,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
 
                     dialog.dismiss();
                 });
+                cancelButton.setOnClickListener(v2 -> dialog.dismiss());
 
                 dialog.show();
             }

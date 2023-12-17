@@ -7,45 +7,45 @@
 
     <EditText
         android:id="@+id/edit_dish_name"
-        android:textCursorDrawable="@drawable/custom_cursor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Gerichtname" />
+        android:hint="Gerichtname"
+        android:textCursorDrawable="@drawable/custom_cursor" />
 
     <EditText
         android:id="@+id/edit_dish_price"
-        android:textCursorDrawable="@drawable/custom_cursor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Preis"
         android:inputType="numberDecimal"
-        android:layout_marginBottom="20dp"/>
+        android:textCursorDrawable="@drawable/custom_cursor" />
 
     <!-- Restlichen Eingabefelder -->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/light_third"
             android:layout_marginLeft="15dp"
-            android:text="Speichern"/>
+            android:backgroundTint="@color/light_third"
+            android:text="Speichern" />
 
         <Button
             android:id="@+id/cancel_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/light_second"
-            android:text="Abbrechen"
-            android:layout_weight="1"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"/>
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/light_second"
+            android:text="@string/abbrechen" />
     </LinearLayout>
 
 </LinearLayout>

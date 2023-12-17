@@ -56,6 +56,7 @@ public class ManageMenu extends AppCompatActivity {
             EditText dishName = view.findViewById(R.id.dish_name);
             EditText dishPrice = view.findViewById(R.id.dish_price);
             Button addDishButton = view.findViewById(R.id.add_dish_button);
+            Button cancelButton = view.findViewById(R.id.cancel_button);
 
             AlertDialog dialog = builder.create();
 
@@ -119,6 +120,8 @@ public class ManageMenu extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {}
                 });
             });
+
+            cancelButton.setOnClickListener(v2 -> dialog.dismiss());
 
             dialog.show();
         });
