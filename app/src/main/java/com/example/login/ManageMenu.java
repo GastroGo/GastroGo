@@ -1,5 +1,6 @@
 package com.example.login;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Toast;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,15 +31,15 @@ public class ManageMenu extends AppCompatActivity {
 
     private DishAdapter dishAdapter;
     private List<Speisekarte> dishes;
-    TextView back;
     Button buttonAdd;
+    FloatingActionButton back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_menu);
 
-        back = findViewById(R.id.textViewBack);
+        back = findViewById(R.id.btn_back);
         buttonAdd = findViewById(R.id.buttonAdd);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavigationManager.setupBottomNavigationView(bottomNavigationView, this);
@@ -48,7 +50,7 @@ public class ManageMenu extends AppCompatActivity {
         });
 
         buttonAdd.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(ManageMenu.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(ManageMenu.this, R.style.RoundedDialog);
             LayoutInflater inflater = getLayoutInflater();
             View view = inflater.inflate(R.layout.dialog_add_dish, null);
             builder.setView(view);

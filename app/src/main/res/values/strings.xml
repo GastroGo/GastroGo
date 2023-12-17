@@ -16,6 +16,8 @@
     <string name="housenr">Hausnummer</string>
     <string name="abbrechen">Abbrechen</string>
     <string name="speichern">Speichern</string>
+    <string name="hinzufügen">Hinzufügen</string>
+    <string name="löschen">Löschen\n</string>
     <string-array name="languages">
         <item>Deutsch</item>
         <item>Englisch</item>"

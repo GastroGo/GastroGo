@@ -63,7 +63,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
         holder.buttonEditDish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext(), R.style.RoundedDialog);
                 LayoutInflater inflater = LayoutInflater.from(v.getContext());
                 View view = inflater.inflate(R.layout.dialog_edit_dish, null);
                 builder.setView(view);
@@ -114,7 +114,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
                 View view = inflater.inflate(R.layout.dialog_delete_dish, null);
                 builder.setView(view);
 
-                Button deleteButton = view.findViewById(R.id.delete_button);
+                @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button deleteButton = view.findViewById(R.id.delete_button);
                 Button cancelButton = view.findViewById(R.id.cancel_button);
 
                 AlertDialog dialog = builder.create();
