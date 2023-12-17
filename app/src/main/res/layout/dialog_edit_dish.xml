@@ -1,51 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="16dp">
 
-    <EditText
-        android:id="@+id/edit_dish_name"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Gerichtname"
-        android:textCursorDrawable="@drawable/custom_cursor" />
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/edit_dish_price"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Preis"
-        android:inputType="numberDecimal"
-        android:textCursorDrawable="@drawable/custom_cursor" />
-
-    <!-- Restlichen Eingabefelder -->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/save_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:backgroundTint="@color/light_third"
-            android:text="Speichern" />
-
-        <Button
-            android:id="@+id/cancel_button"
+        <EditText
+            android:id="@+id/dish_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/light_second"
-            android:text="@string/abbrechen" />
-    </LinearLayout>
+            android:hint="Gerichtname"
+            android:textCursorDrawable="@drawable/custom_cursor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="20sp"/>
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/dish_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Preis"
+            android:inputType="numberDecimal"
+            android:textCursorDrawable="@drawable/custom_cursor"
+            app:layout_constraintEnd_toEndOf="@id/dish_name"
+            app:layout_constraintStart_toStartOf="@id/dish_name"
+            app:layout_constraintTop_toBottomOf="@id/dish_name"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
