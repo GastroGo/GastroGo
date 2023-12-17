@@ -104,27 +104,24 @@
         app:layout_constraintBottom_toTopOf="@id/buttonAdd" />
 
 
-
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1.5"
+        android:backgroundTint="@color/white"
         android:drawableLeft="@drawable/ic_add"
         android:drawableTint="@color/black"
-        android:text="Hinzufügen"
-        android:textSize="18sp"
-        android:textColor="@color/blue"
-        app:strokeWidth="2dp"
-        app:strokeColor="@color/blue"
-        android:backgroundTint="@color/white"
         android:padding="12dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@id/buttonScan"
+        android:text="Hinzufügen"
+        android:textColor="@color/blue"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/blue"
+        app:strokeWidth="2dp"
+        android:layout_marginBottom="70dp"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonScan"
