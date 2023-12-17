@@ -7,22 +7,45 @@
 
     <EditText
         android:id="@+id/edit_dish_name"
+        android:textCursorDrawable="@drawable/custom_cursor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Gerichtname" />
 
     <EditText
         android:id="@+id/edit_dish_price"
+        android:textCursorDrawable="@drawable/custom_cursor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Preis"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="20dp"/>
 
-    <!-- Add more fields as needed -->
+    <!-- Restlichen Eingabefelder -->
 
-    <Button
-        android:id="@+id/save_button"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hinzufügen" />
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/light_third"
+            android:layout_marginLeft="15dp"
+            android:text="Speichern"/>
+
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/light_second"
+            android:text="Abbrechen"
+            android:layout_weight="1"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"/>
+    </LinearLayout>
+
 </LinearLayout>

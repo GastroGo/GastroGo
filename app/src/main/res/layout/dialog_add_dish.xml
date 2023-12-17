@@ -7,12 +7,14 @@
 
     <EditText
         android:id="@+id/dish_name"
+        android:textCursorDrawable="@drawable/custom_cursor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Gerichtname" />
 
     <EditText
         android:id="@+id/dish_price"
+        android:textCursorDrawable="@drawable/custom_cursor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Preis"
