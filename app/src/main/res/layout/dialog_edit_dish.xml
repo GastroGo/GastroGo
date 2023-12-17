@@ -10,7 +10,7 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/dish_name"
+            android:id="@+id/edit_dish_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Gerichtname"
@@ -18,20 +18,67 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:textColor="@color/black"/>
 
         <EditText
-            android:id="@+id/dish_price"
+            android:id="@+id/edit_dish_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Preis"
             android:inputType="numberDecimal"
             android:textCursorDrawable="@drawable/custom_cursor"
-            app:layout_constraintEnd_toEndOf="@id/dish_name"
-            app:layout_constraintStart_toStartOf="@id/dish_name"
-            app:layout_constraintTop_toBottomOf="@id/dish_name"
+            app:layout_constraintEnd_toEndOf="@id/edit_dish_name"
+            app:layout_constraintStart_toStartOf="@id/edit_dish_name"
+            app:layout_constraintTop_toBottomOf="@id/edit_dish_name"
             android:textSize="20sp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:textColor="@color/black"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_dish_price"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/save_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:text="@string/speichern"
+                android:textSize="12sp"
+                android:textColor="@color/blue"
+                app:strokeWidth="2dp"
+                app:strokeColor="@color/blue"
+                android:backgroundTint="@color/white"
+                android:padding="12dp"
+                android:layout_marginEnd="10dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/cancel_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:text="@string/abbrechen"
+                android:textSize="12sp"
+                android:backgroundTint="@color/red"
+                android:padding="12dp"
+                android:layout_marginEnd="10dp" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
