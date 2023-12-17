@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name"></string>
+    <string name="app_name">Gastro Go!</string>
     <string name="login">Anmelden</string>
     <string name="email">Email</string>
     <string name="password">Passwort</string>
@@ -14,7 +14,8 @@
     <string name="click_to_create_restaurant">Restaurant erstellen</string>
     <string name="back">Zurück</string>
     <string name="housenr">Hausnummer</string>
-	<string-array name="languages">
+    <string name="abbrechen">Abbrechen</string>
+    <string-array name="languages">
         <item>Deutsch</item>
         <item>Englisch</item>"
     </string-array>

@@ -1,6 +1,5 @@
 package com.example.login;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -40,10 +39,12 @@ public class Einstellungen extends AppCompatActivity {
     private void setupListeners() {
         schluesselEingabe.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {
@@ -64,7 +65,8 @@ public class Einstellungen extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {} //wähl was aus du spast
+            public void onNothingSelected(AdapterView<?> parent) {
+            } //wähl was aus du spast
         });
     }
 

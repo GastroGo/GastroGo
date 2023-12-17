@@ -5,22 +5,11 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <EditText
-        android:id="@+id/dish_name"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Gerichtname"
-        android:textCursorDrawable="@drawable/custom_cursor" />
-
-    <EditText
-        android:id="@+id/dish_price"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Preis"
-        android:inputType="numberDecimal"
-        android:textCursorDrawable="@drawable/custom_cursor" />
-
-    <!-- Add more fields as needed -->
+        android:text="Gericht wirklich löschen?"
+        android:textSize="18sp" />
 
 
     <LinearLayout
@@ -31,12 +20,12 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/add_dish_button"
+            android:id="@+id/delete_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:backgroundTint="@color/light_third"
-            android:text="Hinzfügen" />
+            android:text="Löschen" />
 
         <Button
             android:id="@+id/cancel_button"

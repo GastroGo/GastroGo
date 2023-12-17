@@ -80,19 +80,25 @@
         android:layout_height="0dp"
         android:overScrollMode="never"
         android:scrollbars="none"
-        app:layout_constraintBottom_toTopOf="@id/viewDivider"
-        app:layout_constraintTop_toBottomOf="@id/layoutHeader"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="-45dp">
+        app:layout_constraintBottom_toTopOf="@id/viewDivider2"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeader">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="wrap_content"
+            android:padding="16dp" />
 
     </ScrollView>
+
+    <View
+        android:id="@+id/viewDivider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/zxing_transparent"
+        app:layout_constraintBottom_toTopOf="@id/buttonAdd" />
+
+
     <Button
         android:id="@+id/buttonAdd"
         android:layout_width="wrap_content"
@@ -103,9 +109,9 @@
         android:gravity="center"
         android:text="Hinzufügen"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/buttonScan"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/buttonScan" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonScan"
@@ -117,10 +123,10 @@
         android:gravity="center"
         android:text="Einscannen"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
