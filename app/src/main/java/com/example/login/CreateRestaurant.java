@@ -129,9 +129,6 @@ public class CreateRestaurant extends AppCompatActivity {
         daten.setStrasse(street);
         daten.setUid(uid);
 
-        Map<String, String> schluessel = new HashMap<>();
-        schluessel.put("M001", "");
-
         Map<String, Speisekarte> speisekarte = new HashMap<>();
         speisekarte.put("G001", new Speisekarte("1", 0.0, new HashMap<String, Boolean>() {{
             put("gluten", true);
@@ -160,7 +157,7 @@ public class CreateRestaurant extends AppCompatActivity {
             put("G002", 0);
         }}, 0));
 
-        Restaurant restaurant = new Restaurant(daten, schluessel, speisekarte, tische); //ruft Standardkonstruktor auf in Restaurant Klasse
+        Restaurant restaurant = new Restaurant(daten, speisekarte, tische); //ruft Standardkonstruktor auf in Restaurant Klasse
         dbRef.child(restaurantId).setValue(restaurant); //fügt gesetzte Restaurantklasse in Datenbank ein unter der erstellten Id
     }
 }

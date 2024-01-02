@@ -114,7 +114,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
                 View view = inflater.inflate(R.layout.dialog_delete_dish, null);
                 builder.setView(view);
 
-                @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button deleteButton = view.findViewById(R.id.delete_button);
+                Button deleteButton = view.findViewById(R.id.delete_button);
                 Button cancelButton = view.findViewById(R.id.cancel_button);
 
                 AlertDialog dialog = builder.create();
