@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_gravity="center_horizontal">
+
+
+
+        <EditText
+            android:id="@+id/editTextOrderAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:backgroundTint="@color/light_third"
+            android:textCursorDrawable="@drawable/custom_cursor"
+            android:maxWidth="30dp"
+            android:layout_marginLeft="30dp"/>
+
+        <TextView
+            android:id="@+id/textViewOrderGerichtName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="GerichtName"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"/>
+
+        <TextView
+            android:id="@+id/textViewOrderGerichtPreis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Preis"
+            android:layout_marginRight="30dp"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/deleteBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="25dp"
+            android:backgroundTint="@color/zxing_transparent"
+            app:borderWidth="0dp"
+            android:outlineSpotShadowColor="@color/zxing_transparent"
+            android:outlineAmbientShadowColor="@color/zxing_transparent"
+            android:src="@drawable/ic_muelleimer_icon"
+            app:fabCustomSize="35dp" />
+
+</LinearLayout>

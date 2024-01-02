@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:padding="5dp"
+    tools:context=".QRCodeReader">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerDialogView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/totalPriceLayout"
+        android:layout_alignParentTop="true"
+        android:backgroundTint="@color/white" />
+
+
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:id="@+id/totalPriceLayout"
+       android:layout_above="@+id/orderBtn">
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="20dp"
+           android:text="Gesamtkosten:" />
+
+       <TextView
+           android:id="@+id/totalPrice"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="58dp"
+           android:text="XX€" />
+
+   </LinearLayout>
+
+    <Button
+        android:id="@+id/orderBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal"
+        android:paddingVertical="10dp"
+        android:backgroundTint="@color/light_third"
+        android:outlineSpotShadowColor="@color/zxing_transparent"
+        android:text="Bestellen" />
+</RelativeLayout>

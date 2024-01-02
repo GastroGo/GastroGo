@@ -7,6 +7,10 @@ android {
     namespace = "com.example.login"
     compileSdk = 34
 
+    dataBinding {
+        enabled = true
+    }
+
     defaultConfig {
         applicationId = "com.example.login"
         minSdk = 19
@@ -51,4 +55,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.multidex:multidex:2.0.1") // Add multiDex dependency here
+
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+    implementation("com.google.zxing:core:3.4.1")
 }
