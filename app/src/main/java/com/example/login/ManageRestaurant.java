@@ -74,7 +74,6 @@ public class ManageRestaurant extends AppCompatActivity {
                     for (DataSnapshot restaurantSnapshot : dataSnapshot.getChildren()) {
                         Restaurant restaurant = restaurantSnapshot.getValue(Restaurant.class);
                         restaurantDaten = restaurant.getDaten();
-                        Map<String, String> schluessel = restaurant.getSchluessel();
                         Map<String, Speisekarte> speisekarte = restaurant.getSpeisekarte();
                         Map<String, Tisch> tische = restaurant.getTische();
                     }

@@ -54,19 +54,24 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageMenu">
 
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_back"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_back"
+                android:outlineSpotShadowColor="@color/zxing_transparent"
+                android:backgroundTint="@color/light_third"
+                app:borderWidth="0dp"
+                app:fabCustomSize="30dp"
+                app:tint="@color/white"/>
+
             <TextView
                 android:id="@+id/textViewBack"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/colorPrimary"
-                android:drawableLeft="@drawable/ic_arrow_back"
-                android:drawablePadding="5dp"
-                android:drawableTint="@color/colorWhite"
-                android:importantForAutofill="no"
                 android:paddingStart="0dp"
                 android:paddingTop="10dp"
-                android:paddingEnd="15dp"
                 android:text="Zurück"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
@@ -99,33 +104,41 @@
         app:layout_constraintBottom_toTopOf="@id/buttonAdd" />
 
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonAdd"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_marginBottom="10dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:backgroundTint="@color/white"
         android:drawableLeft="@drawable/ic_add"
-        android:drawableTint="@color/colorWhite"
-        android:gravity="center"
+        android:drawableTint="@color/black"
+        android:padding="12dp"
         android:text="Hinzufügen"
+        android:textColor="@color/blue"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@id/buttonScan"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/blue"
+        app:strokeWidth="2dp"
+        android:layout_marginBottom="70dp"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonScan"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_marginBottom="100dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
         android:drawableLeft="@drawable/ic_scan"
-        android:drawableTint="@color/colorWhite"
-        android:gravity="center"
+        android:drawableTint="@color/black"
         android:text="Einscannen"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/blue"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/blue"
+        android:backgroundTint="@color/white"
+        android:padding="12dp"
+        app:layout_constraintTop_toBottomOf="@id/buttonAdd"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
