@@ -151,6 +151,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
             mName = itemView.findViewById(R.id.tvName);
             mKey = itemView.findViewById(R.id.tvKey);
+            mKey.setTextIsSelectable(true);
             fabDelete = itemView.findViewById(R.id.fabDelete);
         }
     }

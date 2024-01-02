@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.login.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +37,8 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
     Button mErstellen;
     EditText etName;
     public long count;
+    TextView tvName, tvKey;
+    FloatingActionButton back;
 
 
     @Override
@@ -50,12 +54,14 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
         dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         dialog.getWindow().setDimAmount(0.5f);
 
+        back = findViewById(R.id.fabBack);
         etName = dialog.findViewById(R.id.etName);
         mAnlegen = findViewById(R.id.mAnlegen);
         recyclerView = findViewById(R.id.mListe);
         database = FirebaseDatabase.getInstance().getReference("Schluessel").child(restaurantId);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
         mErstellen = dialog.findViewById(R.id.mErstellen);
 
@@ -65,6 +71,10 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
             database.child(nM).child("key").setValue(generateKey());
             dialog.dismiss();
             etName.setText("");
+        });
+
+        back.setOnClickListener(v -> {
+            finish();
         });
 
         mAnlegen.setOnClickListener(v -> {
