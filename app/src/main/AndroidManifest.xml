@@ -55,6 +55,19 @@
             android:screenOrientation="fullSensor"
             android:stateNotNeeded="true"
             tools:replace="android:screenOrientation" />
+        <activity
+            android:name="com.example.qrcodegenerator.OrderManager"
+            android:exported="false" />
+        <activity
+            android:name="com.example.qrcodegenerator.QRCodeReader"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

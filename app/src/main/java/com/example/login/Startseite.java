@@ -25,7 +25,7 @@ public class Startseite extends AppCompatActivity {
     FirebaseUser user;
     Button button;
 
-    @SuppressLint("MissingInflatedId")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,14 +43,17 @@ public class Startseite extends AppCompatActivity {
         }
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavigationManager.setupBottomNavigationView(bottomNavigationView, this);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), com.example.qrcodegenerator.QRCodeReader.class);
+                startActivity(intent);
+            }
+        });
+
     }
-    View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(getApplicationContext(), QRCodeReader.class);
-            startActivity(intent);
-        }
-    };
+
 
     private void checkUserInDatabase(String uid) {  //überprüft ob es sich um Restaurant handelt
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Restaurants");

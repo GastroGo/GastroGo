@@ -13,7 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.example.qrcodegenerator.databinding.ActivityMainBinding;
+
+import com.example.login.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +30,7 @@ import java.util.List;
 
 public class QRCodeReader extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
+
     private final List<String> allIds = new ArrayList<>();
     List<String> allGerichte = new ArrayList<>();
     List<Gericht> gerichtList = new ArrayList<>();
@@ -57,7 +59,7 @@ public class QRCodeReader extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initBinding();
+        setContentView(R.layout.activity_main);
         initViews();
     }
 
@@ -73,7 +75,8 @@ public class QRCodeReader extends AppCompatActivity {
     }
 
     private void initViews() {
-        binding.fab.setOnClickListener(view -> {
+        FloatingActionButton btn = findViewById(R.id.fab);
+        btn.setOnClickListener(view -> {
             checkPermissionAndShowActivity(this);
         });
     }
@@ -91,10 +94,6 @@ public class QRCodeReader extends AppCompatActivity {
         }
     }
 
-    private void initBinding() {
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-    }
 
     /* <-------------------------------------------------> */
 

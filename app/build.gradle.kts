@@ -7,13 +7,9 @@ android {
     namespace = "com.example.login"
     compileSdk = 34
 
-    dataBinding {
-        enabled = true
-    }
-
     defaultConfig {
         applicationId = "com.example.login"
-        minSdk = 19
+        minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -58,4 +54,5 @@ dependencies {
 
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation("com.google.zxing:core:3.4.1")
+
 }
