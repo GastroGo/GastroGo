@@ -106,6 +106,8 @@ public class ManageRestaurant extends AppCompatActivity {
 
     private void deleteRestaurant(String uid) {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Restaurants");
+        DatabaseReference dbRef2 = FirebaseDatabase.getInstance().getReference("Schluessel");
+        dbRef2.child(restaurantDaten.getId()).removeValue();
         dbRef.orderByChild("daten/uid").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
