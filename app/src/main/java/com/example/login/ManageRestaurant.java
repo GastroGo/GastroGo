@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mitarbeiterverwaltung.MitarbeiterVerwalten;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,13 +28,14 @@ public class ManageRestaurant extends AppCompatActivity {
     DatabaseReference dbRef;
     TextView name;
     Button menu;
-    Button delete;
+    Button delete, schluessel;
     Daten restaurantDaten;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_restaurant);
+        schluessel = findViewById(R.id.buttonEmployeeKeys);
         name = findViewById(R.id.text);
         menu = findViewById(R.id.buttonMenu);
         delete = findViewById(R.id.buttonDelete);
@@ -53,6 +55,15 @@ public class ManageRestaurant extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ManageMenu.class);
+                intent.putExtra("restaurantId", restaurantDaten.getId()); // Pass the restaurant ID to CreateMenu activity
+                startActivity(intent);
+            }
+        });
+
+        schluessel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MitarbeiterVerwalten.class);
                 intent.putExtra("restaurantId", restaurantDaten.getId()); // Pass the restaurant ID to CreateMenu activity
                 startActivity(intent);
             }
