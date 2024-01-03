@@ -31,11 +31,12 @@ public class QRCodeReader extends AppCompatActivity {
 
 
     private final List<String> allIds = new ArrayList<>();
+    public String idTable;
     List<String> allGerichte = new ArrayList<>();
     List<Gericht> gerichtList = new ArrayList<>();
     int index;
-    public String idTable;
-
+    private int tasksCompleted = 0;
+    private int zutatenTasksCompleted = 0;
     private final ActivityResultLauncher<ScanOptions> qrCodeLauncher = registerForActivityResult(new ScanContract(), result -> {
         if (result.getContents() == null) {
             Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
@@ -45,7 +46,6 @@ public class QRCodeReader extends AppCompatActivity {
             getAllGerichte(idScanned);
         }
     });
-
     private final ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                 if (isGranted) {
@@ -62,7 +62,6 @@ public class QRCodeReader extends AppCompatActivity {
         initViews();
     }
 
-
     private void showCamera() {
         ScanOptions options = new ScanOptions();
         options.setDesiredBarcodeFormats(ScanOptions.QR_CODE);
@@ -72,6 +71,9 @@ public class QRCodeReader extends AppCompatActivity {
         options.setOrientationLocked(false);
         qrCodeLauncher.launch(options);
     }
+
+
+    /* <-------------------------------------------------> */
 
     private void initViews() {
         FloatingActionButton btn = findViewById(R.id.fab);
@@ -92,9 +94,6 @@ public class QRCodeReader extends AppCompatActivity {
             requestPermissionLauncher.launch(android.Manifest.permission.CAMERA);
         }
     }
-
-
-    /* <-------------------------------------------------> */
 
     private void getAllGerichte(String id) {
         DatabaseReference dbGerichte = FirebaseDatabase.getInstance().getReference("Restaurants").child(id).child("speisekarte");
@@ -156,8 +155,6 @@ public class QRCodeReader extends AppCompatActivity {
         }
     }
 
-    private int tasksCompleted = 0;
-
     private void getDataAllergien(String id, String gerichtSelected, Gericht gericht, Callback callback) {
         DatabaseReference dbAllergien = FirebaseDatabase.getInstance()
                 .getReference("Restaurants").child(id).child("speisekarte")
@@ -188,8 +185,6 @@ public class QRCodeReader extends AppCompatActivity {
         });
     }
 
-    private int zutatenTasksCompleted = 0;
-
     private void getDataZutaten(String id, String gerichtSelceted, Gericht gericht, Callback callback) {
         DatabaseReference dbZutaten = FirebaseDatabase.getInstance().getReference("Restaurants").child(id).child("speisekarte").child(gerichtSelceted).child("zutaten");
         dbZutaten.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -218,16 +213,15 @@ public class QRCodeReader extends AppCompatActivity {
         });
     }
 
-
-    interface Callback {
-        void onComplete();
-    }
-
     private void activityAufruf(String id) {
         Intent intent = new Intent(QRCodeReader.this, OrderManager.class);
         intent.putExtra("Gerichte", (Serializable) gerichtList);
         intent.putExtra("idTable", idTable);
         intent.putExtra("id", id);
         startActivity(intent);
+    }
+
+    interface Callback {
+        void onComplete();
     }
 }

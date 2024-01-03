@@ -12,19 +12,8 @@ public class Gericht implements Serializable {
     private int finalAmount = 0;
     private AmountChangeListener amountChangeListener;
 
-    public void setAmountChangeListener(AmountChangeListener listener) {
-        this.amountChangeListener = listener;
-    }
-
-    private void notifyOnAmountChanged() {
-        if (amountChangeListener != null) {
-            amountChangeListener.onAmountChanged();
-        }
-    }
-
     public Gericht() {
     }
-
 
     public Gericht(String id, Double preis, String gericht, List<String> allergien, List<String> zutaten, boolean isSelected) {
         this.id = id;
@@ -33,6 +22,16 @@ public class Gericht implements Serializable {
         this.allergien = allergien;
         this.zutaten = zutaten;
         this.isSelected = isSelected;
+    }
+
+    public void setAmountChangeListener(AmountChangeListener listener) {
+        this.amountChangeListener = listener;
+    }
+
+    private void notifyOnAmountChanged() {
+        if (amountChangeListener != null) {
+            amountChangeListener.onAmountChanged();
+        }
     }
 
     public Double getPreis() {

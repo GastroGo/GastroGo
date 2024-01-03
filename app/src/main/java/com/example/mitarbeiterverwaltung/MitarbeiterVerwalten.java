@@ -27,6 +27,7 @@ import java.util.HashSet;
 
 public class MitarbeiterVerwalten extends AppCompatActivity {
 
+    public long count;
     RecyclerView recyclerView;
     DatabaseReference database;
     MyAdapter myadapter;
@@ -36,10 +37,22 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
     Dialog dialog;
     Button mErstellen;
     EditText etName;
-    public long count;
     TextView tvName, tvKey;
     FloatingActionButton back;
 
+    public static String generateKey() {
+        SecureRandom random = new SecureRandom();
+        StringBuilder key = new StringBuilder();
+        Model model = new Model();
+
+        for (int i = 0; i < model.getKeyLength(); i++) {
+            int randomIndex = random.nextInt(model.getKeyCharacters().length());
+            char randomChar = model.getKeyCharacters().charAt(randomIndex);
+            key.append(randomChar);
+        }
+
+        return key.toString();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,19 +118,5 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
         });
 
 
-    }
-
-    public static String generateKey() {
-        SecureRandom random = new SecureRandom();
-        StringBuilder key = new StringBuilder();
-        Model model = new Model();
-
-        for (int i = 0; i < model.getKeyLength(); i++) {
-            int randomIndex = random.nextInt(model.getKeyCharacters().length());
-            char randomChar = model.getKeyCharacters().charAt(randomIndex);
-            key.append(randomChar);
-        }
-
-        return key.toString();
     }
 }

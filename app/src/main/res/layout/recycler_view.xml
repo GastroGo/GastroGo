@@ -10,29 +10,29 @@
         android:id="@+id/tableNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
         android:layout_marginTop="10dp"
-        android:textSize="18sp"
-        android:text="Tischnummer" />
+        android:text="Tischnummer"
+        android:textSize="18sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_above="@+id/btnAdd"
-        android:layout_below="@+id/tableNumber" />
+        android:layout_below="@+id/tableNumber"
+        android:layout_marginTop="10dp" />
 
     <Button
         android:id="@+id/btnAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:gravity="center_horizontal"
-        android:paddingVertical="10dp"
         android:backgroundTint="@color/light_third"
+        android:gravity="center_horizontal"
         android:outlineSpotShadowColor="@color/zxing_transparent"
+        android:paddingVertical="10dp"
         android:text="Hinzufügen" />
 
 </RelativeLayout>

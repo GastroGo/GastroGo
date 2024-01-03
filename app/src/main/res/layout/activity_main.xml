@@ -8,16 +8,16 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/layout_result"
-        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:orientation="vertical">
 
         <ImageView
-            android:src="@drawable/qr_scan"
             android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            android:src="@drawable/qr_scan" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -27,10 +27,10 @@ import java.util.Map;
 
 public class ManageMenu extends AppCompatActivity {
 
-    private DishAdapter dishAdapter;
-    private List<Speisekarte> dishes;
     Button buttonAdd;
     FloatingActionButton back;
+    private DishAdapter dishAdapter;
+    private List<Speisekarte> dishes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

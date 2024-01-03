@@ -58,9 +58,9 @@
                 android:id="@+id/btn_back"
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_manage"
-                android:outlineSpotShadowColor="@color/zxing_transparent"
                 android:backgroundTint="@color/light_third"
+                android:outlineSpotShadowColor="@color/zxing_transparent"
+                android:src="@drawable/ic_manage"
                 app:borderWidth="0dp"
                 app:fabCustomSize="30dp"
                 app:tint="@color/white" />

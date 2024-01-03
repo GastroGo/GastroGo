@@ -26,10 +26,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         this.selectedGerichte = selectedGerichte;
     }
 
-    public interface OnListEmptyListener {
-        void onListEmpty();
-    }
-
     public void setOnListEmptyListener(OnListEmptyListener listener) {
         this.onListEmptyListener = listener;
     }
@@ -97,6 +93,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     @Override
     public int getItemCount() {
         return selectedGerichte.size();
+    }
+
+    public interface OnListEmptyListener {
+        void onListEmpty();
     }
 
     static class OrderViewHolder extends RecyclerView.ViewHolder {
