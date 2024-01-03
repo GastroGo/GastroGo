@@ -63,7 +63,7 @@
                 android:backgroundTint="@color/light_third"
                 app:borderWidth="0dp"
                 app:fabCustomSize="30dp"
-                app:tint="@color/white"/>
+                app:tint="@color/white" />
 
             <TextView
                 android:id="@+id/textViewBack"

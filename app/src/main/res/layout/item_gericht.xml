@@ -52,7 +52,7 @@
             android:textColor="#5A7A62"
             android:text="Zutaten"
             android:layout_marginTop="0dp"
-            android:paddingLeft="15dp"/>
+            android:paddingLeft="15dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnMinus"
@@ -63,7 +63,7 @@
             android:backgroundTint="@color/light_second"
             app:borderWidth="0dp"
             app:fabCustomSize="30dp"
-            android:layout_marginLeft="70dp"/>
+            android:layout_marginLeft="70dp" />
 
         <TextView
             android:id="@+id/amount"

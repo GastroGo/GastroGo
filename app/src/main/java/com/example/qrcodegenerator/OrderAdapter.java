@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Handler;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -68,13 +67,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                     int amount = Integer.parseInt(editable.toString());
 
                     if (amount > 99) {
-                        holder.editTextAmount.setText(String.valueOf(amount/10));
-                        amount = amount/10;
+                        holder.editTextAmount.setText(String.valueOf(amount / 10));
+                        amount = amount / 10;
                         Toast.makeText(holder.itemView.getContext(), "Maximale Menge überschritten", Toast.LENGTH_SHORT).show();
                     }
                     gericht.setFinalAmount(amount);
                     holder.textViewGerichtPreis.setText(String.format("%.2f€", gericht.getPreis() * amount));
-                } catch (NumberFormatException e) {}
+                } catch (NumberFormatException e) {
+                }
             }
         });
 

@@ -31,7 +31,7 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
     DatabaseReference database;
     MyAdapter myadapter;
     ArrayList<User> list;
-    HashSet<String> keysSet; // HashSet to store keys
+    HashSet<String> keysSet;
     Button mAnlegen;
     Dialog dialog;
     Button mErstellen;
@@ -66,7 +66,7 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
         mErstellen = dialog.findViewById(R.id.mErstellen);
 
         mErstellen.setOnClickListener(v -> {
-            String nM = "M" + String.format("%03d", count+1);
+            String nM = "M" + String.format("%03d", count + 1);
             database.child(nM).child("name").setValue(etName.getText().toString());
             database.child(nM).child("key").setValue(generateKey());
             dialog.dismiss();
@@ -82,7 +82,7 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
         });
 
         list = new ArrayList<>();
-        keysSet = new HashSet<>(); // Initialize the HashSet
+        keysSet = new HashSet<>();
         myadapter = new MyAdapter(this, list, restaurantId);
         recyclerView.setAdapter(myadapter);
 
@@ -93,9 +93,9 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
                 list.clear(); // Clear the list
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     User user = dataSnapshot.getValue(User.class);
-                    list.add(user); // Add the updated data to the list
+                    list.add(user);
                 }
-                myadapter.notifyDataSetChanged(); // Notify the adapter that the data has changed
+                myadapter.notifyDataSetChanged();
             }
 
             @Override
@@ -106,6 +106,7 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
 
 
     }
+
     public static String generateKey() {
         SecureRandom random = new SecureRandom();
         StringBuilder key = new StringBuilder();

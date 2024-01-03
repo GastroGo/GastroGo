@@ -63,7 +63,7 @@
                 android:backgroundTint="@color/light_third"
                 app:borderWidth="0dp"
                 app:fabCustomSize="30dp"
-                app:tint="@color/white"/>
+                app:tint="@color/white" />
 
             <TextView
                 android:id="@+id/textViewBack"
@@ -121,7 +121,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:strokeColor="@color/blue"
         app:strokeWidth="2dp"
-        android:layout_marginBottom="70dp"/>
+        android:layout_marginBottom="70dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonScan"

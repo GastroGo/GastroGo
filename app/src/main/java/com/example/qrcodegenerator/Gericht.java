@@ -1,7 +1,5 @@
 package com.example.qrcodegenerator;
 
-import android.widget.Toast;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -24,7 +22,8 @@ public class Gericht implements Serializable {
         }
     }
 
-    public Gericht(){}
+    public Gericht() {
+    }
 
 
     public Gericht(String id, Double preis, String gericht, List<String> allergien, List<String> zutaten, boolean isSelected) {
@@ -76,10 +75,17 @@ public class Gericht implements Serializable {
         isSelected = selected;
     }
 
-    public int getAmount() {return amount;}
-    public void setAmount(int amount) {this.amount = amount;}
+    public int getAmount() {
+        return amount;
+    }
 
-    public int getFinalAmount() {return finalAmount;}
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public int getFinalAmount() {
+        return finalAmount;
+    }
 
     public void setFinalAmount(int finalAmount) {
         this.finalAmount = finalAmount;

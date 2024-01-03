@@ -31,7 +31,7 @@
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal"
         android:paddingVertical="10dp"
-        android:backgroundTint= "@color/light_third"
+        android:backgroundTint="@color/light_third"
         android:outlineSpotShadowColor="@color/zxing_transparent"
         android:text="Hinzufügen" />
 
