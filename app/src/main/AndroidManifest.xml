@@ -84,6 +84,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBmTdKR4YI0DqvIGoQlNlZOmuBtjbnScVY" />
 
+        <activity android:name="com.example.mitarbeiterverwaltung.MitarbeiterVerwalten" />
+
     </application>
 
 </manifest>
