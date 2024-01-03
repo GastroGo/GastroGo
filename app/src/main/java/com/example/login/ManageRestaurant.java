@@ -27,7 +27,7 @@ public class ManageRestaurant extends AppCompatActivity {
     FirebaseUser user;
     DatabaseReference dbRef;
     TextView name;
-    Button delete, schluessel, qrcode;
+    Button delete, schluessel, qrcode, menu;
     Daten restaurantDaten;
 
     @Override
