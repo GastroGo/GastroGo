@@ -145,7 +145,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
                         Daten daten = restaurant.getDaten();
                         String address = daten.getStrasse() + " " + daten.getHausnr() + ", " + daten.getPlz() + " " + daten.getOrt();
                         LatLng latLng = getLatLngFromAddress(address);
-                        if (latLng != null) {
+                        if (latLng != null && currentLocationMarker != null) {
                             float[] results = new float[1];
                             Location.distanceBetween(currentLocationMarker.getPosition().latitude, currentLocationMarker.getPosition().longitude,
                                     latLng.latitude, latLng.longitude, results);
