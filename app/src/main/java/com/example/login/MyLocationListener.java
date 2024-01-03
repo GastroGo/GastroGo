@@ -48,7 +48,7 @@ public class MyLocationListener implements LocationListener {
                     .position(latLng)
                     .title("Sie befinden sich hier"));
         } else {
-            // Handle the case when loc is null
+            return;
         }
     }
 
@@ -77,8 +77,6 @@ public class MyLocationListener implements LocationListener {
             lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             if (lastKnownLocation != null) {
                 onLocationChanged(lastKnownLocation);
-            } else {
-                // Handle the case when lastKnownLocation is null
             }
         }
     }
