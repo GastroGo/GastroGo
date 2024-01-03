@@ -19,13 +19,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MyLocationListener implements LocationListener {
     Startseite startseite;
-    GoogleMap gMap; // Add this line
-    Context context; // Add this line
+    GoogleMap gMap;
+    Context context;
 
     public MyLocationListener(Startseite startseite, GoogleMap gMap, Context context) {
         this.startseite = startseite;
-        this.gMap = gMap; // Modify this line
-        this.context = context; // Add this line
+        this.gMap = gMap;
+        this.context = context;
     }
 
     public MyLocationListener() {}
@@ -68,9 +68,7 @@ public class MyLocationListener implements LocationListener {
             onLocationChanged(lastKnownLocation);
         } else if(lastKnownLocation == null) {
             lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            if (lastKnownLocation != null) {
-                onLocationChanged(lastKnownLocation);
-            }
+            onLocationChanged(lastKnownLocation);
         }
     }
 }
