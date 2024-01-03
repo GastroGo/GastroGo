@@ -30,7 +30,6 @@ import java.util.List;
 
 public class QRCodeReader extends AppCompatActivity {
 
-
     private final List<String> allIds = new ArrayList<>();
     public String idTable;
     List<String> allGerichte = new ArrayList<>();
@@ -73,9 +72,6 @@ public class QRCodeReader extends AppCompatActivity {
         qrCodeLauncher.launch(options);
     }
 
-
-    /* <-------------------------------------------------> */
-
     private void initViews() {
         FloatingActionButton btn = findViewById(R.id.fab);
         Button skip = findViewById(R.id.button_skip);
@@ -84,8 +80,9 @@ public class QRCodeReader extends AppCompatActivity {
         });
 
         skip.setOnClickListener(view -> {
-            String id = "-NnBQXUbH90ANhq1CFx9001";
-            getAllGerichte(id);
+            String idScanned = "-NnBQXUbH90ANhq1CFx9001";
+            idTable = idScanned.substring(idScanned.length() - 3);
+            getAllGerichte(idScanned.substring(0, idScanned.length() - 3));
         });
     }
 
