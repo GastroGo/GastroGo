@@ -27,7 +27,7 @@ public class ManageRestaurant extends AppCompatActivity {
     FirebaseUser user;
     DatabaseReference dbRef;
     TextView name;
-    Button delete, schluessel, qrcode, menu;
+    Button delete, schluessel, qrcode, menu, orders;
     Daten restaurantDaten;
 
     @Override
@@ -39,6 +39,7 @@ public class ManageRestaurant extends AppCompatActivity {
         menu = findViewById(R.id.buttonMenu);
         delete = findViewById(R.id.buttonDelete);
         qrcode = findViewById(R.id.buttonGenerateQR);
+        orders = findViewById(R.id.buttonOrders);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -55,7 +56,7 @@ public class ManageRestaurant extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ManageMenu.class);
-                intent.putExtra("restaurantId", restaurantDaten.getId()); // Pass the restaurant ID to CreateMenu activity
+                intent.putExtra("restaurantId", restaurantDaten.getId());
                 startActivity(intent);
             }
         });
@@ -64,7 +65,7 @@ public class ManageRestaurant extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MitarbeiterVerwalten.class);
-                intent.putExtra("restaurantId", restaurantDaten.getId()); // Pass the restaurant ID to CreateMenu activity
+                intent.putExtra("restaurantId", restaurantDaten.getId());
                 startActivity(intent);
             }
         });
@@ -79,6 +80,16 @@ public class ManageRestaurant extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), com.example.qrcodepdf.PdfActivity.class);
                 startActivity(intent);
+            }
+        });
+        orders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (restaurantDaten != null && restaurantDaten.getId() != null) {
+                    Intent intent = new Intent(getApplicationContext(), com.example.Tische.TischeActivity.class);
+                    intent.putExtra("restaurantId", restaurantDaten.getId()); // Pass the restaurant ID to TischeActivity activity
+                    startActivity(intent);
+                } else {}
             }
         });
     }

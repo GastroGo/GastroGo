@@ -80,7 +80,7 @@ public class QRCodeReader extends AppCompatActivity {
         });
 
         skip.setOnClickListener(view -> {
-            String idScanned = "-NnBQXUbH90ANhq1CFx9001";
+            String idScanned = "-NnERFPOdjGXVSQWQ9PE001";
             idTable = idScanned.substring(idScanned.length() - 3);
             getAllGerichte(idScanned.substring(0, idScanned.length() - 3));
         });
