@@ -129,7 +129,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 onMapReady(gMap);
             } else {
-                Toast.makeText(this, "Bastard", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Bastard", Toast.LENGTH_LONG).show();
             }
         }
     }
