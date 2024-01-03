@@ -69,7 +69,12 @@
             android:name="com.example.qrcodepdf.PdfActivity"
             android:exported="true">
         </activity>
-
+        <activity
+            android:name="com.example.Bestellungen.BestellungenActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.Tische.TischeActivity"
+            android:exported="true"/>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBmTdKR4YI0DqvIGoQlNlZOmuBtjbnScVY" />
