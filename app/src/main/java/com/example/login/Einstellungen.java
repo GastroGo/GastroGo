@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,6 +26,7 @@ public class Einstellungen extends AppCompatActivity {
     private EditText schluesselEingabe;
     private Switch benachrichtigungen, darkmode;
     private Spinner spinner_languages;
+    Startseite sRef = new Startseite();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,10 +119,13 @@ public class Einstellungen extends AppCompatActivity {
 
                                     DatabaseReference childRef = grandChildRef.getParent();
                                     if (childRef != null) {
+                                        String childKey = grandChildRef.getKey();
                                         String parentKey = childRef.getKey();
+                                        String uid = sRef.getUserId();
                                         // Intent intent = new Intent(getApplicationContext(), MitarbeiterSeiteOderSoKeinPlanSoWeitBinIchNochNicht.class);
                                         // intent.putExtra("restaurantId", parentKey); // Pass the restaurant ID to CreateMenu activity
                                         // startActivity(intent);
+                                        ref.child(parentKey).child(childKey).child("UID").setValue(uid);
                                         Toast.makeText(Einstellungen.this, "Restaurant: " + parentKey, Toast.LENGTH_SHORT).show();
                                     }
                                 }

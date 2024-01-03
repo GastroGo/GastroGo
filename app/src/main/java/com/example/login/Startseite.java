@@ -44,6 +44,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
     GoogleMap gMap;
     Marker currentLocationMarker;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +84,11 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         });
 
     }
+    public String getUserId() {
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        return user.getUid();
+    }
 
     private void checkUserInDatabase(String uid) {  //überprüft ob es sich um Restaurant handelt
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Restaurants");
@@ -101,6 +107,8 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
             }
         });
     }
+
+
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
