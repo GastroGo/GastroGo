@@ -10,6 +10,8 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -127,7 +129,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 onMapReady(gMap);
             } else {
-                //Bastard wer ablehnt
+                Toast.makeText(this, "Bastard", Toast.LENGTH_SHORT).show();
             }
         }
     }
