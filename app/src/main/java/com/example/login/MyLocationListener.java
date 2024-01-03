@@ -68,6 +68,11 @@ public class MyLocationListener implements LocationListener {
         Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (lastKnownLocation != null) {
             onLocationChanged(lastKnownLocation);
+        } else if(lastKnownLocation == null) {
+            lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if (lastKnownLocation != null) {
+                onLocationChanged(lastKnownLocation);
+            }
         }
     }
 }
