@@ -27,8 +27,7 @@ public class ManageRestaurant extends AppCompatActivity {
     FirebaseUser user;
     DatabaseReference dbRef;
     TextView name;
-    Button menu;
-    Button delete, schluessel;
+    Button delete, schluessel, qrcode;
     Daten restaurantDaten;
 
     @Override
@@ -39,6 +38,7 @@ public class ManageRestaurant extends AppCompatActivity {
         name = findViewById(R.id.text);
         menu = findViewById(R.id.buttonMenu);
         delete = findViewById(R.id.buttonDelete);
+        qrcode = findViewById(R.id.buttonGenerateQR);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -72,6 +72,13 @@ public class ManageRestaurant extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 deleteRestaurant(user.getUid());
+            }
+        });
+        qrcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), com.example.qrcodepdf.PdfActivity.class);
+                startActivity(intent);
             }
         });
     }

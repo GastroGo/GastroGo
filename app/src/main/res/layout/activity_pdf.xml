@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QRCodeReader">
+    tools:context=".PdfActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/layout_result"
@@ -17,9 +17,44 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/qr_scan" />
+            android:src="@drawable/pdf_file" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="420dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:text="0"
+            android:textSize="22sp" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:stepSize="2"
+            android:valueFrom="0"
+            android:valueTo="200"
+            app:haloColor="@color/zxing_transparent"
+            app:labelBehavior="gone"
+            app:thumbColor="@color/white"
+            app:thumbStrokeColor="@color/black"
+            app:thumbStrokeWidth="3dp"
+            app:tickColor="@color/black"
+            app:trackColor="@color/black" />
+
+    </LinearLayout>
+
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
@@ -32,20 +67,14 @@
         app:fabCradleVerticalOffset="10dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/btnDownloadPDF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:contentDescription="QRCode"
-        android:src="@drawable/qr_scan"
+        android:src="@drawable/pdf_file"
         app:backgroundTint="@color/black"
         app:layout_anchor="@+id/bottomAppBar"
         app:tint="@android:color/white" />
-
-    <Button
-        android:id="@+id/button_skip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="überspringen" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

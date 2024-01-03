@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -77,8 +78,14 @@ public class QRCodeReader extends AppCompatActivity {
 
     private void initViews() {
         FloatingActionButton btn = findViewById(R.id.fab);
+        Button skip = findViewById(R.id.button_skip);
         btn.setOnClickListener(view -> {
             checkPermissionAndShowActivity(this);
+        });
+
+        skip.setOnClickListener(view -> {
+            String id = "-NnBQXUbH90ANhq1CFx9001";
+            getAllGerichte(id);
         });
     }
 
