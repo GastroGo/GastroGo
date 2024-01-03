@@ -16,26 +16,26 @@
         android:backgroundTint="@color/white" />
 
 
-   <LinearLayout
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:id="@+id/totalPriceLayout"
-       android:layout_above="@+id/orderBtn">
+    <LinearLayout
+        android:id="@+id/totalPriceLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/orderBtn">
 
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_marginLeft="20dp"
-           android:text="Gesamtkosten:" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Gesamtkosten:" />
 
-       <TextView
-           android:id="@+id/totalPrice"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_marginLeft="58dp"
-           android:text="XX€" />
+        <TextView
+            android:id="@+id/totalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="58dp"
+            android:text="XX€" />
 
-   </LinearLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/orderBtn"
@@ -43,9 +43,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
-        android:gravity="center_horizontal"
-        android:paddingVertical="10dp"
         android:backgroundTint="@color/light_third"
+        android:gravity="center_horizontal"
         android:outlineSpotShadowColor="@color/zxing_transparent"
+        android:paddingVertical="10dp"
         android:text="Bestellen" />
 </RelativeLayout>

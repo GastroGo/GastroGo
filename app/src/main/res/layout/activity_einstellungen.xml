@@ -1,75 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="30dp"
-    android:orientation="vertical"
-    tools:context=".Einstellungen">
+    android:layout_margin="16dp"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="59dp"
-        android:fontFamily="sans-serif"
-        android:text="Einstellungen"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textStyle="bold" />
+        android:layout_marginBottom="16dp"
+        tools:layout_editor_absoluteY="1dp">
 
-    <Switch
-        android:id="@+id/darkmode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="169dp"
-        android:text="Darkmode"
-        android:trackTint="#FF9800" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Einstellungen"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/zurueck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_revert" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Switch
         android:id="@+id/benachrichtigungen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="134dp"
-        android:text="Benachrichtigungen"
-        android:trackTint="#FF9800" />
+        android:layout_marginBottom="8dp"
+        android:layout_weight="1"
+        android:text="Benachrichtigungen" />
+
+    <Switch
+        android:id="@+id/darkmode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="1"
+        android:text="Darkmode" />
 
     <Spinner
         android:id="@+id/spinner_languages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="204dp"
-        android:spinnerMode="dropdown" />
+        android:layout_marginBottom="8dp"
+        android:layout_weight="1" />
 
-    <EditText
-        android:id="@+id/schluesselEingabe"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="323dp"
-        android:ems="10"
-        android:hint="Mitarbeiterschlüssel eingeben"
-        android:inputType="text" />
+        android:layout_height="547dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5"
+        tools:layout_editor_absoluteY="151dp">
 
-    <Button
-        android:id="@+id/mitarbeiterLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="270dp"
-        android:backgroundTint="#FF9800"
-        android:text="Zur Mitarbeiterseite" />
+        <EditText
+            android:id="@+id/schluesselEingabe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:ems="10"
+            android:hint="Mitarbeiterschlüssel eingeben"
+            android:inputType="text"
+            app:layout_constraintBottom_toTopOf="@+id/mitarbeiterLogin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/zurueck"
-        style="@style/Widget.Material3.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#FF9800"
-        android:text="Zurück" />
+        <Button
+            android:id="@+id/mitarbeiterLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
+            android:text="Zur Mitarbeiterseite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</RelativeLayout>
+</LinearLayout>

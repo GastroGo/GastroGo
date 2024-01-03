@@ -1,4 +1,4 @@
-package com.example.qrcodegenerator;
+package com.example.qrcodepdf;
 
 import static org.junit.Assert.assertEquals;
 

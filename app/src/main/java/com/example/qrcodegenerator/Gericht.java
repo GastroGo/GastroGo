@@ -1,7 +1,5 @@
 package com.example.qrcodegenerator;
 
-import android.widget.Toast;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -14,18 +12,8 @@ public class Gericht implements Serializable {
     private int finalAmount = 0;
     private AmountChangeListener amountChangeListener;
 
-    public void setAmountChangeListener(AmountChangeListener listener) {
-        this.amountChangeListener = listener;
+    public Gericht() {
     }
-
-    private void notifyOnAmountChanged() {
-        if (amountChangeListener != null) {
-            amountChangeListener.onAmountChanged();
-        }
-    }
-
-    public Gericht(){}
-
 
     public Gericht(String id, Double preis, String gericht, List<String> allergien, List<String> zutaten, boolean isSelected) {
         this.id = id;
@@ -34,6 +22,16 @@ public class Gericht implements Serializable {
         this.allergien = allergien;
         this.zutaten = zutaten;
         this.isSelected = isSelected;
+    }
+
+    public void setAmountChangeListener(AmountChangeListener listener) {
+        this.amountChangeListener = listener;
+    }
+
+    private void notifyOnAmountChanged() {
+        if (amountChangeListener != null) {
+            amountChangeListener.onAmountChanged();
+        }
     }
 
     public Double getPreis() {
@@ -76,10 +74,17 @@ public class Gericht implements Serializable {
         isSelected = selected;
     }
 
-    public int getAmount() {return amount;}
-    public void setAmount(int amount) {this.amount = amount;}
+    public int getAmount() {
+        return amount;
+    }
 
-    public int getFinalAmount() {return finalAmount;}
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public int getFinalAmount() {
+        return finalAmount;
+    }
 
     public void setFinalAmount(int finalAmount) {
         this.finalAmount = finalAmount;

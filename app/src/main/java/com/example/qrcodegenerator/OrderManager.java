@@ -10,8 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.login.R;
 import com.google.firebase.database.DatabaseReference;
@@ -21,12 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class OrderManager extends AppCompatActivity implements AmountChangeListener{
+public class OrderManager extends AppCompatActivity implements AmountChangeListener {
 
-    List <Gericht> selectedGerichte = new ArrayList<>();
+    List<Gericht> selectedGerichte = new ArrayList<>();
 
     private Dialog currentDialog;
-
 
 
     @Override
@@ -80,7 +79,7 @@ public class OrderManager extends AppCompatActivity implements AmountChangeListe
 
 
     private void copyAmount(List<Gericht> selectedGerichte) {
-        for (Gericht gericht : selectedGerichte){
+        for (Gericht gericht : selectedGerichte) {
             gericht.setFinalAmount(gericht.getAmount());
         }
     }
@@ -129,7 +128,7 @@ public class OrderManager extends AppCompatActivity implements AmountChangeListe
         // Beispiel: Hier wird die Höhe auf 400dp plus 100dp für jeden ausgewählten Artikel festgelegt.
         int itemHeight = 150;
         int minHeight = 200;
-        int totalHeight = minHeight + (selectedGerichte.size()+2) * itemHeight;
+        int totalHeight = minHeight + (selectedGerichte.size() + 2) * itemHeight;
         return Math.min(totalHeight, getResources().getDisplayMetrics().heightPixels);
     }
 

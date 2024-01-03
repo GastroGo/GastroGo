@@ -1,15 +1,10 @@
 package com.example.qrcodegenerator;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,12 +40,11 @@ public class GerichtAdapter extends RecyclerView.Adapter<GerichtAdapter.GerichtV
         holder.textViewGerichtPreis.setText(formattedPreis);
 
 
-
         StringBuilder zutatenText = new StringBuilder();
         for (String zutat : gericht.getZutaten()) {
             zutatenText.append(zutat.substring(0, 1).toUpperCase() + zutat.substring(1)).append(", ");
         }
-        zutatenText.deleteCharAt(zutatenText.length()-2);
+        zutatenText.deleteCharAt(zutatenText.length() - 2);
         holder.textViewInfo.setText(zutatenText.toString());
 
         holder.btnPlus.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +83,6 @@ public class GerichtAdapter extends RecyclerView.Adapter<GerichtAdapter.GerichtV
             }
         });
     }
-
 
 
     @Override

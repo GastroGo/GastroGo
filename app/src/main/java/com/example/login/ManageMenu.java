@@ -1,14 +1,12 @@
 package com.example.login;
 
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.widget.Toast;
-import android.widget.TextView;
-import android.widget.Button;
-import android.view.View;
-import android.view.LayoutInflater;
 import android.app.AlertDialog;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,16 +21,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
 public class ManageMenu extends AppCompatActivity {
 
-    private DishAdapter dishAdapter;
-    private List<Speisekarte> dishes;
     Button buttonAdd;
     FloatingActionButton back;
+    private DishAdapter dishAdapter;
+    private List<Speisekarte> dishes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,14 +110,16 @@ public class ManageMenu extends AppCompatActivity {
                             }
 
                             @Override
-                            public void onCancelled(DatabaseError databaseError) {}
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
                         });
 
                         dialog.dismiss();
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {}
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
                 });
             });
 
@@ -156,7 +156,8 @@ public class ManageMenu extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {}     //Carglass
+            public void onCancelled(DatabaseError databaseError) {
+            }     //Carglass
         });
     }
 

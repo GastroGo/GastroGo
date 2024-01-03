@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -12,7 +13,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-
 
 import com.example.login.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,23 +30,22 @@ import java.util.List;
 
 public class QRCodeReader extends AppCompatActivity {
 
-
     private final List<String> allIds = new ArrayList<>();
+    public String idTable;
     List<String> allGerichte = new ArrayList<>();
     List<Gericht> gerichtList = new ArrayList<>();
     int index;
-    public String idTable;
-
+    private int tasksCompleted = 0;
+    private int zutatenTasksCompleted = 0;
     private final ActivityResultLauncher<ScanOptions> qrCodeLauncher = registerForActivityResult(new ScanContract(), result -> {
         if (result.getContents() == null) {
             Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
         } else {
-            String idScanned = result.getContents().substring(0,result.getContents().length()-3);
-            idTable = result.getContents().substring(result.getContents().length()-3);
+            String idScanned = result.getContents().substring(0, result.getContents().length() - 3);
+            idTable = result.getContents().substring(result.getContents().length() - 3);
             getAllGerichte(idScanned);
         }
     });
-
     private final ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                 if (isGranted) {
@@ -63,7 +62,6 @@ public class QRCodeReader extends AppCompatActivity {
         initViews();
     }
 
-
     private void showCamera() {
         ScanOptions options = new ScanOptions();
         options.setDesiredBarcodeFormats(ScanOptions.QR_CODE);
@@ -76,8 +74,15 @@ public class QRCodeReader extends AppCompatActivity {
 
     private void initViews() {
         FloatingActionButton btn = findViewById(R.id.fab);
+        Button skip = findViewById(R.id.button_skip);
         btn.setOnClickListener(view -> {
             checkPermissionAndShowActivity(this);
+        });
+
+        skip.setOnClickListener(view -> {
+            String idScanned = "-NnBQXUbH90ANhq1CFx9001";
+            idTable = idScanned.substring(idScanned.length() - 3);
+            getAllGerichte(idScanned.substring(0, idScanned.length() - 3));
         });
     }
 
@@ -94,9 +99,6 @@ public class QRCodeReader extends AppCompatActivity {
         }
     }
 
-
-    /* <-------------------------------------------------> */
-
     private void getAllGerichte(String id) {
         DatabaseReference dbGerichte = FirebaseDatabase.getInstance().getReference("Restaurants").child(id).child("speisekarte");
 
@@ -109,6 +111,7 @@ public class QRCodeReader extends AppCompatActivity {
                 }
                 getDataGericht(id);
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.e("Firebase", "Error reading IDs from Firebase", databaseError.toException());
@@ -121,13 +124,13 @@ public class QRCodeReader extends AppCompatActivity {
         Gericht[] gericht = new Gericht[allGerichte.size()];
         index = 0;
 
-        for(String gerichtSelected : allGerichte) {
+        for (String gerichtSelected : allGerichte) {
 
             DatabaseReference dbGerichte = FirebaseDatabase.getInstance().getReference("Restaurants").child(id).child("speisekarte").child(gerichtSelected);
             dbGerichte.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists()) {
+                    if (snapshot.exists()) {
 
 
                         gericht[index] = new Gericht();  // Initialisierung eines neuen Gericht-Objekts
@@ -148,6 +151,7 @@ public class QRCodeReader extends AppCompatActivity {
                     }
 
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                 }
@@ -155,7 +159,6 @@ public class QRCodeReader extends AppCompatActivity {
         }
     }
 
-    private int tasksCompleted = 0;
     private void getDataAllergien(String id, String gerichtSelected, Gericht gericht, Callback callback) {
         DatabaseReference dbAllergien = FirebaseDatabase.getInstance()
                 .getReference("Restaurants").child(id).child("speisekarte")
@@ -186,8 +189,7 @@ public class QRCodeReader extends AppCompatActivity {
         });
     }
 
-    private int zutatenTasksCompleted = 0;
-    private void getDataZutaten(String id, String gerichtSelceted,Gericht gericht, Callback callback) {
+    private void getDataZutaten(String id, String gerichtSelceted, Gericht gericht, Callback callback) {
         DatabaseReference dbZutaten = FirebaseDatabase.getInstance().getReference("Restaurants").child(id).child("speisekarte").child(gerichtSelceted).child("zutaten");
         dbZutaten.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -215,16 +217,15 @@ public class QRCodeReader extends AppCompatActivity {
         });
     }
 
+    private void activityAufruf(String id) {
+        Intent intent = new Intent(QRCodeReader.this, OrderManager.class);
+        intent.putExtra("Gerichte", (Serializable) gerichtList);
+        intent.putExtra("idTable", idTable);
+        intent.putExtra("id", id);
+        startActivity(intent);
+    }
 
     interface Callback {
         void onComplete();
-    }
-
-    private void activityAufruf(String id) {
-       Intent intent = new Intent(QRCodeReader.this, OrderManager.class);
-       intent.putExtra("Gerichte", (Serializable) gerichtList);
-       intent.putExtra("idTable", idTable);
-       intent.putExtra("id", id);
-       startActivity(intent);
     }
 }
