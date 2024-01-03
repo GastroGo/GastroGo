@@ -1,15 +1,12 @@
 package com.example.login;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.qrcodegenerator.QRCodeReader;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,10 +19,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
-import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -38,18 +32,17 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
 
     FirebaseAuth auth;
     FirebaseUser user;
-    Button button;
+    MaterialButton qrButton;
     MaterialButton zoomOutButton, zoomInButton;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private GoogleMap gMap;
 
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startseite);
-        button = findViewById(R.id.button);
+        qrButton = findViewById(R.id.qr_button);
         auth = FirebaseAuth.getInstance();
 
         user = auth.getCurrentUser();
@@ -63,7 +56,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavigationManager.setupBottomNavigationView(bottomNavigationView, this);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        qrButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), com.example.qrcodegenerator.QRCodeReader.class);

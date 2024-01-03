@@ -4,8 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -57,7 +62,7 @@ public class PdfActivity extends AppCompatActivity {
     public String[] mergingID(int count) {
         String[] idMerged = new String[count];
         for (int i = 0; i < count; i++) {
-            idMerged[i] = id + String.format("%03d", i+1);
+            idMerged[i] = id + String.format("%03d", i + 1);
         }
         return idMerged;
     }
@@ -65,22 +70,27 @@ public class PdfActivity extends AppCompatActivity {
     public Bitmap[] gerneratingQRCode() {
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         int index = 0;
+
         try {
             String[] idMerged = mergingID(anzahl);
             Bitmap[] bitmaps = new Bitmap[anzahl];
-            for (String mergedId : idMerged) {
-                BitMatrix bitMatrix = multiFormatWriter.encode(mergedId, BarcodeFormat.QR_CODE, 320, 320);
-                BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-                Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
-                bitmaps[index] = bitmap;
 
+            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+
+            for (String mergedId : idMerged) {
+                BitMatrix bitMatrix = multiFormatWriter.encode(mergedId, BarcodeFormat.QR_CODE, 290, 290);
+                Bitmap bitmap = addTableNumberBelowQRCode(barcodeEncoder.createBitmap(bitMatrix), mergedId);
+
+                bitmaps[index] = bitmap;
                 index++;
             }
+
             return bitmaps;
-        } catch (WriterException e){
+        } catch (WriterException e) {
             throw new RuntimeException(e);
         }
     }
+
 
     public void downloadAndOpenPDF() {
 
@@ -98,4 +108,29 @@ public class PdfActivity extends AppCompatActivity {
             Toast.makeText(this, "Fehler beim Erstellen der PDF-Datei", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public Bitmap addTableNumberBelowQRCode(Bitmap qrCodeBitmap, String tableNumber) {
+        Bitmap resultBitmap = Bitmap.createBitmap(qrCodeBitmap.getWidth(), qrCodeBitmap.getHeight() + 50, qrCodeBitmap.getConfig());
+        Canvas canvas = new Canvas(resultBitmap);
+
+        // Zeichne den QR-Code
+        canvas.drawBitmap(qrCodeBitmap, 0, 0, null);
+
+        // Konfiguriere den Text für die Tischnummer
+        Paint paint = new Paint();
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(25);
+        paint.setAntiAlias(true);
+
+        String finaleNumber = tableNumber.toString().substring(tableNumber.length()-3, tableNumber.length());
+
+        Rect textBounds = new Rect();
+        paint.getTextBounds(finaleNumber, 0, finaleNumber.length(), textBounds);
+        float textX = (qrCodeBitmap.getWidth() - textBounds.width()) / 2f;
+        float textY = qrCodeBitmap.getHeight() + 48;
+
+        canvas.drawText(finaleNumber, textX, textY, paint);
+        return resultBitmap;
+    }
+
 }
