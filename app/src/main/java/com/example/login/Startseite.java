@@ -4,6 +4,9 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +17,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +30,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
+import java.util.List;
+
 public class Startseite extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
@@ -31,6 +40,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
     FirebaseUser user;
     MaterialButton qrButton, zoomOutButton, zoomInButton;
     GoogleMap gMap;
+    Marker currentLocationMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +104,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
     public void onMapReady(@NonNull GoogleMap googleMap) {
         gMap = googleMap;
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        MyLocationListener locationListener = new MyLocationListener(this, gMap);
+        MyLocationListener locationListener = new MyLocationListener(this, gMap, this);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -107,6 +117,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
         locationListener.getLastKnownLocation(locationManager);
+        addRestaurantsOnMap();
     }
 
     @Override
@@ -119,5 +130,54 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
                 //Bastard wer ablehnt
             }
         }
+    }
+
+    public void addRestaurantsOnMap() {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Restaurants");
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot restaurantSnapshot : dataSnapshot.getChildren()) {
+                        Restaurant restaurant = restaurantSnapshot.getValue(Restaurant.class);
+                        Daten daten = restaurant.getDaten();
+                        String address = daten.getStrasse() + " " + daten.getHausnr() + ", " + daten.getPlz() + " " + daten.getOrt();
+                        LatLng latLng = getLatLngFromAddress(address);
+                        if (latLng != null) {
+                            float[] results = new float[1];
+                            Location.distanceBetween(currentLocationMarker.getPosition().latitude, currentLocationMarker.getPosition().longitude,
+                                    latLng.latitude, latLng.longitude, results);
+                            int distanceInMeters = (int) results[0];
+                            gMap.addMarker(new MarkerOptions()
+                                    .position(latLng)
+                                    .title(daten.getName())
+                                    .snippet("Entfernung: "+ distanceInMeters/1000 + "km"));
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
+
+    public LatLng getLatLngFromAddress(String address) {
+        Geocoder geocoder = new Geocoder(this);
+        List<Address> addresses;
+        LatLng latLng = null;
+
+        try {
+            addresses = geocoder.getFromLocationName(address, 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                Address returnedAddress = addresses.get(0);
+                latLng = new LatLng(returnedAddress.getLatitude(), returnedAddress.getLongitude());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return latLng;
     }
 }

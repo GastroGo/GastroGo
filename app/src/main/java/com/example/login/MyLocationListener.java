@@ -1,6 +1,5 @@
 package com.example.login;
 
-
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -13,37 +12,46 @@ import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-
 public class MyLocationListener implements LocationListener {
-    Context context;
-    GoogleMap gMap;
+    Startseite startseite;
+    GoogleMap gMap; // Add this line
+    Context context; // Add this line
 
-    public MyLocationListener(Context context, GoogleMap gMap) {
-        this.context = context;
-        this.gMap = gMap;
+    public MyLocationListener(Startseite startseite, GoogleMap gMap, Context context) {
+        this.startseite = startseite;
+        this.gMap = gMap; // Modify this line
+        this.context = context; // Add this line
     }
 
-    public MyLocationListener() {
-    }
+    public MyLocationListener() {}
 
     @Override
     public void onLocationChanged(Location loc) {
         LatLng latLng = new LatLng(loc.getLatitude(), loc.getLongitude());
         gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 10));
-        Marker marker = gMap.addMarker(new MarkerOptions().position(latLng).title("Sie befinden sich hier"));
+
+        // Vorherigen Marker entfernen, wenn vorhanden
+        if (startseite.currentLocationMarker != null) {
+            startseite.currentLocationMarker.remove();
+        }
+
+        // Neuen Marker hinzufügen und Referenz speichern
+        startseite.currentLocationMarker = gMap.addMarker(new MarkerOptions()
+                .icon(BitmapDescriptorFactory.defaultMarker(200))
+                .position(latLng)
+                .title("Sie befinden sich hier"));
     }
 
     @Override
-    public void onProviderDisabled(String provider) {
-    }
+    public void onProviderDisabled(String provider) {}
 
     @Override
-    public void onProviderEnabled(String provider) {
-    }
+    public void onProviderEnabled(String provider) {}
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
