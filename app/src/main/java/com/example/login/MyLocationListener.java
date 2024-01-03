@@ -28,30 +28,37 @@ public class MyLocationListener implements LocationListener {
         this.context = context;
     }
 
-    public MyLocationListener() {}
-
-    @Override
-    public void onLocationChanged(Location loc) {
-        LatLng latLng = new LatLng(loc.getLatitude(), loc.getLongitude());
-        gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 10));
-
-        // Vorherigen Marker entfernen, wenn vorhanden
-        if (startseite.currentLocationMarker != null) {
-            startseite.currentLocationMarker.remove();
-        }
-
-        // Neuen Marker hinzufügen und Referenz speichern
-        startseite.currentLocationMarker = gMap.addMarker(new MarkerOptions()
-                .icon(BitmapDescriptorFactory.defaultMarker(200))
-                .position(latLng)
-                .title("Sie befinden sich hier"));
+    public MyLocationListener() {
     }
 
     @Override
-    public void onProviderDisabled(String provider) {}
+    public void onLocationChanged(Location loc) {
+        if (loc != null) {
+            LatLng latLng = new LatLng(loc.getLatitude(), loc.getLongitude());
+            gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 10));
+
+            // Vorherigen Marker entfernen, wenn vorhanden
+            if (startseite.currentLocationMarker != null) {
+                startseite.currentLocationMarker.remove();
+            }
+
+            // Neuen Marker hinzufügen und Referenz speichern
+            startseite.currentLocationMarker = gMap.addMarker(new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.defaultMarker(200))
+                    .position(latLng)
+                    .title("Sie befinden sich hier"));
+        } else {
+            // Handle the case when loc is null
+        }
+    }
 
     @Override
-    public void onProviderEnabled(String provider) {}
+    public void onProviderDisabled(String provider) {
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+    }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -66,9 +73,13 @@ public class MyLocationListener implements LocationListener {
         Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (lastKnownLocation != null) {
             onLocationChanged(lastKnownLocation);
-        } else if(lastKnownLocation == null) {
+        } else {
             lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            onLocationChanged(lastKnownLocation);
+            if (lastKnownLocation != null) {
+                onLocationChanged(lastKnownLocation);
+            } else {
+                // Handle the case when lastKnownLocation is null
+            }
         }
     }
 }
