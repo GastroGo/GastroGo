@@ -2,8 +2,7 @@ package com.example.qrcodepdf;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.Environment;
-import java.util.Random;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Image;
@@ -15,6 +14,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Random;
 
 public class ImageInPDF {
 
@@ -57,7 +57,6 @@ public class ImageInPDF {
         }
         return null;
     }
-
 
 
     public static String generateRandomString() {

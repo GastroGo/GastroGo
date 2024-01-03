@@ -15,9 +15,10 @@
     <color name="navigationBarColor">#181818</color>
     <color name="windowBackground">#FFFFFF</color>
 
-    <color name="light_second" >#C883AF8E</color>
-    <color name="light_third" >#0D470F</color>
-    <color name="zxing_transparent" >#00000000</color>
-    <color name="blue" >#0D470F</color> //2f59fb
-    <color name="red" >#e05136</color>
+    <color name="light_second">#C883AF8E</color>
+    <color name="light_third">#0D470F</color>
+    <color name="zxing_transparent">#00000000</color>
+    <color name="blue">#0D470F</color>
+    //2f59fb
+    <color name="red">#e05136</color>
 </resources>

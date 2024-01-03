@@ -27,7 +27,8 @@ public class MyLocationListener implements LocationListener {
         this.gMap = gMap;
     }
 
-    public MyLocationListener() {}
+    public MyLocationListener() {
+    }
 
     @Override
     public void onLocationChanged(Location loc) {
@@ -37,13 +38,16 @@ public class MyLocationListener implements LocationListener {
     }
 
     @Override
-    public void onProviderDisabled(String provider) {}
+    public void onProviderDisabled(String provider) {
+    }
 
     @Override
-    public void onProviderEnabled(String provider) {}
+    public void onProviderEnabled(String provider) {
+    }
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {}
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+    }
 
     public void getLastKnownLocation(LocationManager locationManager) {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED

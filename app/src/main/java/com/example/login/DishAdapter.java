@@ -1,6 +1,5 @@
 package com.example.login;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -109,7 +108,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
         holder.buttonDeleteDish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext(), R.style.RoundedDialog);
                 LayoutInflater inflater = LayoutInflater.from(v.getContext());
                 View view = inflater.inflate(R.layout.dialog_delete_dish, null);
                 builder.setView(view);
@@ -135,7 +134,8 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {}
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
                     });
 
                     dishes.remove(currentPosition);
@@ -160,7 +160,8 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {}
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
                     });
 
                     //Löschen aller Gerichte aus der Datenbank

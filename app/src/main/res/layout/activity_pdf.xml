@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,16 +8,16 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/layout_result"
-        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:orientation="vertical">
 
         <ImageView
-            android:src="@drawable/pdf_file"
             android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            android:src="@drawable/pdf_file" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -27,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="420dp"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/counter"
@@ -43,19 +42,18 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:stepSize="2"
             android:valueFrom="0"
             android:valueTo="200"
-            android:stepSize="2"
+            app:haloColor="@color/zxing_transparent"
             app:labelBehavior="gone"
+            app:thumbColor="@color/white"
             app:thumbStrokeColor="@color/black"
             app:thumbStrokeWidth="3dp"
-            app:thumbColor="@color/white"
-            app:trackColor="@color/black"
-            app:haloColor="@color/zxing_transparent"
-            app:tickColor="@color/black" />
+            app:tickColor="@color/black"
+            app:trackColor="@color/black" />
 
     </LinearLayout>
-
 
 
     <com.google.android.material.bottomappbar.BottomAppBar
@@ -74,9 +72,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:contentDescription="QRCode"
-        app:backgroundTint="@color/black"
-        app:tint="@android:color/white"
         android:src="@drawable/pdf_file"
-        app:layout_anchor="@+id/bottomAppBar" />
+        app:backgroundTint="@color/black"
+        app:layout_anchor="@+id/bottomAppBar"
+        app:tint="@android:color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

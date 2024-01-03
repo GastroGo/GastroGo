@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,16 +8,16 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/layout_result"
-        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:orientation="vertical">
 
         <ImageView
-            android:src="@drawable/qr_scan"
             android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            android:src="@drawable/qr_scan" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -42,5 +41,11 @@
         app:backgroundTint="@color/black"
         app:layout_anchor="@+id/bottomAppBar"
         app:tint="@android:color/white" />
+
+    <Button
+        android:id="@+id/button_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="überspringen" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

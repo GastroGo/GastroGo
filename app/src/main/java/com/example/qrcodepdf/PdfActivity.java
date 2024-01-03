@@ -1,10 +1,5 @@
 package com.example.qrcodepdf;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
-
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -16,6 +11,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import com.example.login.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -31,6 +30,7 @@ import java.io.File;
 public class PdfActivity extends AppCompatActivity {
 
     int anzahl = 0;
+    String id = "-NkF_dqyroONEdMqgfgC";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +56,6 @@ public class PdfActivity extends AppCompatActivity {
             }
         });
     }
-
-    String id = "-NkF_dqyroONEdMqgfgC";
 
     public String[] mergingID(int count) {
         String[] idMerged = new String[count];
@@ -122,7 +120,7 @@ public class PdfActivity extends AppCompatActivity {
         paint.setTextSize(25);
         paint.setAntiAlias(true);
 
-        String finaleNumber = tableNumber.toString().substring(tableNumber.length()-3, tableNumber.length());
+        String finaleNumber = tableNumber.toString().substring(tableNumber.length() - 3, tableNumber.length());
 
         Rect textBounds = new Rect();
         paint.getTextBounds(finaleNumber, 0, finaleNumber.length(), textBounds);
