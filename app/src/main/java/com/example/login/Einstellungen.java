@@ -1,5 +1,6 @@
 package com.example.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -122,11 +123,10 @@ public class Einstellungen extends AppCompatActivity {
                                         String childKey = grandChildRef.getKey();
                                         String parentKey = childRef.getKey();
                                         String uid = sRef.getUserId();
-                                        // Intent intent = new Intent(getApplicationContext(), MitarbeiterSeiteOderSoKeinPlanSoWeitBinIchNochNicht.class);
-                                        // intent.putExtra("restaurantId", parentKey); // Pass the restaurant ID to CreateMenu activity
-                                        // startActivity(intent);
+                                        Intent intent = new Intent(getApplicationContext(), EmployeesView.class);
+                                        intent.putExtra("restaurantId", parentKey); // Pass the restaurant ID to CreateMenu activity
+                                        startActivity(intent);
                                         ref.child(parentKey).child(childKey).child("UID").setValue(uid);
-                                        Toast.makeText(Einstellungen.this, "Restaurant: " + parentKey, Toast.LENGTH_SHORT).show();
                                     }
                                 }
                                 keyFound = true;
