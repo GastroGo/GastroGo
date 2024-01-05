@@ -23,6 +23,9 @@
         android:theme="@style/Theme.Login"
         tools:targetApi="31">
         <activity
+            android:name=".EmployeesView"
+            android:exported="false" />
+        <activity
             android:name=".ManageMenu"
             android:exported="false" />
         <activity
@@ -63,24 +66,22 @@
             android:exported="false" />
         <activity
             android:name="com.example.qrcodegenerator.QRCodeReader"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name="com.example.qrcodepdf.PdfActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name="com.example.Bestellungen.BestellungenActivity"
             android:exported="false" />
         <activity
             android:name="com.example.Tische.TischeActivity"
-            android:exported="true"/>
+            android:exported="true" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBmTdKR4YI0DqvIGoQlNlZOmuBtjbnScVY" />
 
         <activity android:name="com.example.mitarbeiterverwaltung.MitarbeiterVerwalten" />
-
     </application>
 
 </manifest>
