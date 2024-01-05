@@ -127,7 +127,6 @@ public class Einstellungen extends AppCompatActivity {
                                         intent.putExtra("restaurantId", parentKey); // Pass the restaurant ID to CreateMenu activity
                                         startActivity(intent);
                                         ref.child(parentKey).child(childKey).child("UID").setValue(uid);
-                                        Toast.makeText(Einstellungen.this, "Restaurant: " + parentKey, Toast.LENGTH_SHORT).show();
                                     }
                                 }
                                 keyFound = true;

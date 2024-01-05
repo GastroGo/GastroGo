@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.Tische.TischeActivity;
+
 public class EmployeesView extends AppCompatActivity {
 
     Button settings, user, work;
@@ -25,7 +27,8 @@ public class EmployeesView extends AppCompatActivity {
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getApplicationContext(), Einstellungen.class);
+                startActivity(intent);
             }
         });
 
@@ -40,7 +43,9 @@ public class EmployeesView extends AppCompatActivity {
         work.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getApplicationContext(), TischeActivity.class);
+                intent.putExtra("restaurantId", getIntent().getStringExtra("restaurantId"));
+                startActivity(intent);
             }
         });
 
