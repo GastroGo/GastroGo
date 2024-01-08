@@ -49,4 +49,13 @@ public class GerichteModel {
         return iNummer;
     }
 
+    public int getGerichtIndex(String gerichtName){
+        for(int x = 0; x < gerichte.length; x++) {
+            if (gerichte[x].getGericht().equalsIgnoreCase(gerichtName)) {
+                return x;
+            }
+        }
+        return -1;
+    }
+
 }

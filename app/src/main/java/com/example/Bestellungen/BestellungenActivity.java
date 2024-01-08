@@ -20,6 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.List;
+
 public class BestellungenActivity extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -39,7 +41,7 @@ public class BestellungenActivity extends AppCompatActivity {
         int tischNr = getIntent().getIntExtra("TableNr", -1);
 
         RecyclerView recyclerView = findViewById(R.id.BestellungenRecyclerView);
-        RV_Adapter_Bestellungen adapterBestellungen = new RV_Adapter_Bestellungen(tischNr);
+        RV_Adapter_Bestellungen adapterBestellungen = new RV_Adapter_Bestellungen(tischNr, restaurantId);
         recyclerView.setAdapter(adapterBestellungen);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -48,7 +50,7 @@ public class BestellungenActivity extends AppCompatActivity {
         Button back = findViewById(R.id.TischBestellungenBack);
         back.setOnClickListener(view -> finish());
 
-        dbRef.child(restaurantId).addValueEventListener(new ValueEventListener() {
+        /*dbRef.child(restaurantId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 int NumberOfTables = (int) snapshot.child("tische").getChildrenCount();
@@ -74,7 +76,7 @@ public class BestellungenActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
+        });*/
     }
 
 }

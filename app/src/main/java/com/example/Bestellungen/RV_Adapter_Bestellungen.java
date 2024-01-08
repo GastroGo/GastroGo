@@ -1,5 +1,6 @@
 package com.example.Bestellungen;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,23 +13,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.DBKlassen.GerichteModel;
 import com.example.DBKlassen.TablelistModel;
 import com.example.login.R;
+import com.example.qrcodegenerator.Gericht;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import android.content.Context;
+import android.widget.Toast;
 
-public class RV_Adapter_Bestellungen extends RecyclerView.Adapter<RV_Adapter_Bestellungen.ViewHolder> {
+public class RV_Adapter_Bestellungen extends RecyclerView.Adapter<RV_Adapter_Bestellungen.ViewHolder>{
 
     int tableNumber;
+    String restaurantID;
     TablelistModel tableListO = TablelistModel.getInstance();
     GerichteModel gerichteListeO = GerichteModel.getInstance();
     ArrayList<String[]> tableOrders = new ArrayList<String[]>();
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference dbRef = database.getReference("Restaurants");
 
-    public RV_Adapter_Bestellungen(int tableNumber){
+    public RV_Adapter_Bestellungen(int tableNumber, String restaurantID){
         this.tableNumber = tableNumber;
+        this.restaurantID = restaurantID;
     }
 
     @NonNull
@@ -40,13 +45,14 @@ public class RV_Adapter_Bestellungen extends RecyclerView.Adapter<RV_Adapter_Bes
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.dishName.setText(gerichteListeO.getGerichtName(tableOrders.get(position)[0]));
-        holder.numberDishes.setText(tableOrders.get(position)[1]);
+        int pos = position;
+        holder.dishName.setText(gerichteListeO.getGerichtName(tableOrders.get(pos)[0]));
+        holder.numberDishes.setText(tableOrders.get(pos)[1]);
 
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                resetOrder(pos);
             }
         });
     }
@@ -64,6 +70,32 @@ public class RV_Adapter_Bestellungen extends RecyclerView.Adapter<RV_Adapter_Bes
         }
 
         return counter;
+    }
+
+    private void resetOrder(int indexOfOrder) {
+        DatabaseReference bestellungenRef = FirebaseDatabase.getInstance()
+                .getReference("Restaurants")
+                .child(restaurantID)
+                .child("tische")
+                .child("T" + String.format("%03d", tableNumber))
+                .child("bestellungen");
+
+        String gericht = tableOrders.get(indexOfOrder)[0];
+
+        Log.i("order", gericht);
+
+        int index = gerichteListeO.getGerichtIndex(gericht);
+        /*for (Gericht gericht : gerichtList) {
+            String formattedIndex = String.format("%03d", index);
+            bestellungenRef.child("G" + formattedIndex).setValue(gericht.getFinalAmount());
+            index++;
+        }*/
+
+        if (true){
+            String formattedIndex = String.format("%03d", index);
+            bestellungenRef.child(gericht).setValue(0);
+        }
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
