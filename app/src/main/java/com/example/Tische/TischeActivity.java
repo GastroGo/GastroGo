@@ -2,6 +2,7 @@ package com.example.Tische;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,6 +46,10 @@ public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tisc
         recyclerView.setAdapter(adapterTische);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         restaurantId = getIntent().getStringExtra("restaurantId");
+        Button returnButton = findViewById(R.id.returnButtonTische);
+
+        returnButton.setOnClickListener(view -> finish());
+
         dbRef.child(restaurantId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -79,6 +84,7 @@ public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tisc
         Intent intent = new Intent(this, BestellungenActivity.class);
         intent.putExtra("TableNr", tableNumber);
         intent.putExtra("restaurantId", restaurantId);
+
         startActivity(intent);
     }
 }

@@ -73,36 +73,32 @@ public class RV_Adapter_Bestellungen extends RecyclerView.Adapter<RV_Adapter_Bes
     }
 
     private void resetOrder(int indexOfOrder) {
+        Log.i("order", "Wird Ausgeführt");
+        Log.i("order", String.format("%03d", tableNumber));
         DatabaseReference bestellungenRef = FirebaseDatabase.getInstance()
                 .getReference("Restaurants")
-                .child(restaurantID)
+                .child(restaurantID);/*
                 .child("tische")
                 .child("T" + String.format("%03d", tableNumber))
-                .child("bestellungen");
+                .child("bestellungen");*/
+
+        Log.i("order", "Wird Ausgeführt2");
 
         String gericht = tableOrders.get(indexOfOrder)[0];
 
+
+
         Log.i("order", gericht);
 
-        int index = gerichteListeO.getGerichtIndex(gericht);
-        /*for (Gericht gericht : gerichtList) {
-            String formattedIndex = String.format("%03d", index);
-            bestellungenRef.child("G" + formattedIndex).setValue(gericht.getFinalAmount());
-            index++;
-        }*/
-
-        if (true){
-            String formattedIndex = String.format("%03d", index);
-            bestellungenRef.child(gericht).setValue(0);
-        }
+        //bestellungenRef.child(gericht).setValue(0);
 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView dishName;
-        private TextView numberDishes;
-        private CheckBox checkBox;
+        TextView dishName;
+        TextView numberDishes;
+        CheckBox checkBox;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -111,16 +107,6 @@ public class RV_Adapter_Bestellungen extends RecyclerView.Adapter<RV_Adapter_Bes
             this.checkBox = itemView.findViewById(R.id.RV_CB_CheckBox);
         }
 
-        public TextView getDishName() {
-            return dishName;
-        }
 
-        public TextView getNumberDishes() {
-            return numberDishes;
-        }
-
-        public CheckBox getCheckBox() {
-            return checkBox;
-        }
     }
 }

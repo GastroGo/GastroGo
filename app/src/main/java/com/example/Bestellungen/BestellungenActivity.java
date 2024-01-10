@@ -1,6 +1,7 @@
 package com.example.Bestellungen;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -38,6 +39,10 @@ public class BestellungenActivity extends AppCompatActivity {
 
         TextView title = findViewById(R.id.TischBestellungenTitle);
 
+        Button returnButton = findViewById(R.id.returnButtonBestellungen);
+
+        returnButton.setOnClickListener(view -> finish());
+
         int tischNr = getIntent().getIntExtra("TableNr", -1);
 
         RecyclerView recyclerView = findViewById(R.id.BestellungenRecyclerView);
@@ -45,10 +50,7 @@ public class BestellungenActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapterBestellungen);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        title.setText("Tisch " + tischNr);
-
-        Button back = findViewById(R.id.TischBestellungenBack);
-        back.setOnClickListener(view -> finish());
+        title.setText("Tisch " + String.format("%03d", tischNr));
 
         /*dbRef.child(restaurantId).addValueEventListener(new ValueEventListener() {
             @Override
