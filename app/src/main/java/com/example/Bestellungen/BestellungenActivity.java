@@ -1,6 +1,7 @@
 package com.example.Bestellungen;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -49,7 +50,7 @@ public class BestellungenActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapterBestellungen);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        title.setText("Tisch " + tischNr);
+        title.setText("Tisch " + String.format("%03d", tischNr));
 
         /*dbRef.child(restaurantId).addValueEventListener(new ValueEventListener() {
             @Override
