@@ -83,7 +83,7 @@ public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tisc
     public void onItemClick(int tableNumber) {
         Intent intent = new Intent(this, BestellungenActivity.class);
         intent.putExtra("TableNr", tableNumber);
-
+        intent.putExtra("restaurantId", restaurantId);
 
         startActivity(intent);
     }
