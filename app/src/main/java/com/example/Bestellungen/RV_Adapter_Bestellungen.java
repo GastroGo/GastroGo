@@ -77,10 +77,10 @@ public class RV_Adapter_Bestellungen extends RecyclerView.Adapter<RV_Adapter_Bes
         Log.i("order", String.format("%03d", tableNumber));
         DatabaseReference bestellungenRef = FirebaseDatabase.getInstance()
                 .getReference("Restaurants")
-                .child(restaurantID);/*
+                .child(restaurantID)
                 .child("tische")
                 .child("T" + String.format("%03d", tableNumber))
-                .child("bestellungen");*/
+                .child("bestellungen");
 
         Log.i("order", "Wird Ausgeführt2");
 
@@ -90,7 +90,7 @@ public class RV_Adapter_Bestellungen extends RecyclerView.Adapter<RV_Adapter_Bes
 
         Log.i("order", gericht);
 
-        //bestellungenRef.child(gericht).setValue(0);
+        bestellungenRef.child(gericht).setValue(0);
 
     }
 
