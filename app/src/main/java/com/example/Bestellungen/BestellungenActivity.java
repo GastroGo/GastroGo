@@ -38,6 +38,10 @@ public class BestellungenActivity extends AppCompatActivity {
 
         TextView title = findViewById(R.id.TischBestellungenTitle);
 
+        Button returnButton = findViewById(R.id.returnButtonBestellungen);
+
+        returnButton.setOnClickListener(view -> finish());
+
         int tischNr = getIntent().getIntExtra("TableNr", -1);
 
         RecyclerView recyclerView = findViewById(R.id.BestellungenRecyclerView);
@@ -46,9 +50,6 @@ public class BestellungenActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         title.setText("Tisch " + tischNr);
-
-        Button back = findViewById(R.id.TischBestellungenBack);
-        back.setOnClickListener(view -> finish());
 
         /*dbRef.child(restaurantId).addValueEventListener(new ValueEventListener() {
             @Override

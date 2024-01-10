@@ -84,17 +84,7 @@ public class RV_Adapter_Bestellungen extends RecyclerView.Adapter<RV_Adapter_Bes
 
         Log.i("order", gericht);
 
-        int index = gerichteListeO.getGerichtIndex(gericht);
-        /*for (Gericht gericht : gerichtList) {
-            String formattedIndex = String.format("%03d", index);
-            bestellungenRef.child("G" + formattedIndex).setValue(gericht.getFinalAmount());
-            index++;
-        }*/
-
-        if (true){
-            String formattedIndex = String.format("%03d", index);
-            bestellungenRef.child(gericht).setValue(0);
-        }
+        bestellungenRef.child(gericht).setValue(0);
 
     }
 
