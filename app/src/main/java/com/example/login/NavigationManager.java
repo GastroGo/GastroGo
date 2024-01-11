@@ -1,5 +1,6 @@
 package com.example.login;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.MenuItem;
@@ -20,10 +21,16 @@ public class NavigationManager {
                     FirebaseAuth.getInstance().signOut();
                     Intent intent = new Intent(context, Login.class);
                     context.startActivity(intent);
+                    if(context instanceof Activity) {
+                        ((Activity) context).finish();
+                    }
                     return true;
                 } else if (id == R.id.menuHome) {
                     Intent intent = new Intent(context, Startseite.class);
                     context.startActivity(intent);
+                    if(context instanceof Activity) {
+                        ((Activity) context).finish();
+                    }
                     return true;
                 } else if (id == R.id.menuSettings) {
                     Intent intent = new Intent(context, Einstellungen.class);
