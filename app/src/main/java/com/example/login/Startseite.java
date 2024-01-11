@@ -43,7 +43,6 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
     GoogleMap gMap;
     Marker currentLocationMarker;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

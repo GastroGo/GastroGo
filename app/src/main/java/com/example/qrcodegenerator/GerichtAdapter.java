@@ -47,6 +47,7 @@ public class GerichtAdapter extends RecyclerView.Adapter<GerichtAdapter.GerichtV
         zutatenText.deleteCharAt(zutatenText.length() - 2);
         holder.textViewInfo.setText(zutatenText.toString());
 
+
         holder.btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
