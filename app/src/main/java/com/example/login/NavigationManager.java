@@ -36,9 +36,12 @@ public class NavigationManager {
                     Intent intent = new Intent(context, Einstellungen.class);
                     context.startActivity(intent);
                     return true;
-                }
-                //Weitere If Anweisungen für andere Icons
-                return false;
+                } else if (id == R.id.qrCode) {
+                    Intent intent = new Intent(context, com.example.qrcodegenerator.QRCodeReader.class);
+                    context.startActivity(intent);
+                    return true;
+                    //Weitere If Anweisungen für andere Icons
+                } return false;
             }
         });
     }

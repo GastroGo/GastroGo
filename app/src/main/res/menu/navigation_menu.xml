@@ -5,6 +5,10 @@
         android:icon="@drawable/ic_home"
         android:title="Starseite" />
     <item
+    android:id="@+id/qrCode"
+    android:icon="@drawable/qr_scan"
+    android:title="Scannen" />
+    <item
         android:id="@+id/menuSettings"
         android:icon="@drawable/ic_settings"
         android:title="Einstellungen" />
@@ -12,4 +16,8 @@
         android:id="@+id/menuAccount"
         android:icon="@drawable/ic_logout"
         android:title="Abmelden" />
+    <item
+        android:id="@+id/rechnungen"
+        android:icon="@drawable/bill_1_"
+        android:title="Rechnung" />
 </menu>

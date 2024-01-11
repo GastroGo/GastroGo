@@ -4,22 +4,18 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import com.google.android.gms.maps.CameraUpdateFactory;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -44,7 +40,6 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     FirebaseAuth auth;
     FirebaseUser user;
-    MaterialButton qrButton, zoomOutButton, zoomInButton;
     GoogleMap gMap;
     Marker currentLocationMarker;
 
@@ -53,7 +48,6 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startseite);
-        qrButton = findViewById(R.id.qr_button);
         auth = FirebaseAuth.getInstance();
 
         user = auth.getCurrentUser();
@@ -67,21 +61,14 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavigationManager.setupBottomNavigationView(bottomNavigationView, this);
 
-        qrButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), com.example.qrcodegenerator.QRCodeReader.class);
-                startActivity(intent);
-            }
-        });
 
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
 
-
     }
+
     public String getUserId() {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -110,7 +97,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
     public void onMapReady(@NonNull GoogleMap googleMap) {
         SupportMapFragment mMapView = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         gMap = googleMap;
-        gMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         MyLocationListener locationListener = new MyLocationListener(this, gMap, this);
 
@@ -158,7 +145,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
                             gMap.addMarker(new MarkerOptions()
                                     .position(latLng)
                                     .title(daten.getName())
-                                    .snippet("Entfernung: "+ distanceInMeters/1000 + "km"));
+                                    .snippet("Entfernung: " + distanceInMeters / 1000 + "km"));
                         }
                     }
                 }
