@@ -1,5 +1,6 @@
 package com.example.Tische;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,9 +48,7 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!holder.checkBox.isChecked()){
-                    resetAllOrders(pos + 1);
-                }
+                resetAllOrders(pos + 1);
 
             }
         });
@@ -70,17 +69,8 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
                 .child("T" + String.format("%03d", tableNum))
                 .child("bestellungen");
 
-        bestellungenRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                numberOfGerichte = (int) snapshot.getChildrenCount();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        Log.i("Gerichte", String.valueOf(numberOfGerichte));
 
         //bestellungenRef.child(gericht).setValue(0);
 
@@ -90,6 +80,10 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
             bestellungenRef.child(gericht).setValue(0);
         }
 
+    }
+
+    public void setNumberOfGerichte(int numberOfGerichte){
+        this.numberOfGerichte = numberOfGerichte;
     }
 
 
