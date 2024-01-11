@@ -40,12 +40,12 @@ public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tisc
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tische);
+        restaurantId = getIntent().getStringExtra("restaurantId");
 
         recyclerView = findViewById(R.id.mRecyclerView);
-        RV_Adapter_Tische adapterTische = new RV_Adapter_Tische(this);
+        RV_Adapter_Tische adapterTische = new RV_Adapter_Tische(this, restaurantId);
         recyclerView.setAdapter(adapterTische);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        restaurantId = getIntent().getStringExtra("restaurantId");
         Button returnButton = findViewById(R.id.returnButtonTische);
 
         returnButton.setOnClickListener(view -> finish());
@@ -77,6 +77,8 @@ public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tisc
 
             }
         });
+
+
     }
 
     @Override

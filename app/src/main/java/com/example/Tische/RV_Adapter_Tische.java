@@ -13,15 +13,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.DBKlassen.TablelistModel;
 import com.example.DBKlassen.Tische;
 import com.example.login.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.ViewHolder> {
 
     private final TablelistModel tableListO = TablelistModel.getInstance();
     private final Tische[] tischeArray = TablelistModel.getInstance().getTischeArray();
     private final OnItemClickListener onItemClickListener;
+    private String restaurantID;
+    private int numberOfGerichte;
 
-    public RV_Adapter_Tische(OnItemClickListener onItemClickListener) {
+    public RV_Adapter_Tische(OnItemClickListener onItemClickListener, String restaurantID) {
         this.onItemClickListener = onItemClickListener;
+        this.restaurantID = restaurantID;
     }
 
     @NonNull
@@ -33,14 +41,51 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tableNr.setText("Tisch " + (position + 1));
+        int pos = position;
+        holder.tableNr.setText("Tisch " + (pos + 1));
+
+        holder.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetAllOrders(pos + 1);
+            }
+        });
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onItemClickListener.onItemClick(holder.getAdapterPosition() + 1);
+                onItemClickListener.onItemClick(pos + 1);
             }
         });
+    }
+
+    private void resetAllOrders(int tableNum){
+        DatabaseReference bestellungenRef = FirebaseDatabase.getInstance()
+                .getReference("Restaurants")
+                .child(restaurantID)
+                .child("tische")
+                .child("T" + String.format("%03d", tableNum))
+                .child("bestellungen");
+
+        bestellungenRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                numberOfGerichte = (int) snapshot.getChildrenCount();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        //bestellungenRef.child(gericht).setValue(0);
+
+        for(int x = 1; x <= numberOfGerichte; x++){
+            String gericht = "G" + String.format("%03d", x);
+            bestellungenRef.child(gericht).setValue(0);
+        }
+
     }
 
 
@@ -65,7 +110,7 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
             super(itemView);
             this.tableNr = itemView.findViewById(R.id.RV_TV_TableNr);
             this.timer = itemView.findViewById(R.id.RV_TV_Timer);
-            this.checkBox = itemView.findViewById(R.id.RV_CB_CheckBox);
+            this.checkBox = itemView.findViewById(R.id.RV_CB_CheckBoxTische);
             cardView = itemView.findViewById(R.id.RV_CardView);
         }
     }
