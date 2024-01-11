@@ -47,7 +47,10 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                resetAllOrders(pos + 1);
+                if(!holder.checkBox.isChecked()){
+                    resetAllOrders(pos + 1);
+                }
+
             }
         });
 
@@ -81,8 +84,9 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
 
         //bestellungenRef.child(gericht).setValue(0);
 
+        String gericht;
         for(int x = 1; x <= numberOfGerichte; x++){
-            String gericht = "G" + String.format("%03d", x);
+            gericht = "G" + String.format("%03d", x);
             bestellungenRef.child(gericht).setValue(0);
         }
 
