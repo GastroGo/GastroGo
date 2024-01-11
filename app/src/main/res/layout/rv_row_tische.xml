@@ -50,6 +50,10 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
+<<<<<<< Updated upstream
+=======
+                    android:text="Fix das endlich du Bastard"
+>>>>>>> Stashed changes
                     android:textColor="#FFFFFF" />
 
             </LinearLayout>

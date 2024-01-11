@@ -1,7 +1,14 @@
 package com.example.qrcodepdf;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.os.Environment;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -18,14 +25,25 @@ import java.util.Random;
 
 public class ImageInPDF {
 
+    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
+
     public static File createPDFWithImages(Context context, Bitmap[] bitmaps) {
         try {
+            // Überprüfen Sie die Berechtigung zum Schreiben in den externen Speicher
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                // Permission is not granted
+                ActivityCompat.requestPermissions((Activity) context,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+            }
+
             // Erstelle ein Dokument
             Document document = new Document(PageSize.A4);
 
-            // Pfad zum PDF-Datei im internen Speicher
+            // Pfad zur PDF-Datei im externen Speicher
             String pdfFileName = generateRandomString();
-            File pdfFile = new File(context.getFilesDir(), pdfFileName);
+            File pdfFile = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), pdfFileName);
 
             PdfWriter.getInstance(document, new FileOutputStream(pdfFile));
             document.open();

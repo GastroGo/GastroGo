@@ -4,12 +4,16 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -70,18 +74,12 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
                 startActivity(intent);
             }
         });
-        zoomOutButton = findViewById(R.id.zOut_button);
-        zoomInButton = findViewById(R.id.zIn_button);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.id_map);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        zoomOutButton.setOnClickListener(v -> {
-            gMap.animateCamera(CameraUpdateFactory.zoomOut());
-        });
-        zoomInButton.setOnClickListener(v -> {
-            gMap.animateCamera(CameraUpdateFactory.zoomIn());
-        });
+
 
     }
     public String getUserId() {
@@ -108,26 +106,25 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         });
     }
 
-
-
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
+        SupportMapFragment mMapView = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         gMap = googleMap;
+        gMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         MyLocationListener locationListener = new MyLocationListener(this, gMap, this);
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-                    LOCATION_PERMISSION_REQUEST_CODE);
-
-            return;
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            gMap.setMyLocationEnabled(true);
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
         locationListener.getLastKnownLocation(locationManager);
         addRestaurantsOnMap();
+        int padding = 100; // replace with desired padding in pixels
+        gMap.setPadding(0, padding, 0, 0);
+
+
     }
 
     @Override

@@ -30,12 +30,13 @@ import java.io.File;
 public class PdfActivity extends AppCompatActivity {
 
     int anzahl = 0;
-    String id = "-NkF_dqyroONEdMqgfgC";
+    String restaurantId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdf);
+        restaurantId = getIntent().getStringExtra("restaurantId");
 
         Slider slider = findViewById(R.id.slider);
         TextView sliderValue = findViewById(R.id.counter);
@@ -60,7 +61,7 @@ public class PdfActivity extends AppCompatActivity {
     public String[] mergingID(int count) {
         String[] idMerged = new String[count];
         for (int i = 0; i < count; i++) {
-            idMerged[i] = id + String.format("%03d", i + 1);
+            idMerged[i] = restaurantId + String.format("%03d", i + 1);
         }
         return idMerged;
     }

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mitarbeiterverwaltung.MitarbeiterVerwalten;
+import com.example.qrcodepdf.PdfActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -78,8 +79,11 @@ public class ManageRestaurant extends AppCompatActivity {
         qrcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), com.example.qrcodepdf.PdfActivity.class);
-                startActivity(intent);
+                if (restaurantDaten != null && restaurantDaten.getId() != null) {
+                    Intent intent = new Intent(ManageRestaurant.this, PdfActivity.class);
+                    intent.putExtra("restaurantId", restaurantDaten.getId());
+                    startActivity(intent);
+                } else {}
             }
         });
         orders.setOnClickListener(new View.OnClickListener() {
