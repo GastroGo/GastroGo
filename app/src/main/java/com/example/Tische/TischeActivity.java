@@ -55,6 +55,7 @@ public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tisc
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 NumberOfTables = (int) snapshot.child("tische").getChildrenCount();
                 NumberOfGerichte = (int) snapshot.child("speisekarte").getChildrenCount();
+                adapterTische.setNumberOfGerichte(NumberOfGerichte);
 
                 tableListO.setup(NumberOfTables);
                 gerichteListO.setup(NumberOfGerichte);
