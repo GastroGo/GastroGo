@@ -31,6 +31,7 @@ public class BestellungenActivity extends AppCompatActivity {
     TablelistModel tableListO = TablelistModel.getInstance();
 
     GerichteModel gerichteListO = GerichteModel.getInstance();
+    boolean openOrClosed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

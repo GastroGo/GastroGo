@@ -19,7 +19,7 @@
             android:id="@+id/linearLayout2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/shape"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -28,32 +28,32 @@
 
             <Button
                 android:id="@+id/button3"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:backgroundTint="@color/zxing_transparent"
-                android:shadowColor="@color/zxing_transparent"
-                android:text="Button"
-                android:textColor="@color/black"
-                style="?android:attr/borderlessButtonStyle"
-                app:cornerRadius="0dp" />
+                android:background="@drawable/roundstyle"
+                android:text="Offen"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/light_third" />
 
             <Button
                 android:id="@+id/button4"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:backgroundTint="@color/zxing_transparent"
-                android:text="Button"
+                android:background="@color/zxing_transparent"
+                android:text="Geschl"
                 android:textColor="@color/black"
-                style="?android:attr/borderlessButtonStyle"
-                app:cornerRadius="0dp" />
+                app:backgroundTint="@color/light_third"
+                app:cornerRadius="8dp" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -62,6 +62,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:clipToPadding="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
