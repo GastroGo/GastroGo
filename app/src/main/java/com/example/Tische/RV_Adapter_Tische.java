@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -101,7 +102,7 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
         private final TextView tableNr;
         private final TextView timer;
         private final CheckBox checkBox;
-        private final CardView cardView;
+        private final LinearLayout cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
