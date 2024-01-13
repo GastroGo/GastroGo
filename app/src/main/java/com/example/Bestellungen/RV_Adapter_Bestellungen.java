@@ -46,8 +46,7 @@ public class RV_Adapter_Bestellungen extends RecyclerView.Adapter<RV_Adapter_Bes
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         int pos = position;
-        holder.dishName.setText(gerichteListeO.getGerichtName(tableOrders.get(pos)[0]));
-        holder.numberDishes.setText(tableOrders.get(pos)[1]);
+        holder.dishName.setText(tableOrders.get(pos)[1] + "x " + gerichteListeO.getGerichtName(tableOrders.get(pos)[0]));
 
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +59,7 @@ public class RV_Adapter_Bestellungen extends RecyclerView.Adapter<RV_Adapter_Bes
     @Override
     public int getItemCount() {
         int counter = 0;
+        tableOrders.clear();
 
         for (Map.Entry<String, Integer> entry : tableListO.getTischeArray()[tableNumber-1].getBestellungen().entrySet()) {
             //restaurantTische.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
@@ -73,7 +73,6 @@ public class RV_Adapter_Bestellungen extends RecyclerView.Adapter<RV_Adapter_Bes
     }
 
     private void resetOrder(int indexOfOrder) {
-        Log.i("order", "Wird Ausgeführt");
         Log.i("order", String.format("%03d", tableNumber));
         DatabaseReference bestellungenRef = FirebaseDatabase.getInstance()
                 .getReference("Restaurants")
@@ -82,13 +81,7 @@ public class RV_Adapter_Bestellungen extends RecyclerView.Adapter<RV_Adapter_Bes
                 .child("T" + String.format("%03d", tableNumber))
                 .child("bestellungen");
 
-        Log.i("order", "Wird Ausgeführt2");
-
         String gericht = tableOrders.get(indexOfOrder)[0];
-
-
-
-        Log.i("order", gericht);
 
         bestellungenRef.child(gericht).setValue(0);
 
@@ -97,13 +90,11 @@ public class RV_Adapter_Bestellungen extends RecyclerView.Adapter<RV_Adapter_Bes
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView dishName;
-        TextView numberDishes;
         CheckBox checkBox;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.dishName = itemView.findViewById(R.id.RV_TV_DishName);
-            this.numberDishes = itemView.findViewById(R.id.RV_TV_NumberDishes);
             this.checkBox = itemView.findViewById(R.id.RV_CB_CheckBox);
         }
 

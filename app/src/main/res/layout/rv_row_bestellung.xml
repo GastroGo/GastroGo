@@ -1,71 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RV_CardView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="95dp"
+    android:layout_marginTop="5dp"
+    android:background="@drawable/selector_gericht_background"
+    android:orientation="horizontal">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/RV_CardView"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/RV_TV_DishName"
+        android:layout_width="401dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
-        app:cardBackgroundColor="#000000"
-        app:cardCornerRadius="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_weight="1"
+        android:text="Gericht"
+        android:textColor="@color/light_third"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:translationX="10dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="horizontal">
+    <CheckBox
+        android:id="@+id/RV_CB_CheckBox"
+        android:layout_width="200dp"
+        android:layout_height="95dp"
+        android:layout_weight="1"
+        android:minWidth="48dp"
+        tools:ignore="TouchTargetSizeCheck" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/RV_TV_DishName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Dish Name"
-                    android:textColor="#FFFFFF" />
-
-                <TextView
-                    android:id="@+id/RV_TV_NumberDishes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="NumberDishes"
-                    android:textColor="#FFFFFF" />
-
-            </LinearLayout>
-
-            <CheckBox
-                android:id="@+id/RV_CB_CheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:minWidth="48dp"
-                tools:ignore="TouchTargetSizeCheck" />
-
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -52,7 +52,7 @@ public class BestellungenActivity extends AppCompatActivity {
 
         title.setText("Tisch " + String.format("%03d", tischNr));
 
-        /*dbRef.child(restaurantId).addValueEventListener(new ValueEventListener() {
+        dbRef.child(restaurantId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 int NumberOfTables = (int) snapshot.child("tische").getChildrenCount();
@@ -78,7 +78,7 @@ public class BestellungenActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });*/
+        });
     }
 
 }
