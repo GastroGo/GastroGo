@@ -17,8 +17,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import com.example.login.R;
+import com.example.login.Tisch;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.slider.Slider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -26,6 +32,8 @@ import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PdfActivity extends AppCompatActivity {
 
@@ -53,7 +61,73 @@ public class PdfActivity extends AppCompatActivity {
         btnDownloadPDF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                addTables(anzahl);
                 downloadAndOpenPDF();
+                generateTables();
+            }
+        });
+    }
+
+    public void addTables(int tableCount) {
+        DatabaseReference dbRefTables = FirebaseDatabase.getInstance()
+                .getReference("Restaurants")
+                .child(restaurantId)
+                .child("tische");
+
+        for (int i = 0; i < tableCount; i++) {
+            String tableKey = "T" + String.format("%03d", i + 1);
+
+            Map<String, Integer> ordersMap = new HashMap<String, Integer>() {{
+                put("G001", 0);
+                put("G002", 0);
+            }};
+
+            Tisch newTable = new Tisch(ordersMap, new HashMap<>(ordersMap), 0);
+
+            dbRefTables.child(tableKey).setValue(newTable);
+        }
+    }
+
+    public void generateTables() {
+        DatabaseReference dbRefDishes = FirebaseDatabase.getInstance()
+                .getReference("Restaurants")
+                .child(restaurantId)
+                .child("speisekarte");
+        dbRefDishes.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dishSnapshot : dataSnapshot.getChildren()) {
+                    String dishKey = dishSnapshot.getKey();
+
+                    DatabaseReference dbRefTables = FirebaseDatabase.getInstance()
+                            .getReference("Restaurants")
+                            .child(restaurantId)
+                            .child("tische");
+                    dbRefTables.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot tableSnapshot : dataSnapshot.getChildren()) {
+                                tableSnapshot.getRef()
+                                        .child("bestellungen")
+                                        .child(dishKey)
+                                        .setValue(0);
+                                tableSnapshot.getRef()
+                                        .child("geschlosseneBestellungen")
+                                        .child(dishKey)
+                                        .setValue(0);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

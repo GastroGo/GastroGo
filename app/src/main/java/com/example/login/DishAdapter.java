@@ -130,6 +130,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for (DataSnapshot tableSnapshot : dataSnapshot.getChildren()) {
                                 tableSnapshot.getRef().child("bestellungen").child(dishKey).removeValue();
+                                tableSnapshot.getRef().child("geschlosseneBestellungen").child(dishKey).removeValue();
                             }
                         }
 
@@ -154,6 +155,9 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
                                     if (value != null) {
                                         tableSnapshot.getRef().child("bestellungen").child(newDishKey).setValue(value);
                                         tableSnapshot.getRef().child("bestellungen").child(oldDishKey).removeValue();
+
+                                        tableSnapshot.getRef().child("geschlosseneBestellungen").child(newDishKey).setValue(value);
+                                        tableSnapshot.getRef().child("geschlosseneBestellungen").child(oldDishKey).removeValue();
                                     }
                                 }
                             }

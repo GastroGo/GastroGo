@@ -106,6 +106,10 @@ public class ManageMenu extends AppCompatActivity {
                                             .child("bestellungen")
                                             .child(dishKey)
                                             .setValue(0);
+                                    tableSnapshot.getRef()
+                                            .child("geschlosseneBestellungen")
+                                            .child(dishKey)
+                                            .setValue(0);
                                 }
                             }
 
@@ -177,7 +181,7 @@ public class ManageMenu extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(ManageMenu.this, "Failed to load dishes", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ManageMenu.this, "Houston, we have a problem", Toast.LENGTH_SHORT).show();
             }
         });
     }
