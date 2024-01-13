@@ -3,6 +3,7 @@ package com.example.Tische;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,6 +43,8 @@ public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tisc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tische);
         restaurantId = getIntent().getStringExtra("restaurantId");
+        TextView headerText = findViewById(R.id.text);
+        headerText.setText("Tische");
 
         recyclerView = findViewById(R.id.mRecyclerView);
         RV_Adapter_Tische adapterTische = new RV_Adapter_Tische(this, restaurantId);

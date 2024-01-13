@@ -7,78 +7,9 @@
     android:orientation="vertical"
     tools:context=".Bestellungen.BestellungenActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <include
         android:id="@+id/layoutHeader"
-        android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:background="@drawable/header_background"
-        android:padding="10dp"
-        android:paddingTop="30dp"
-        android:paddingBottom="30dp"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/Bestellungen_Text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:text="Tische"
-            android:textColor="@color/colorWhite"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <ImageView
-            android:id="@+id/imageMenu"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="15dp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_menu"
-            app:layout_constraintBottom_toBottomOf="@id/Bestellungen_Text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/Bestellungen_Text"
-            app:tint="@color/colorWhite" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/white_rectangle_background"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageMenu">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btn_back"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/light_third"
-                android:outlineSpotShadowColor="@color/zxing_transparent"
-                android:src="@drawable/ic_arrow_back"
-                app:borderWidth="0dp"
-                app:fabCustomSize="30dp"
-                app:tint="@color/white" />
-
-            <TextView
-                android:id="@+id/textViewBack"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:paddingStart="0dp"
-                android:paddingTop="10dp"
-                android:text="Zurück"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        layout="@layout/header_layout" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

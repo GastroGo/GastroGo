@@ -37,11 +37,9 @@ public class BestellungenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tisch_bestellungen);
         String restaurantId = getIntent().getStringExtra("restaurantId");   //Übergabe der Restaurant ID
-
-        TextView title = findViewById(R.id.Bestellungen_Text);
+        TextView title = findViewById(R.id.text);
 
         FloatingActionButton returnButton = findViewById(R.id.btn_back);
-
         returnButton.setOnClickListener(view -> finish());
 
         int tischNr = getIntent().getIntExtra("TableNr", -1);

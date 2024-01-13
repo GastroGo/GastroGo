@@ -39,8 +39,6 @@ public class ManageMenu extends AppCompatActivity {
 
         back = findViewById(R.id.btn_back);
         buttonAdd = findViewById(R.id.buttonAdd);
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        NavigationManager.setupBottomNavigationView(bottomNavigationView, this);
         String restaurantId = getIntent().getStringExtra("restaurantId");   //Übergabe der Restaurant ID
 
         back.setOnClickListener(v -> {
