@@ -30,7 +30,6 @@ public class CreateRestaurant extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference dbRef;
     ProgressBar progressBar;
-    Restaurant newRestaurant;
     InputValidator inputValidator;
 
     @Override
@@ -131,31 +130,31 @@ public class CreateRestaurant extends AppCompatActivity {
 
         Map<String, Speisekarte> speisekarte = new HashMap<>();
         speisekarte.put("G001", new Speisekarte("1", 0.0, new HashMap<String, Boolean>() {{
-            put("gluten", true);
-            put("nüsse", true);
+            put("gluten", false);
+            put("nüsse", false);
         }}, new HashMap<String, Boolean>() {{
-            put("eier", true);
-            put("fleisch", true);
-            put("milch", true);
+            put("eier", false);
+            put("fleisch", false);
+            put("milch", false);
         }}));
         speisekarte.put("G002", new Speisekarte("2", 0.0, new HashMap<String, Boolean>() {{
-            put("gluten", true);
-            put("nüsse", true);
+            put("gluten", false);
+            put("nüsse", false);
         }}, new HashMap<String, Boolean>() {{
-            put("eier", true);
-            put("fleisch", true);
-            put("milch", true);
+            put("eier", false);
+            put("fleisch", false);
+            put("milch", false);
         }}));
+
+        Map<String, Integer> ordersMap = new HashMap<String, Integer>() {{
+            put("G001", 0);
+            put("G002", 0);
+        }};
+
         Map<String, Tisch> tische = new HashMap<>();
 
-        tische.put("T001", new Tisch(new HashMap<String, Integer>() {{
-            put("G001", 0);
-            put("G002", 0);
-        }}, 0));
-        tische.put("T002", new Tisch(new HashMap<String, Integer>() {{
-            put("G001", 0);
-            put("G002", 0);
-        }}, 0));
+        tische.put("T001", new Tisch(ordersMap, new HashMap<>(ordersMap), 0));
+        tische.put("T002", new Tisch(ordersMap, new HashMap<>(ordersMap), 0));
 
         Restaurant restaurant = new Restaurant(daten, speisekarte, tische); //ruft Standardkonstruktor auf in Restaurant Klasse
         dbRef.child(restaurantId).setValue(restaurant); //fügt gesetzte Restaurantklasse in Datenbank ein unter der erstellten Id

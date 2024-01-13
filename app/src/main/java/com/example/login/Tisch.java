@@ -4,11 +4,12 @@ import java.util.Map;
 
 public class Tisch {
     private Map<String, Integer> bestellungen;
+    private Map<String, Integer> geschlosseneBestellungen;
     private int personen;
 
-    public Tisch(Map<String, Integer> bestellungen, int personen) {
+    public Tisch(Map<String, Integer> bestellungen, Map<String, Integer> geschlosseneBestellungen, int personen) {
         this.bestellungen = bestellungen;
-
+        this.geschlosseneBestellungen = geschlosseneBestellungen;
         this.personen = personen;
     }
 
@@ -21,6 +22,14 @@ public class Tisch {
 
     public void setBestellungen(Map<String, Integer> bestellungen) {
         this.bestellungen = bestellungen;
+    }
+
+    public Map<String, Integer> getGeschlosseneBestellungen() {
+        return geschlosseneBestellungen;
+    }
+
+    public void setGeschlosseneBestellungen(Map<String, Integer> geschlosseneBestellungen) {
+        this.geschlosseneBestellungen = geschlosseneBestellungen;
     }
 
     public int getPersonen() {
