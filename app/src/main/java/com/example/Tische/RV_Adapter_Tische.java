@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,12 +34,13 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tableNr.setText("Tisch " + (position + 1));
+        int pos = position;
+        holder.tableNr.setText("Tisch " + (pos + 1));
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onItemClickListener.onItemClick(holder.getAdapterPosition() + 1);
+                onItemClickListener.onItemClick(pos + 1);
             }
         });
     }
@@ -59,7 +61,7 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
         private final TextView tableNr;
         private final TextView timer;
         private final CheckBox checkBox;
-        private final CardView cardView;
+        private final LinearLayout cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

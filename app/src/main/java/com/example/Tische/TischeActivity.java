@@ -44,7 +44,7 @@ public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tisc
         recyclerView = findViewById(R.id.mRecyclerView);
         RV_Adapter_Tische adapterTische = new RV_Adapter_Tische(this);
         recyclerView.setAdapter(adapterTische);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         restaurantId = getIntent().getStringExtra("restaurantId");
         Button returnButton = findViewById(R.id.returnButtonTische);
 
