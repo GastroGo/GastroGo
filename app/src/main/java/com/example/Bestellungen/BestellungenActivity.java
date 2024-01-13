@@ -15,6 +15,7 @@ import com.example.DBKlassen.GerichteModel;
 import com.example.DBKlassen.TablelistModel;
 import com.example.DBKlassen.Tische;
 import com.example.login.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,9 +38,9 @@ public class BestellungenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tisch_bestellungen);
         String restaurantId = getIntent().getStringExtra("restaurantId");   //Übergabe der Restaurant ID
 
-        TextView title = findViewById(R.id.TischBestellungenTitle);
+        TextView title = findViewById(R.id.Bestellungen_Text);
 
-        Button returnButton = findViewById(R.id.returnButtonBestellungen);
+        FloatingActionButton returnButton = findViewById(R.id.btn_back);
 
         returnButton.setOnClickListener(view -> finish());
 
@@ -50,7 +51,7 @@ public class BestellungenActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapterBestellungen);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        title.setText("Tisch " + String.format("%03d", tischNr));
+        title.setText("Tisch " + tischNr);
 
         dbRef.child(restaurantId).addValueEventListener(new ValueEventListener() {
             @Override

@@ -15,6 +15,7 @@ import com.example.DBKlassen.GerichteModel;
 import com.example.DBKlassen.TablelistModel;
 import com.example.DBKlassen.Tische;
 import com.example.login.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,7 +47,7 @@ public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tisc
         RV_Adapter_Tische adapterTische = new RV_Adapter_Tische(this, restaurantId);
         recyclerView.setAdapter(adapterTische);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
-        Button returnButton = findViewById(R.id.returnButtonTische);
+        FloatingActionButton returnButton = findViewById(R.id.btn_back);
 
         returnButton.setOnClickListener(view -> finish());
 
