@@ -44,7 +44,7 @@ public class ManageMenu extends AppCompatActivity {
         String restaurantId = getIntent().getStringExtra("restaurantId");   //Übergabe der Restaurant ID
 
         back.setOnClickListener(v -> {
-            finish();
+            onBackPressed();
         });
 
         buttonAdd.setOnClickListener(v -> {
