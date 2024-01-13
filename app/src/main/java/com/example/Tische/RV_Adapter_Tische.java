@@ -72,7 +72,6 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
 
         Log.i("Gerichte", String.valueOf(numberOfGerichte));
 
-        //bestellungenRef.child(gericht).setValue(0);
 
         String gericht;
         for(int x = 1; x <= numberOfGerichte; x++){
