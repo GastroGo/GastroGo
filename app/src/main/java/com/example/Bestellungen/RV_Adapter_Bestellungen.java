@@ -75,6 +75,7 @@ public class RV_Adapter_Bestellungen extends RecyclerView.Adapter<RV_Adapter_Bes
                     counter ++;
                 }
             }
+            Log.i("order", "Seite 1");
         }else if (tableListO.getBestellungsFilter() == 2){
             for (Map.Entry<String, Integer> entry : tableListO.getTischeArray()[tableNumber-1].getGeschlosseneBestellungen().entrySet()) {
                 //restaurantTische.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
@@ -83,6 +84,7 @@ public class RV_Adapter_Bestellungen extends RecyclerView.Adapter<RV_Adapter_Bes
                     counter ++;
                 }
             }
+            Log.i("order", "Seite 2");
         }
 
         return counter;
@@ -102,14 +104,11 @@ public class RV_Adapter_Bestellungen extends RecyclerView.Adapter<RV_Adapter_Bes
             int numberClosed = tableListO.getTischeArray()[tableNumber-1].getGeschlosseneBestellungen() .get(gericht);
             bestellungenRef.child("geschlosseneBestellungen").child(gericht).setValue(numberClosed + Integer.valueOf(tableOrders.get(indexOfOrder)[1]));
             bestellungenRef.child("bestellungen").child(gericht).setValue(0);
-            tableListO.setBestellungsFilter((byte) 1);
         } else if (tableListO.getBestellungsFilter() == 2) {
             int numberClosed = tableListO.getTischeArray()[tableNumber-1].getBestellungen() .get(gericht);
             bestellungenRef.child("bestellungen").child(gericht).setValue(numberClosed + Integer.valueOf(tableOrders.get(indexOfOrder)[1]));
             bestellungenRef.child("geschlosseneBestellungen").child(gericht).setValue(0);
-            tableListO.setBestellungsFilter((byte) 2);
         }
-        this.notifyDataSetChanged();
 
         Log.i("order", String.valueOf(tableListO.getBestellungsFilter()));
     }

@@ -47,6 +47,8 @@ public class BestellungenActivity extends AppCompatActivity {
         btnClosed = findViewById(R.id.btn_bestellungen_geschl);
         btnOpen = findViewById(R.id.btn_bestellungen_offen);
 
+        tableListO.setBestellungsFilter((byte) 1);
+
         FloatingActionButton returnButton = findViewById(R.id.btn_back);
         returnButton.setOnClickListener(view -> finish());
 

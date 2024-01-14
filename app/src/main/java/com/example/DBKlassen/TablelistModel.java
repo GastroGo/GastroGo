@@ -7,7 +7,7 @@ public class TablelistModel {
 
     private Tisch tischeArray[];
 
-    private byte bestellungsFilter;
+    private byte bestellungsFilter = 1;
 
     private int numberOfTables;
 
@@ -40,7 +40,6 @@ public class TablelistModel {
     public void setup(int numberOfTables){
         this.numberOfTables = numberOfTables;
         tischeArray = new Tisch[this.numberOfTables];
-        bestellungsFilter = 1;
     }
 
     public void setTable(Tisch table, int index){
