@@ -10,9 +10,10 @@
         android:id="@+id/layoutHeader"
         layout="@layout/header_layout" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         tools:layout_editor_absoluteY="130dp">
 
         <Button
@@ -23,9 +24,7 @@
             android:drawableTint="@color/colorWhite"
             android:gravity="center"
             android:text="Speisekarte"
-            android:textSize="18sp"
-            tools:layout_editor_absoluteX="117dp"
-            tools:layout_editor_absoluteY="60dp" />
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/buttonOrders"
@@ -35,9 +34,7 @@
             android:drawableTint="@color/colorWhite"
             android:gravity="center"
             android:text="Bestellungen"
-            android:textSize="18sp"
-            tools:layout_editor_absoluteX="112dp"
-            tools:layout_editor_absoluteY="140dp" />
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/buttonEmployeeKeys"
@@ -47,9 +44,7 @@
             android:drawableTint="@color/colorWhite"
             android:gravity="center"
             android:text="Mitarbeiterschlüssel"
-            android:textSize="18sp"
-            tools:layout_editor_absoluteX="82dp"
-            tools:layout_editor_absoluteY="221dp" />
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/buttonGenerateQR"
@@ -59,9 +54,7 @@
             android:drawableTint="@color/colorWhite"
             android:gravity="center"
             android:text="Tisch QR Codes"
-            android:textSize="18sp"
-            tools:layout_editor_absoluteX="101dp"
-            tools:layout_editor_absoluteY="301dp" />
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/buttonDelete"
@@ -71,10 +64,8 @@
             android:drawableTint="@color/colorWhite"
             android:gravity="center"
             android:text="Restaurant löschen"
-            android:textSize="18sp"
-            tools:layout_editor_absoluteX="87dp"
-            tools:layout_editor_absoluteY="382dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:textSize="18sp" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
