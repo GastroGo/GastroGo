@@ -64,6 +64,7 @@ public class EmployeesView extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), Startseite.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                finish();
             }
         });
     }
