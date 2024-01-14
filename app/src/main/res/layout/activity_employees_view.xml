@@ -20,12 +20,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
+            android:id="@+id/toUserPage"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:background="@drawable/button_border"
             android:elevation="10dp"
-            app:layout_constraintEnd_toStartOf="@+id/constraintLayout2"
+            app:layout_constraintEnd_toStartOf="@+id/toWorkersPage"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -54,14 +54,14 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
+            android:id="@+id/toWorkersPage"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginStart="55dp"
             android:background="@drawable/button_border"
             android:elevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+            app:layout_constraintStart_toEndOf="@+id/toUserPage"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
@@ -90,15 +90,15 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout3"
+            android:id="@+id/settingButtonEmployees"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginTop="55dp"
             android:background="@drawable/button_border"
             android:elevation="10dp"
-            app:layout_constraintEnd_toStartOf="@+id/constraintLayout2"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+            app:layout_constraintEnd_toStartOf="@+id/toWorkersPage"
+            app:layout_constraintStart_toEndOf="@+id/toUserPage"
+            app:layout_constraintTop_toBottomOf="@+id/toUserPage">
 
             <ImageView
                 android:id="@+id/imageView3"
