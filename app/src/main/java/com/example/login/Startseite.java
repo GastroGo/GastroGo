@@ -10,6 +10,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -59,6 +60,9 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         searchView = findViewById(R.id.searchView);
 
 
+        SharedPreferences sharedPreferences = getSharedPreferences("AppData", MODE_PRIVATE);
+        boolean isFirstRun = sharedPreferences.getBoolean("IS_FIRST_RUN", true);
+
         user = auth.getCurrentUser();
         if (user == null) {
             Intent intent = new Intent(getApplicationContext(), Login.class);
@@ -71,19 +75,15 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
                 startActivity(intent);
                 overridePendingTransition(0, 0);
                 finish();
-            } else {
-                checkUserInDatabase(user.getUid());
+
+            } else if (isFirstRun) {
+                checkUser(user.getUid());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("IS_FIRST_RUN", false);
+                editor.apply();
             }
         }
 
-        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
-        String employeeKey = sharedPreferences.getString("employeeKey", null);
-
-        if (employeeKey != null) {
-            Intent intent = new Intent(getApplicationContext(), EmployeesView.class);
-            startActivity(intent);
-            finish();
-        }
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavigationManager.setupBottomNavigationView(bottomNavigationView, this);
@@ -153,6 +153,58 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         user = auth.getCurrentUser();
         return user.getUid();
     }
+
+    public void checkUser(String uid) {
+        checkUserInDatabase(uid);
+
+        // Laden Sie den gespeicherten Schlüssel aus den Shared Preferences
+        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+        String employeeKey = sharedPreferences.getString("KEY_SCHLUESSEL", null);
+
+        // Überprüfen Sie, ob der Schlüssel vorhanden ist
+        if (employeeKey != null) {
+            Log.d("Startseite", "Schlüssel gefunden: " + employeeKey);
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Schluessel");
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    boolean keyFound = false;
+                    for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                        for (DataSnapshot grandChildSnapshot : childSnapshot.getChildren()) {
+                            for (DataSnapshot greatGrandChildSnapshot : grandChildSnapshot.getChildren()) {
+                                String firebaseKey = greatGrandChildSnapshot.getValue(String.class);
+                                if (employeeKey.equals(firebaseKey)) {
+                                    Log.d("Startseite", "Schlüssel in Firebase gefunden: " + firebaseKey);
+                                    Intent intent = new Intent(getApplicationContext(), EmployeesView.class);
+                                    startActivity(intent);
+                                    finish();
+                                    keyFound = true;
+                                    break;
+                                }
+                            }
+                            if (keyFound) {
+                                break;
+                            }
+                        }
+                        if (keyFound) {
+                            break;
+                        }
+                    }
+                    if (!keyFound) {
+                        Log.d("Startseite", "Schlüssel nicht in Firebase gefunden");
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.e("Startseite", "Fehler beim Abrufen der Daten aus Firebase", databaseError.toException());
+                }
+            });
+        } else {
+            Log.d("Startseite", "Kein Schlüssel in den Shared Preferences gefunden");
+        }
+    }
+
 
     private void checkUserInDatabase(String uid) {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Restaurants");
