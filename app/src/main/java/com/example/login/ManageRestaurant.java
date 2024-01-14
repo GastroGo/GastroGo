@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.mitarbeiterverwaltung.MitarbeiterVerwalten;
 import com.example.qrcodepdf.PdfActivity;
@@ -31,7 +32,7 @@ public class ManageRestaurant extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseUser user;
     TextView name;
-    ImageButton menu, schluessel, qrcode, orders;
+    ConstraintLayout menu, schluessel, qrcode, orders;
     Button delete;
     FloatingActionButton back;
     Daten restaurantDaten;
