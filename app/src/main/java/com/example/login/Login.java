@@ -64,7 +64,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                String email = String.valueOf(editTextEmail.getText());
+                String email = String.valueOf(editTextEmail.getText()).replaceAll("\\s", "");
                 String password = String.valueOf(editTextPassword.getText());
 
                 if (!inputValidator.validateInput(editTextEmail, "Email eingeben") ||

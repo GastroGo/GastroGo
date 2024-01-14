@@ -1,7 +1,9 @@
 package com.example.login;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mitarbeiterverwaltung.MitarbeiterVerwalten;
 import com.example.qrcodepdf.PdfActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,7 +29,6 @@ public class ManageRestaurant extends AppCompatActivity {
 
     FirebaseAuth auth;
     FirebaseUser user;
-    DatabaseReference dbRef;
     TextView name;
     Button delete, schluessel, qrcode, menu, orders;
     Daten restaurantDaten;
@@ -43,8 +45,6 @@ public class ManageRestaurant extends AppCompatActivity {
         orders = findViewById(R.id.buttonOrders);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        NavigationManager.setupBottomNavigationView(bottomNavigationView, this);
         if (user == null) {
             Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
@@ -73,7 +73,25 @@ public class ManageRestaurant extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteRestaurant(user.getUid());
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext(), R.style.RoundedDialog);
+                LayoutInflater inflater = LayoutInflater.from(v.getContext());
+                View view = inflater.inflate(R.layout.dialog_delete_dish, null);
+                builder.setView(view);
+
+                Button deleteButton = view.findViewById(R.id.delete_button);
+                Button cancelButton = view.findViewById(R.id.cancel_button);
+
+                AlertDialog dialog = builder.create();
+
+                deleteButton.setOnClickListener(v1 -> {
+                    dialog.dismiss();
+                    deleteRestaurant(user.getUid());
+                });
+                cancelButton.setOnClickListener(v2 -> dialog.dismiss());
+                TextView confirm = view.findViewById(R.id.confirm);
+                confirm.setText("Möchten Sie das Restaurant wirklich löschen?");
+
+                dialog.show();
             }
         });
         qrcode.setOnClickListener(new View.OnClickListener() {
@@ -123,6 +141,10 @@ public class ManageRestaurant extends AppCompatActivity {
     private void displayData() {
         if (restaurantDaten != null) {
             name.setText(restaurantDaten.getName());
+            FloatingActionButton icon = findViewById(R.id.btn_back);
+            icon.setImageResource(R.drawable.ic_manage);
+            TextView dashboard = findViewById(R.id.textViewBack);
+            dashboard.setText("Dashboard");
         }
     }
 
@@ -137,17 +159,13 @@ public class ManageRestaurant extends AppCompatActivity {
                     for (DataSnapshot restaurantSnapshot : dataSnapshot.getChildren()) {
                         restaurantSnapshot.getRef().removeValue();
                     }
-                    // Delete the user from Firebase Authentication
                     user.delete().addOnCompleteListener(task -> {
+
                         if (task.isSuccessful()) {
-                            // User deleted successfully, navigate to login screen
                             Intent intent = new Intent(getApplicationContext(), Login.class);
                             startActivity(intent);
                             finish();
-                        } else {
-                            // Handle failure to delete the user
-                            // ...
-                        }
+                        } else {}   //ja würd mir stinken
                     });
                 }
             }

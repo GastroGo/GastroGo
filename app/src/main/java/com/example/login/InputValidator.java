@@ -9,7 +9,7 @@ import com.google.android.material.textfield.TextInputEditText;
 public class InputValidator {
 
     private Context context;
-    private boolean requireCaseSensitivity = false;     //schaltet Notwendigkeit für Groß-/Kleinbuchstaben aus/an
+    private boolean requireCaseSensitivity = true;     //schaltet Notwendigkeit für Groß-/Kleinbuchstaben aus/an
 
     public InputValidator(Context context) {
         this.context = context;
