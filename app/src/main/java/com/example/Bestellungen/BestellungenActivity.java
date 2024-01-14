@@ -2,6 +2,7 @@ package com.example.Bestellungen;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -13,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.DBKlassen.Gericht;
 import com.example.DBKlassen.GerichteModel;
 import com.example.DBKlassen.TablelistModel;
-import com.example.DBKlassen.Tische;
+import com.example.login.Tisch;
 import com.example.login.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -30,8 +31,10 @@ public class BestellungenActivity extends AppCompatActivity {
     DatabaseReference dbRef = database.getReference("Restaurants");
     TablelistModel tableListO = TablelistModel.getInstance();
 
+    Button btnClosed;
+    Button btnOpen;
+
     GerichteModel gerichteListO = GerichteModel.getInstance();
-    boolean openOrClosed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,9 @@ public class BestellungenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tisch_bestellungen);
         String restaurantId = getIntent().getStringExtra("restaurantId");   //Übergabe der Restaurant ID
         TextView title = findViewById(R.id.text);
+
+        btnClosed = findViewById(R.id.btn_bestellungen_geschl);
+        btnOpen = findViewById(R.id.btn_bestellungen_offen);
 
         FloatingActionButton returnButton = findViewById(R.id.btn_back);
         returnButton.setOnClickListener(view -> finish());
@@ -63,7 +69,7 @@ public class BestellungenActivity extends AppCompatActivity {
 
                 for(int x = 0; x < NumberOfTables; x++){
                     String xString = "T" + String.format("%03d", (x + 1));
-                    tableListO.getTischeArray()[x] = snapshot.child("tische").child(xString).getValue(Tische.class);
+                    tableListO.getTischeArray()[x] = snapshot.child("tische").child(xString).getValue(Tisch.class);
                 }
 
                 for(int x = 0; x < NumberOfGerichte; x++){
@@ -77,6 +83,22 @@ public class BestellungenActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        btnOpen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tableListO.setBestellungsFilter((byte) 1);
+                adapterBestellungen.notifyDataSetChanged();
+            }
+        });
+
+        btnClosed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tableListO.setBestellungsFilter((byte) 2);
+                adapterBestellungen.notifyDataSetChanged();
             }
         });
     }

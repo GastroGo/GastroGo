@@ -16,6 +16,7 @@ import com.example.DBKlassen.GerichteModel;
 import com.example.DBKlassen.TablelistModel;
 import com.example.DBKlassen.Tische;
 import com.example.login.R;
+import com.example.login.Tisch;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -66,7 +67,7 @@ public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tisc
 
                 for(int x = 0; x < NumberOfTables; x++){
                     String xString = "T" + String.format("%03d", (x + 1));
-                    tableListO.getTischeArray()[x] = snapshot.child("tische").child(xString).getValue(Tische.class);
+                    tableListO.getTischeArray()[x] = snapshot.child("tische").child(xString).getValue(Tisch.class);
                 }
 
                 for(int x = 0; x < NumberOfGerichte; x++){
