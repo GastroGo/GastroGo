@@ -61,11 +61,21 @@ public class RV_Adapter_Bestellungen extends RecyclerView.Adapter<RV_Adapter_Bes
         int counter = 0;
         tableOrders.clear();
 
-        for (Map.Entry<String, Integer> entry : tableListO.getTischeArray()[tableNumber-1].getBestellungen().entrySet()) {
-            //restaurantTische.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
-            if(entry.getValue() != 0){
-                tableOrders.add(new String[]{entry.getKey(), String.valueOf(entry.getValue())});
-                counter ++;
+        if (tableListO.getBestellungsFilter() == 1){
+            for (Map.Entry<String, Integer> entry : tableListO.getTischeArray()[tableNumber-1].getBestellungen().entrySet()) {
+                //restaurantTische.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+                if(entry.getValue() != 0){
+                    tableOrders.add(new String[]{entry.getKey(), String.valueOf(entry.getValue())});
+                    counter ++;
+                }
+            }
+        }else if (tableListO.getBestellungsFilter() == 2){
+            for (Map.Entry<String, Integer> entry : tableListO.getTischeArray()[tableNumber-1].getGeschlosseneBestellungen().entrySet()) {
+                //restaurantTische.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+                if(entry.getValue() != 0){
+                    tableOrders.add(new String[]{entry.getKey(), String.valueOf(entry.getValue())});
+                    counter ++;
+                }
             }
         }
 
