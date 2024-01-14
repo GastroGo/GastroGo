@@ -3,6 +3,7 @@ package com.example.login;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -57,6 +58,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         searchButton = findViewById(R.id.search);
         searchView = findViewById(R.id.searchView);
 
+
         user = auth.getCurrentUser();
         if (user == null) {
             Intent intent = new Intent(getApplicationContext(), Login.class);
@@ -72,6 +74,15 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
             } else {
                 checkUserInDatabase(user.getUid());
             }
+        }
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        String employeeKey = sharedPreferences.getString("employeeKey", null);
+
+        if (employeeKey != null) {
+            Intent intent = new Intent(getApplicationContext(), EmployeesView.class);
+            startActivity(intent);
+            finish();
         }
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
