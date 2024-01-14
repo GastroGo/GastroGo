@@ -42,7 +42,7 @@ public class Einstellungen extends AppCompatActivity {
         benachrichtigungen = findViewById(R.id.benachrichtigungen);
         darkmode = findViewById(R.id.darkmode);
         spinner_languages = findViewById(R.id.spinner_languages);
-        logout = findViewById(R.id.logoutButton);
+
         back = findViewById(R.id.btn_back);
 
         back.setOnClickListener(v -> {
@@ -62,16 +62,6 @@ public class Einstellungen extends AppCompatActivity {
         setupListeners();
         loadModelData();
 
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getApplicationContext(), Login.class);
-                startActivity(intent);
-                sendBroadcast(new Intent("com.example.login.ACTION_LOGOUT"));
-                finishAffinity();
-            }
-        });
     }
 
     private void setupListeners() {

@@ -106,7 +106,7 @@ public class QRCodeReader extends AppCompatActivity {
         ) == PackageManager.PERMISSION_GRANTED) {
             showCamera();
         } else if (shouldShowRequestPermissionRationale(android.Manifest.permission.CAMERA)) {
-            Toast.makeText(context, "Camera permission required", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Lukas ist ein Bastard", Toast.LENGTH_SHORT).show();
         } else {
             requestPermissionLauncher.launch(android.Manifest.permission.CAMERA);
         }
