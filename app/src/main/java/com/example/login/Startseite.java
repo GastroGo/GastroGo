@@ -67,6 +67,15 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
 
 
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
+        if (bottomNavigationView.getSelectedItemId() != R.id.menuHome) {
+            bottomNavigationView.setSelectedItemId(R.id.menuHome);
+        }
+    }
 
     public String getUserId() {
         auth = FirebaseAuth.getInstance();

@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class ManageMenu extends AppCompatActivity {
 
-    Button buttonAdd;
+    FloatingActionButton buttonAdd;
     FloatingActionButton back;
     private DishAdapter dishAdapter;
     private List<Speisekarte> dishes;

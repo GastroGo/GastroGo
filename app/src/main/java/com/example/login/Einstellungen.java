@@ -1,5 +1,6 @@
 package com.example.login;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +29,7 @@ public class Einstellungen extends AppCompatActivity {
     private EditText schluesselEingabe;
     private Switch benachrichtigungen, darkmode;
     private Spinner spinner_languages;
+    FloatingActionButton logout;
     Startseite sRef = new Startseite();
 
     @Override
@@ -36,6 +40,7 @@ public class Einstellungen extends AppCompatActivity {
         benachrichtigungen = findViewById(R.id.benachrichtigungen);
         darkmode = findViewById(R.id.darkmode);
         spinner_languages = findViewById(R.id.spinner_languages);
+        logout = findViewById(R.id.logoutButton);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.languages, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -43,6 +48,17 @@ public class Einstellungen extends AppCompatActivity {
 
         setupListeners();
         loadModelData();
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
+                sendBroadcast(new Intent("com.example.login.ACTION_LOGOUT"));
+                finishAffinity();
+            }
+        });
     }
 
     private void setupListeners() {

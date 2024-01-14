@@ -33,6 +33,7 @@ public class ManageRestaurant extends AppCompatActivity {
     TextView name;
     ImageButton menu, schluessel, qrcode, orders;
     Button delete;
+    FloatingActionButton back;
     Daten restaurantDaten;
 
     @Override
@@ -45,6 +46,7 @@ public class ManageRestaurant extends AppCompatActivity {
         delete = findViewById(R.id.buttonDelete);
         qrcode = findViewById(R.id.buttonGenerateQR);
         orders = findViewById(R.id.buttonOrders);
+        back = findViewById(R.id.btn_back);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         if (user == null) {
@@ -114,6 +116,13 @@ public class ManageRestaurant extends AppCompatActivity {
                     intent.putExtra("restaurantId", restaurantDaten.getId()); // Pass the restaurant ID to TischeActivity activity
                     startActivity(intent);
                 } else {}
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Einstellungen.class);
+                startActivity(intent);
             }
         });
     }

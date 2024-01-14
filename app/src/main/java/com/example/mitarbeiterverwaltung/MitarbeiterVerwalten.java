@@ -33,7 +33,7 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
     MyAdapter myadapter;
     ArrayList<User> list;
     HashSet<String> keysSet;
-    Button mAnlegen;
+    FloatingActionButton mAnlegen;
     Dialog dialog;
     Button mErstellen;
     EditText etName;
