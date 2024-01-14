@@ -12,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +31,7 @@ public class Einstellungen extends AppCompatActivity {
     private Switch benachrichtigungen, darkmode;
     private Spinner spinner_languages;
     FloatingActionButton logout;
+    FloatingActionButton back;
     Startseite sRef = new Startseite();
 
     @Override
@@ -41,6 +43,17 @@ public class Einstellungen extends AppCompatActivity {
         darkmode = findViewById(R.id.darkmode);
         spinner_languages = findViewById(R.id.spinner_languages);
         logout = findViewById(R.id.logoutButton);
+        back = findViewById(R.id.btn_back);
+
+        back.setOnClickListener(v -> {
+            onBackPressed();
+        });
+
+        TextView headerText = findViewById(R.id.text);
+        headerText.setText("Einstellungen");
+
+        DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
+        dropdownManager.setupDropdown();
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.languages, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -82,7 +95,6 @@ public class Einstellungen extends AppCompatActivity {
             saveSchluessel();
             schluesselAbgleichen();
         });
-        findViewById(R.id.zurueck).setOnClickListener(view -> finish());
 
         darkmode.setOnCheckedChangeListener(this::onDarkModeChanged);
         benachrichtigungen.setOnCheckedChangeListener(this::onBenachrichtigungenChanged);

@@ -21,6 +21,7 @@ import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -76,11 +77,8 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
                 overridePendingTransition(0, 0);
                 finish();
 
-            } else if (isFirstRun) {
-                checkUser(user.getUid());
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("IS_FIRST_RUN", false);
-                editor.apply();
+            } else {
+                checkUserInDatabase(user.getUid());
             }
         }
 
@@ -154,57 +152,6 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         return user.getUid();
     }
 
-    public void checkUser(String uid) {
-        checkUserInDatabase(uid);
-
-        // Laden Sie den gespeicherten Schlüssel aus den Shared Preferences
-        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
-        String employeeKey = sharedPreferences.getString("KEY_SCHLUESSEL", null);
-
-        // Überprüfen Sie, ob der Schlüssel vorhanden ist
-        if (employeeKey != null) {
-            Log.d("Startseite", "Schlüssel gefunden: " + employeeKey);
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Schluessel");
-            ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    boolean keyFound = false;
-                    for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                        for (DataSnapshot grandChildSnapshot : childSnapshot.getChildren()) {
-                            for (DataSnapshot greatGrandChildSnapshot : grandChildSnapshot.getChildren()) {
-                                String firebaseKey = greatGrandChildSnapshot.getValue(String.class);
-                                if (employeeKey.equals(firebaseKey)) {
-                                    Log.d("Startseite", "Schlüssel in Firebase gefunden: " + firebaseKey);
-                                    Intent intent = new Intent(getApplicationContext(), EmployeesView.class);
-                                    startActivity(intent);
-                                    finish();
-                                    keyFound = true;
-                                    break;
-                                }
-                            }
-                            if (keyFound) {
-                                break;
-                            }
-                        }
-                        if (keyFound) {
-                            break;
-                        }
-                    }
-                    if (!keyFound) {
-                        Log.d("Startseite", "Schlüssel nicht in Firebase gefunden");
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.e("Startseite", "Fehler beim Abrufen der Daten aus Firebase", databaseError.toException());
-                }
-            });
-        } else {
-            Log.d("Startseite", "Kein Schlüssel in den Shared Preferences gefunden");
-        }
-    }
-
 
     private void checkUserInDatabase(String uid) {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Restaurants");
@@ -228,6 +175,8 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
+        GoogleMapOptions options = new GoogleMapOptions();
+        options.liteMode(true);
         SupportMapFragment mMapView = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         gMap = googleMap;
         gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);

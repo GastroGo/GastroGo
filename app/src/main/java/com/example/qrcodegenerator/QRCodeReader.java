@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.example.login.DropdownManager;
 import com.example.login.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +36,7 @@ public class QRCodeReader extends AppCompatActivity {
     public String idTable;
     List<String> allGerichte = new ArrayList<>();
     List<Gericht> gerichtList = new ArrayList<>();
+    FloatingActionButton back;
     int index;
     private int tasksCompleted = 0;
     private int zutatenTasksCompleted = 0;
@@ -60,6 +63,16 @@ public class QRCodeReader extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
+        TextView headerText = findViewById(R.id.text);
+        headerText.setText("Tisch QR Code scannen");
+
+        back = findViewById(R.id.btn_back);
+        back.setOnClickListener(v -> {
+            onBackPressed();
+        });
+
+        DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
+        dropdownManager.setupDropdown();
     }
 
     private void showCamera() {
