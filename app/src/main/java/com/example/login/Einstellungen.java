@@ -61,7 +61,7 @@ public class Einstellungen extends AppCompatActivity {
 
         setupListeners();
         loadModelData();
-        
+
     }
 
     private void setupListeners() {

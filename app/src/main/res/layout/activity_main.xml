@@ -8,7 +8,8 @@
 
     <include
         android:id="@+id/layoutHeader"
-        layout="@layout/header_layout" />
+        layout="@layout/header_layout"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/button_skip"
