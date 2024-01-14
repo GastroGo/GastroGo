@@ -1,5 +1,6 @@
 package com.example.Bestellungen;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -90,6 +91,7 @@ public class BestellungenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 tableListO.setBestellungsFilter((byte) 1);
+                updateStyle();
                 adapterBestellungen.notifyDataSetChanged();
             }
         });
@@ -98,9 +100,26 @@ public class BestellungenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 tableListO.setBestellungsFilter((byte) 2);
+                updateStyle();
                 adapterBestellungen.notifyDataSetChanged();
             }
         });
+
+
+    }
+
+    private void updateStyle(){
+        if (tableListO.getBestellungsFilter() == 1){
+            btnOpen.setTextColor(Color.WHITE);
+            btnClosed.setTextColor(Color.BLACK);
+            btnOpen.setBackgroundResource(R.drawable.roundstyle);
+            btnClosed.setBackgroundColor(Color.TRANSPARENT);
+        } else if (tableListO.getBestellungsFilter() == 2) {
+            btnClosed.setTextColor(Color.WHITE);
+            btnOpen.setTextColor(Color.BLACK);
+            btnClosed.setBackgroundResource(R.drawable.roundstyle);
+            btnOpen.setBackgroundColor(Color.TRANSPARENT);
+        }
     }
 
 }
