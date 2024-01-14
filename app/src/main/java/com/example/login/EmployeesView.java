@@ -21,6 +21,7 @@ public class EmployeesView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employees_view);
 
+        settings = findViewById(R.id.settingButtonEmployees);
         user = findViewById(R.id.toUserPage);
         work = findViewById(R.id.toWorkersPage);
         back = findViewById(R.id.btn_back);
@@ -31,14 +32,6 @@ public class EmployeesView extends AppCompatActivity {
         TextView headerText = findViewById(R.id.text);
         headerText.setText("Mitarbeiter");
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Einstellungen.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-            }
-        });
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
