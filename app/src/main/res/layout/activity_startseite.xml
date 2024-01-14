@@ -37,7 +37,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:paddingTop="20dp"
+            android:layout_marginRight="-10dp">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|right"
+                android:layout_margin="@dimen/fab_margin"
+                app:backgroundTint="@color/transparent_white"
+                app:elevation="20dp"
+                app:fabSize="mini"
+                app:rippleColor="@color/light_second"
+                app:srcCompat="@drawable/ic_menu_map_type" />
 
 
         </LinearLayout>

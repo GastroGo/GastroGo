@@ -82,6 +82,18 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
             }
         });
 
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+                                   @Override
+                                   public void onClick(View view) {
+                                       if (GoogleMap.MAP_TYPE_NORMAL == gMap.getMapType()) {
+                                           gMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                                       } else {
+                                           gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                                       }
+                                   }
+                               });
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -96,12 +108,9 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String restaurantName = snapshot.child("daten/name").getValue(String.class);
-                    Toast.makeText(getApplicationContext(), restaurantName, Toast.LENGTH_LONG).show();
 
-                    // Find the marker for the restaurant
                     for (Marker marker : allMarkers) {
                         if (marker.getTitle().equals(restaurantName)) {
-                            // Move camera to restaurant marker
                             gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15));
                             break;
                         }
@@ -110,9 +119,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle error here
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {}    //mmm
         });
     }
 
