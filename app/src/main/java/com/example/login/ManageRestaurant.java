@@ -57,6 +57,9 @@ public class ManageRestaurant extends AppCompatActivity {
             getData(user.getUid());
         }
 
+        DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
+        dropdownManager.setupDropdown();
+
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

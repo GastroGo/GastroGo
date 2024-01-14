@@ -6,12 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.Tische.TischeActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class EmployeesView extends AppCompatActivity {
 
     Button settings, user, work;
+    FloatingActionButton back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,10 +22,15 @@ public class EmployeesView extends AppCompatActivity {
         setContentView(R.layout.activity_employees_view);
 
         settings = findViewById(R.id.BackButtonEmployees);
-
         user = findViewById(R.id.toUserPage);
-
         work = findViewById(R.id.toWorkersPage);
+        back = findViewById(R.id.btn_back);
+
+        DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
+        dropdownManager.setupDropdown();
+
+        TextView headerText = findViewById(R.id.text);
+        headerText.setText("Mitarbeiter");
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +54,15 @@ public class EmployeesView extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), TischeActivity.class);
                 intent.putExtra("restaurantId", getIntent().getStringExtra("restaurantId"));
                 startActivity(intent);
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Einstellungen.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
 

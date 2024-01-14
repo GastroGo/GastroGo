@@ -9,12 +9,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,7 +25,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -69,8 +63,17 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
             startActivity(intent);
             finish();
         } else {
-            checkUserInDatabase(user.getUid());
+            String cachedUserId = UserCache.getInstance().getUserId();
+            if (cachedUserId != null && cachedUserId.equals(user.getUid())) {
+                Intent intent = new Intent(getApplicationContext(), ManageRestaurant.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+                finish();
+            } else {
+                checkUserInDatabase(user.getUid());
+            }
         }
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavigationManager.setupBottomNavigationView(bottomNavigationView, this);
 
@@ -84,15 +87,15 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
-                                   @Override
-                                   public void onClick(View view) {
-                                       if (GoogleMap.MAP_TYPE_NORMAL == gMap.getMapType()) {
-                                           gMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-                                       } else {
-                                           gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-                                       }
-                                   }
-                               });
+            @Override
+            public void onClick(View view) {
+                if (GoogleMap.MAP_TYPE_NORMAL == gMap.getMapType()) {
+                    gMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                } else {
+                    gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                }
+            }
+        });
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -119,7 +122,8 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}    //mmm
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }    //mmm
         });
     }
 
@@ -139,20 +143,22 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         return user.getUid();
     }
 
-    private void checkUserInDatabase(String uid) {  //überprüft ob es sich um Restaurant handelt
+    private void checkUserInDatabase(String uid) {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Restaurants");
         dbRef.orderByChild("daten/uid").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {    //Restaurant Ansicht wird gestartet
+                if (dataSnapshot.exists()) {
+                    UserCache.getInstance().setUserId(uid);
                     Intent intent = new Intent(getApplicationContext(), ManageRestaurant.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     finish();
                 }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) { //würd mir stinken
+            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
     }

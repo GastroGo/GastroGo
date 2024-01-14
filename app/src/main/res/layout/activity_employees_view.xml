@@ -6,6 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".EmployeesView">
 
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/header_layout" />
+
     <Button
         android:id="@+id/toWorkersPage"
         android:layout_width="0dp"

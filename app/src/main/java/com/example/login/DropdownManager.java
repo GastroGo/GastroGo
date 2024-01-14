@@ -23,29 +23,31 @@ public class DropdownManager {
     }
 
     public void setupDropdown() {
-        ImageView imageMenu = ((Startseite) context).findViewById(imageViewId);
-        imageMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(context, v);
-                popup.getMenuInflater().inflate(menuId, popup.getMenu());
+        if (context instanceof Activity) {
+            ImageView imageMenu = ((Activity) context).findViewById(imageViewId);
+            imageMenu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PopupMenu popup = new PopupMenu(context, v);
+                    popup.getMenuInflater().inflate(menuId, popup.getMenu());
 
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(MenuItem item) {
-                        int id = item.getItemId();
-                        if (id == R.id.logout) {
-                            FirebaseAuth.getInstance().signOut();
-                            Intent intent = new Intent(context, Login.class);
-                            context.startActivity(intent);
-                            ((Activity) context).finish();
-                            return true;
-                        } else {
-                            return false;
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        public boolean onMenuItemClick(MenuItem item) {
+                            int id = item.getItemId();
+                            if (id == R.id.logout) {
+                                FirebaseAuth.getInstance().signOut();
+                                Intent intent = new Intent(context, Login.class);
+                                context.startActivity(intent);
+                                ((Activity) context).finish();
+                                return true;
+                            } else {
+                                return false;
+                            }
                         }
-                    }
-                });
-                popup.show();
-            }
-        });
+                    });
+                    popup.show();
+                }
+            });
+        }
     }
 }
