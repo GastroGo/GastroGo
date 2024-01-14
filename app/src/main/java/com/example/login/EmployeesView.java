@@ -21,9 +21,9 @@ public class EmployeesView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employees_view);
 
-        settings = findViewById(R.id.BackButtonEmployees);
+        /*settings = findViewById(R.id.BackButtonEmployees);
         user = findViewById(R.id.toUserPage);
-        work = findViewById(R.id.toWorkersPage);
+        work = findViewById(R.id.toWorkersPage);*/
         back = findViewById(R.id.btn_back);
 
         DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
@@ -31,31 +31,6 @@ public class EmployeesView extends AppCompatActivity {
 
         TextView headerText = findViewById(R.id.text);
         headerText.setText("Mitarbeiter");
-
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Einstellungen.class);
-                startActivity(intent);
-            }
-        });
-
-        user.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Startseite.class);
-                startActivity(intent);
-            }
-        });
-
-        work.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), TischeActivity.class);
-                intent.putExtra("restaurantId", getIntent().getStringExtra("restaurantId"));
-                startActivity(intent);
-            }
-        });
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
