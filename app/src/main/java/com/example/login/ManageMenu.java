@@ -37,6 +37,9 @@ public class ManageMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_menu);
 
+        DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
+        dropdownManager.setupDropdown();
+
         back = findViewById(R.id.btn_back);
         buttonAdd = findViewById(R.id.buttonAdd);
         String restaurantId = getIntent().getStringExtra("restaurantId");   //Übergabe der Restaurant ID

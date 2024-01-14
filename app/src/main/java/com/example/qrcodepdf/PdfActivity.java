@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.example.login.DropdownManager;
 import com.example.login.R;
 import com.example.login.Tisch;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -49,6 +50,9 @@ public class PdfActivity extends AppCompatActivity {
         back = findViewById(R.id.btn_back);
         TextView headerText = findViewById(R.id.text);
         headerText.setText("Tisch QR-Codes");
+
+        DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
+        dropdownManager.setupDropdown();
 
         back.setOnClickListener(v -> {
             onBackPressed();

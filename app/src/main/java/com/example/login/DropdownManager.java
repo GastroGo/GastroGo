@@ -40,6 +40,10 @@ public class DropdownManager {
                                 context.startActivity(intent);
                                 ((Activity) context).finish();
                                 return true;
+                            } else if (id == R.id.settings) {
+                                Intent intent = new Intent(context, Einstellungen.class);
+                                context.startActivity(intent);
+                                return true;
                             } else {
                                 return false;
                             }

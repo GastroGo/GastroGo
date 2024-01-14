@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.DBKlassen.Gericht;
 import com.example.DBKlassen.GerichteModel;
 import com.example.DBKlassen.TablelistModel;
+import com.example.login.DropdownManager;
 import com.example.login.Tisch;
 import com.example.login.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -51,6 +52,9 @@ public class BestellungenActivity extends AppCompatActivity {
 
         FloatingActionButton returnButton = findViewById(R.id.btn_back);
         returnButton.setOnClickListener(view -> finish());
+
+        DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
+        dropdownManager.setupDropdown();
 
         int tischNr = getIntent().getIntExtra("TableNr", -1);
 
