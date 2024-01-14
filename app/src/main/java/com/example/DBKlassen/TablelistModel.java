@@ -1,12 +1,13 @@
 package com.example.DBKlassen;
+import com.example.login.Tisch;
 
 public class TablelistModel {
 
     private static TablelistModel instance;
 
-    private Tische tischeArray[];
+    private Tisch tischeArray[];
 
-
+    private byte bestellungsFilter = 1;
 
     private int numberOfTables;
 
@@ -20,7 +21,7 @@ public class TablelistModel {
         return instance;
     }
 
-    public Tische[] getTischeArray(){
+    public Tisch[] getTischeArray(){
         return tischeArray;
     }
 
@@ -33,16 +34,24 @@ public class TablelistModel {
     }
 
     public void setup(){
-        tischeArray = new Tische[numberOfTables];
+        tischeArray = new Tisch[numberOfTables];
     }
 
     public void setup(int numberOfTables){
         this.numberOfTables = numberOfTables;
-        tischeArray = new Tische[this.numberOfTables];
+        tischeArray = new Tisch[this.numberOfTables];
     }
 
-    public void setTable(Tische table, int index){
+    public void setTable(Tisch table, int index){
         tischeArray[index] = table;
+    }
+
+    public byte getBestellungsFilter() {
+        return bestellungsFilter;
+    }
+
+    public void setBestellungsFilter(byte bestellungsFilter) {
+        this.bestellungsFilter = bestellungsFilter;
     }
 
     public int getIndexOf(String tableName){

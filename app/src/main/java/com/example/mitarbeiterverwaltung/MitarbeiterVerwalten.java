@@ -60,6 +60,9 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
         setContentView(R.layout.mitarbeiter_verwalten);
         String restaurantId = getIntent().getStringExtra("restaurantId");
 
+        TextView headerText = findViewById(R.id.text);
+        headerText.setText("Mitarbeiter");
+
         dialog = new Dialog(MitarbeiterVerwalten.this);
         dialog.setContentView(R.layout.m_anlegen);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -67,7 +70,7 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
         dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         dialog.getWindow().setDimAmount(0.5f);
 
-        back = findViewById(R.id.fabBack);
+        back = findViewById(R.id.btn_back);
         etName = dialog.findViewById(R.id.etName);
         mAnlegen = findViewById(R.id.mAnlegen);
         recyclerView = findViewById(R.id.mListe);

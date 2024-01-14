@@ -39,12 +39,20 @@ public class PdfActivity extends AppCompatActivity {
 
     int anzahl = 0;
     String restaurantId;
+    FloatingActionButton back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdf);
         restaurantId = getIntent().getStringExtra("restaurantId");
+        back = findViewById(R.id.btn_back);
+        TextView headerText = findViewById(R.id.text);
+        headerText.setText("Tisch QR-Codes");
+
+        back.setOnClickListener(v -> {
+            onBackPressed();
+        });
 
         Slider slider = findViewById(R.id.slider);
         TextView sliderValue = findViewById(R.id.counter);

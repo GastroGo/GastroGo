@@ -1,7 +1,9 @@
 package com.example.Bestellungen;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -13,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.DBKlassen.Gericht;
 import com.example.DBKlassen.GerichteModel;
 import com.example.DBKlassen.TablelistModel;
-import com.example.DBKlassen.Tische;
+import com.example.login.Tisch;
 import com.example.login.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +32,9 @@ public class BestellungenActivity extends AppCompatActivity {
     DatabaseReference dbRef = database.getReference("Restaurants");
     TablelistModel tableListO = TablelistModel.getInstance();
 
+    Button btnClosed;
+    Button btnOpen;
+
     GerichteModel gerichteListO = GerichteModel.getInstance();
 
     @Override
@@ -37,11 +42,14 @@ public class BestellungenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tisch_bestellungen);
         String restaurantId = getIntent().getStringExtra("restaurantId");   //Übergabe der Restaurant ID
+        TextView title = findViewById(R.id.text);
 
-        TextView title = findViewById(R.id.Bestellungen_Text);
+        btnClosed = findViewById(R.id.btn_bestellungen_geschl);
+        btnOpen = findViewById(R.id.btn_bestellungen_offen);
+
+        tableListO.setBestellungsFilter((byte) 1);
 
         FloatingActionButton returnButton = findViewById(R.id.btn_back);
-
         returnButton.setOnClickListener(view -> finish());
 
         int tischNr = getIntent().getIntExtra("TableNr", -1);
@@ -64,7 +72,7 @@ public class BestellungenActivity extends AppCompatActivity {
 
                 for(int x = 0; x < NumberOfTables; x++){
                     String xString = "T" + String.format("%03d", (x + 1));
-                    tableListO.getTischeArray()[x] = snapshot.child("tische").child(xString).getValue(Tische.class);
+                    tableListO.getTischeArray()[x] = snapshot.child("tische").child(xString).getValue(Tisch.class);
                 }
 
                 for(int x = 0; x < NumberOfGerichte; x++){
@@ -80,6 +88,40 @@ public class BestellungenActivity extends AppCompatActivity {
 
             }
         });
+
+        btnOpen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tableListO.setBestellungsFilter((byte) 1);
+                updateStyle();
+                adapterBestellungen.notifyDataSetChanged();
+            }
+        });
+
+        btnClosed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tableListO.setBestellungsFilter((byte) 2);
+                updateStyle();
+                adapterBestellungen.notifyDataSetChanged();
+            }
+        });
+
+
+    }
+
+    private void updateStyle(){
+        if (tableListO.getBestellungsFilter() == 1){
+            btnOpen.setTextColor(Color.WHITE);
+            btnClosed.setTextColor(Color.BLACK);
+            btnOpen.setBackgroundResource(R.drawable.roundstyle);
+            btnClosed.setBackgroundColor(Color.TRANSPARENT);
+        } else if (tableListO.getBestellungsFilter() == 2) {
+            btnClosed.setTextColor(Color.WHITE);
+            btnOpen.setTextColor(Color.BLACK);
+            btnClosed.setBackgroundResource(R.drawable.roundstyle);
+            btnOpen.setBackgroundColor(Color.TRANSPARENT);
+        }
     }
 
 }

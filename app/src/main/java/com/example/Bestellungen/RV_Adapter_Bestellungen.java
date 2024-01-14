@@ -48,6 +48,12 @@ public class RV_Adapter_Bestellungen extends RecyclerView.Adapter<RV_Adapter_Bes
         int pos = position;
         holder.dishName.setText(tableOrders.get(pos)[1] + "x " + gerichteListeO.getGerichtName(tableOrders.get(pos)[0]));
 
+        if (tableListO.getBestellungsFilter() == 1){
+            holder.checkBox.setChecked(false);
+        } else if (tableListO.getBestellungsFilter() == 2) {
+            holder.checkBox.setChecked(true);
+        }
+
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,12 +67,24 @@ public class RV_Adapter_Bestellungen extends RecyclerView.Adapter<RV_Adapter_Bes
         int counter = 0;
         tableOrders.clear();
 
-        for (Map.Entry<String, Integer> entry : tableListO.getTischeArray()[tableNumber-1].getBestellungen().entrySet()) {
-            //restaurantTische.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
-            if(entry.getValue() != 0){
-                tableOrders.add(new String[]{entry.getKey(), String.valueOf(entry.getValue())});
-                counter ++;
+        if (tableListO.getBestellungsFilter() == 1){
+            for (Map.Entry<String, Integer> entry : tableListO.getTischeArray()[tableNumber-1].getBestellungen().entrySet()) {
+                //restaurantTische.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+                if(entry.getValue() != 0){
+                    tableOrders.add(new String[]{entry.getKey(), String.valueOf(entry.getValue())});
+                    counter ++;
+                }
             }
+            Log.i("order", "Seite 1");
+        }else if (tableListO.getBestellungsFilter() == 2){
+            for (Map.Entry<String, Integer> entry : tableListO.getTischeArray()[tableNumber-1].getGeschlosseneBestellungen().entrySet()) {
+                //restaurantTische.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+                if(entry.getValue() != 0){
+                    tableOrders.add(new String[]{entry.getKey(), String.valueOf(entry.getValue())});
+                    counter ++;
+                }
+            }
+            Log.i("order", "Seite 2");
         }
 
         return counter;
@@ -78,13 +96,21 @@ public class RV_Adapter_Bestellungen extends RecyclerView.Adapter<RV_Adapter_Bes
                 .getReference("Restaurants")
                 .child(restaurantID)
                 .child("tische")
-                .child("T" + String.format("%03d", tableNumber))
-                .child("bestellungen");
+                .child("T" + String.format("%03d", tableNumber));
 
         String gericht = tableOrders.get(indexOfOrder)[0];
 
-        bestellungenRef.child(gericht).setValue(0);
+        if (tableListO.getBestellungsFilter() == 1){
+            int numberClosed = tableListO.getTischeArray()[tableNumber-1].getGeschlosseneBestellungen() .get(gericht);
+            bestellungenRef.child("geschlosseneBestellungen").child(gericht).setValue(numberClosed + Integer.valueOf(tableOrders.get(indexOfOrder)[1]));
+            bestellungenRef.child("bestellungen").child(gericht).setValue(0);
+        } else if (tableListO.getBestellungsFilter() == 2) {
+            int numberClosed = tableListO.getTischeArray()[tableNumber-1].getBestellungen() .get(gericht);
+            bestellungenRef.child("bestellungen").child(gericht).setValue(numberClosed + Integer.valueOf(tableOrders.get(indexOfOrder)[1]));
+            bestellungenRef.child("geschlosseneBestellungen").child(gericht).setValue(0);
+        }
 
+        Log.i("order", String.valueOf(tableListO.getBestellungsFilter()));
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

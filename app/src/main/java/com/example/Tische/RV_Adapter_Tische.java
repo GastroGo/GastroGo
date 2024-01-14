@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.DBKlassen.TablelistModel;
 import com.example.DBKlassen.Tische;
 import com.example.login.R;
+import com.example.login.Tisch;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.ViewHolder> {
 
     private final TablelistModel tableListO = TablelistModel.getInstance();
-    private final Tische[] tischeArray = TablelistModel.getInstance().getTischeArray();
+    private final Tisch[] tischeArray = TablelistModel.getInstance().getTischeArray();
     private final OnItemClickListener onItemClickListener;
     private String restaurantID;
     private int numberOfGerichte;
@@ -67,17 +68,20 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
                 .getReference("Restaurants")
                 .child(restaurantID)
                 .child("tische")
-                .child("T" + String.format("%03d", tableNum))
-                .child("bestellungen");
+                .child("T" + String.format("%03d", tableNum));
 
 
         Log.i("Gerichte", String.valueOf(numberOfGerichte));
 
 
-        String gericht;
         for(int x = 1; x <= numberOfGerichte; x++){
-            gericht = "G" + String.format("%03d", x);
-            bestellungenRef.child(gericht).setValue(0);
+            String gericht = "G" + String.format("%03d", x);
+            bestellungenRef.child("bestellungen").child(gericht).setValue(0);
+        }
+
+        for(int x = 1; x <= numberOfGerichte; x++){
+            String gericht = "G" + String.format("%03d", x);
+            bestellungenRef.child("geschlosseneBestellungen").child(gericht).setValue(0);
         }
 
     }
