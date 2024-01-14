@@ -34,7 +34,8 @@
             android:exported="false" />
         <activity
             android:name=".Startseite"
-            android:exported="false" />
+            android:exported="false"
+            android:hardwareAccelerated="true" />
         <activity
             android:name=".CreateRestaurant"
             android:theme="@style/AppTheme.ActionBarWhite"
