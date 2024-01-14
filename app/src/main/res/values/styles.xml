@@ -59,6 +59,7 @@
         <item name="borderWidth">0dp</item>
         <item name="fabCustomSize">30dp</item>
         <item name="tint">@color/white</item>
+        <item name="android:elevation">10dp</item>
     </style>
 
     <style name="HeaderBackButtonTextStyle">
