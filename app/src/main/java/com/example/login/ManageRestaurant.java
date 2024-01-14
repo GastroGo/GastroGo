@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,7 +31,8 @@ public class ManageRestaurant extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseUser user;
     TextView name;
-    Button delete, schluessel, qrcode, menu, orders;
+    ImageButton menu, schluessel, qrcode, orders;
+    Button delete;
     Daten restaurantDaten;
 
     @Override

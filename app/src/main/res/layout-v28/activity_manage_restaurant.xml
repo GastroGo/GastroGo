@@ -32,7 +32,9 @@
             app:layout_constraintEnd_toStartOf="@+id/buttonOrders"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:elevation="60dp" />
+            android:elevation="10dp"
+            android:outlineSpotShadowColor="#000000"
+            android:outlineAmbientShadowColor="#000000" />
 
         <ImageButton
             android:id="@+id/buttonOrders"
