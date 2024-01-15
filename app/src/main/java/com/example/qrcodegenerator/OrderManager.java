@@ -13,7 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.login.DropdownManager;
 import com.example.login.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -26,6 +28,7 @@ public class OrderManager extends AppCompatActivity implements AmountChangeListe
     List<Gericht> selectedGerichte = new ArrayList<>();
 
     private Dialog currentDialog;
+    FloatingActionButton back;
 
 
     @Override
@@ -33,15 +36,27 @@ public class OrderManager extends AppCompatActivity implements AmountChangeListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_view);
 
+
+
+        back = findViewById(R.id.btn_back);
+        back.setOnClickListener(v -> {
+            onBackPressed();
+        });
+
+        DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
+        dropdownManager.setupDropdown();
+
         Intent intent = getIntent();
         List<Gericht> gerichtList = (List<Gericht>) getIntent().getSerializableExtra("Gerichte");
 
         Button btnAdd = findViewById(R.id.btnAdd);
+        TextView text = findViewById(R.id.tableNumber);
+        text.setText("");
         String idRestaurant = getIntent().getStringExtra("id");
         String idSelectedTable = getIntent().getStringExtra("idTable");
 
-        TextView tableNumber = findViewById(R.id.tableNumber);
-        tableNumber.setText("Tischnummer: " + String.valueOf(idSelectedTable));
+        TextView headerText = findViewById(R.id.text);
+        headerText.setText("Tischnummer: " + String.valueOf(idSelectedTable));
 
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);

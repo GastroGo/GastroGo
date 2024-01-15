@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class ManageMenu extends AppCompatActivity {
 
-    Button buttonAdd;
+    FloatingActionButton buttonAdd;
     FloatingActionButton back;
     private DishAdapter dishAdapter;
     private List<Speisekarte> dishes;
@@ -36,6 +36,9 @@ public class ManageMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_menu);
+
+        DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
+        dropdownManager.setupDropdown();
 
         back = findViewById(R.id.btn_back);
         buttonAdd = findViewById(R.id.buttonAdd);

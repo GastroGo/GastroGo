@@ -2,7 +2,7 @@ package com.example.mitarbeiterverwaltung;
 
 public class Model {
     private static final String KEY_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    private static final int KEY_LENGTH = 8;
+    private static final int KEY_LENGTH = 6;
 
 
     public String getKeyCharacters() {

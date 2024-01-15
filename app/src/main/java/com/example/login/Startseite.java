@@ -3,27 +3,32 @@ package com.example.login;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +38,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Startseite extends AppCompatActivity implements OnMapReadyCallback {
@@ -42,12 +48,21 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
     FirebaseUser user;
     GoogleMap gMap;
     Marker currentLocationMarker;
+    FloatingActionButton searchButton;
+    SearchView searchView;
+    List<Marker> allMarkers = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startseite);
         auth = FirebaseAuth.getInstance();
+        searchButton = findViewById(R.id.search);
+        searchView = findViewById(R.id.searchView);
+
+
+        SharedPreferences sharedPreferences = getSharedPreferences("AppData", MODE_PRIVATE);
+        boolean isFirstRun = sharedPreferences.getBoolean("IS_FIRST_RUN", true);
 
         user = auth.getCurrentUser();
         if (user == null) {
@@ -55,17 +70,80 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
             startActivity(intent);
             finish();
         } else {
-            checkUserInDatabase(user.getUid());
+            String cachedUserId = UserCache.getInstance().getUserId();
+            if (cachedUserId != null && cachedUserId.equals(user.getUid())) {
+                Intent intent = new Intent(getApplicationContext(), ManageRestaurant.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+                finish();
+
+            } else {
+                checkUserInDatabase(user.getUid());
+            }
         }
+
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavigationManager.setupBottomNavigationView(bottomNavigationView, this);
 
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String searchText = searchView.getQuery().toString();
+                searchRestaurants(searchText);
+            }
+        });
 
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (GoogleMap.MAP_TYPE_NORMAL == gMap.getMapType()) {
+                    gMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                } else {
+                    gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                }
+            }
+        });
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
+        dropdownManager.setupDropdown();
+    }
 
+    private void searchRestaurants(String searchText) {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Restaurants");
+        dbRef.orderByChild("daten/name").equalTo(searchText).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String restaurantName = snapshot.child("daten/name").getValue(String.class);
+
+                    for (Marker marker : allMarkers) {
+                        if (marker.getTitle().equals(restaurantName)) {
+                            gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15));
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }    //mmm
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
+        if (bottomNavigationView.getSelectedItemId() != R.id.menuHome) {
+            bottomNavigationView.setSelectedItemId(R.id.menuHome);
+        }
     }
 
     public String getUserId() {
@@ -74,38 +152,44 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         return user.getUid();
     }
 
-    private void checkUserInDatabase(String uid) {  //überprüft ob es sich um Restaurant handelt
+
+    private void checkUserInDatabase(String uid) {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Restaurants");
         dbRef.orderByChild("daten/uid").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {    //Restaurant Ansicht wird gestartet
+                if (dataSnapshot.exists()) {
+                    UserCache.getInstance().setUserId(uid);
                     Intent intent = new Intent(getApplicationContext(), ManageRestaurant.class);
                     startActivity(intent);
+                    overridePendingTransition(0, 0);
                     finish();
                 }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) { //würd mir stinken
+            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
     }
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
+        GoogleMapOptions options = new GoogleMapOptions();
+        options.liteMode(true);
         SupportMapFragment mMapView = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         gMap = googleMap;
         gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         MyLocationListener locationListener = new MyLocationListener(this, gMap, this);
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            gMap.setMyLocationEnabled(true);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+        } else {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
+            locationListener.getLastKnownLocation(locationManager);
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
-        locationListener.getLastKnownLocation(locationManager);
         addRestaurantsOnMap();
         int padding = 100; // replace with desired padding in pixels
         gMap.setPadding(0, padding, 0, 0);
@@ -141,10 +225,11 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
                             Location.distanceBetween(currentLocationMarker.getPosition().latitude, currentLocationMarker.getPosition().longitude,
                                     latLng.latitude, latLng.longitude, results);
                             int distanceInMeters = (int) results[0];
-                            gMap.addMarker(new MarkerOptions()
+                            Marker marker = gMap.addMarker(new MarkerOptions()
                                     .position(latLng)
                                     .title(daten.getName())
                                     .snippet("Entfernung: " + distanceInMeters / 1000 + "km"));
+                            allMarkers.add(marker);
                         }
                     }
                 }

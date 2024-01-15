@@ -106,7 +106,7 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
         private final TextView tableNr;
         private final TextView timer;
         private final CheckBox checkBox;
-        private final LinearLayout cardView;
+        private final CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

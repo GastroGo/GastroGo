@@ -1,41 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.example.mitarbeiterverwaltung.MitarbeiterVerwalten">
-
 
     <include
         android:id="@+id/layoutHeader"
         layout="@layout/header_layout" />
 
-    <Button
-        android:id="@+id/mAnlegen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="19dp"
-        android:layout_marginBottom="44dp"
-        android:text="Neuen Mitarbeiter anlegen" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mListe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/mAnlegen"
-        android:layout_below="@+id/layoutHeader"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="33dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="161dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp" />
+        android:layout_marginBottom="100dp"
+        app:layout_anchor="@+id/layoutHeader"
+        app:layout_anchorGravity="top" />
 
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:backgroundTint="@color/black"
+        app:fabCradleMargin="10dp"
+        app:fabCradleRoundedCornerRadius="10dp"
+        app:fabCradleVerticalOffset="10dp" />
 
-</RelativeLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/mAnlegen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="QRCode"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/black"
+        app:layout_anchor="@+id/bottomAppBar"
+        app:tint="@android:color/white" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

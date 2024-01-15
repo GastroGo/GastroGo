@@ -17,15 +17,7 @@ public class NavigationManager {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-                if (id == R.id.menuAccount) {
-                    FirebaseAuth.getInstance().signOut();
-                    Intent intent = new Intent(context, Login.class);
-                    context.startActivity(intent);
-                    if(context instanceof Activity) {
-                        ((Activity) context).finish();
-                    }
-                    return true;
-                } else if (id == R.id.menuHome) {
+                if (id == R.id.menuHome) {
                     Intent intent = new Intent(context, Startseite.class);
                     context.startActivity(intent);
                     if(context instanceof Activity) {
@@ -45,4 +37,5 @@ public class NavigationManager {
             }
         });
     }
+
 }

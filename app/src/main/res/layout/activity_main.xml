@@ -4,7 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QRCodeReader">
+    tools:context="com.example.qrcodegenerator.QRCodeReader">
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/header_layout"
+        android:visibility="visible"/>
+
+    <Button
+        android:id="@+id/button_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutHeader"
+        android:text="überspringen"
+        android:visibility="gone" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/layout_result"
@@ -17,7 +30,8 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/qr_scan" />
+            android:src="@drawable/qr_scan"
+            android:elevation="10dp"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -40,12 +54,9 @@
         android:src="@drawable/qr_scan"
         app:backgroundTint="@color/black"
         app:layout_anchor="@+id/bottomAppBar"
-        app:tint="@android:color/white" />
+        app:tint="@android:color/white"
+        android:elevation="10dp"/>
 
-    <Button
-        android:id="@+id/button_skip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="überspringen" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

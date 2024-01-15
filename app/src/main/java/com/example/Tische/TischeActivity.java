@@ -15,6 +15,7 @@ import com.example.DBKlassen.Gericht;
 import com.example.DBKlassen.GerichteModel;
 import com.example.DBKlassen.TablelistModel;
 import com.example.DBKlassen.Tische;
+import com.example.login.DropdownManager;
 import com.example.login.R;
 import com.example.login.Tisch;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -46,6 +47,9 @@ public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tisc
         restaurantId = getIntent().getStringExtra("restaurantId");
         TextView headerText = findViewById(R.id.text);
         headerText.setText("Tische");
+
+        DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
+        dropdownManager.setupDropdown();
 
         recyclerView = findViewById(R.id.mRecyclerView);
         RV_Adapter_Tische adapterTische = new RV_Adapter_Tische(this, restaurantId);

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.mitarbeiterverwaltung.MitarbeiterVerwalten;
 import com.example.qrcodepdf.PdfActivity;
@@ -31,8 +32,9 @@ public class ManageRestaurant extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseUser user;
     TextView name;
-    ImageButton menu, schluessel, qrcode, orders;
+    ConstraintLayout menu, schluessel, qrcode, orders;
     Button delete;
+    FloatingActionButton back;
     Daten restaurantDaten;
 
     @Override
@@ -45,6 +47,7 @@ public class ManageRestaurant extends AppCompatActivity {
         delete = findViewById(R.id.buttonDelete);
         qrcode = findViewById(R.id.buttonGenerateQR);
         orders = findViewById(R.id.buttonOrders);
+        back = findViewById(R.id.btn_back);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         if (user == null) {
@@ -54,6 +57,9 @@ public class ManageRestaurant extends AppCompatActivity {
         } else {
             getData(user.getUid());
         }
+
+        DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
+        dropdownManager.setupDropdown();
 
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +120,13 @@ public class ManageRestaurant extends AppCompatActivity {
                     intent.putExtra("restaurantId", restaurantDaten.getId()); // Pass the restaurant ID to TischeActivity activity
                     startActivity(intent);
                 } else {}
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Einstellungen.class);
+                startActivity(intent);
             }
         });
     }

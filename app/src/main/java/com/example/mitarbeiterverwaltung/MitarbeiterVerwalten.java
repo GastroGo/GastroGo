@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.login.DropdownManager;
 import com.example.login.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -33,7 +34,7 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
     MyAdapter myadapter;
     ArrayList<User> list;
     HashSet<String> keysSet;
-    Button mAnlegen;
+    FloatingActionButton mAnlegen;
     Dialog dialog;
     Button mErstellen;
     EditText etName;
@@ -62,6 +63,9 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
 
         TextView headerText = findViewById(R.id.text);
         headerText.setText("Mitarbeiter");
+
+        DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
+        dropdownManager.setupDropdown();
 
         dialog = new Dialog(MitarbeiterVerwalten.this);
         dialog.setContentView(R.layout.m_anlegen);

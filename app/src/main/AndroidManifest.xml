@@ -34,18 +34,21 @@
             android:exported="false" />
         <activity
             android:name=".Startseite"
-            android:exported="false" />
+            android:exported="false"
+            android:hardwareAccelerated="true" />
         <activity
             android:name=".CreateRestaurant"
+            android:theme="@style/AppTheme.ActionBarWhite"
             android:exported="false" />
         <activity
             android:name=".Einstellungen"
             android:exported="false" />
-        <activity
-            android:name=".Register"
-            android:exported="true" />
-        <activity
-            android:name=".Login"
+        <activity android:name=".Login"
+            android:theme="@style/AppTheme.ActionBarWhite">
+        </activity>
+
+        <activity android:name=".Register"
+            android:theme="@style/AppTheme.ActionBarWhite"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
