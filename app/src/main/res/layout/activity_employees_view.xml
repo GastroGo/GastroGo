@@ -12,13 +12,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="400dp"
         android:layout_marginTop="150dp"
+        android:padding="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:padding="15dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/toUserPage"
@@ -58,7 +58,6 @@
             android:id="@+id/toWorkersPage"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_marginStart="55dp"
             android:background="@drawable/button_border"
             android:elevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -86,17 +85,16 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/imageView2"
-                app:layout_constraintStart_toStartOf="@+id/imageView2"
-                />
+                app:layout_constraintStart_toStartOf="@+id/imageView2" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/settingButtonEmployees"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_marginTop="55dp"
             android:background="@drawable/button_border"
             android:elevation="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/toWorkersPage"
             app:layout_constraintStart_toEndOf="@+id/toUserPage"
             app:layout_constraintTop_toBottomOf="@+id/toUserPage">

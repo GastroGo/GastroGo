@@ -65,11 +65,10 @@
             android:clickable="true"
             android:scaleX="0.75"
             android:scaleY="0.75"
-            app:backgroundTint="@color/light_third"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_menu_send"
-            app:tint="@color/white"/>
+            app:tint="@color/white" />
 
         <EditText
             android:id="@+id/schluesselEingabe"
