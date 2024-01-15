@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
+    id("com.google.firebase.firebase-perf")
 }
 
 android {
@@ -51,7 +52,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.multidex:multidex:2.0.1") // Add multiDex dependency here
-
+    implementation("com.google.firebase:firebase-perf:20.0.4")
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation("com.google.zxing:core:3.4.1")
     implementation("com.itextpdf:itextpdf:5.5.13.2")
