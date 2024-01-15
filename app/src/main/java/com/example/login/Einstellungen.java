@@ -2,6 +2,7 @@ package com.example.login;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,6 +64,17 @@ public class Einstellungen extends AppCompatActivity {
         setupListeners();
         loadModelData();
 
+        FloatingActionButton mitarbeiterLogin = findViewById(R.id.mitarbeiterLogin);
+
+// Überprüfen Sie den Zustand des FloatingActionButton
+        if (!mitarbeiterLogin.isEnabled()) {
+            // Wenn der Button deaktiviert ist, ändern Sie die Farbe auf Grau
+            mitarbeiterLogin.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, android.R.color.darker_gray)));
+        } else {
+            // Wenn der Button aktiviert ist, ändern Sie die Farbe auf die ursprüngliche Farbe
+            mitarbeiterLogin.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.light_third)));
+        }
+
     }
 
     private void setupListeners() {
@@ -72,6 +85,7 @@ public class Einstellungen extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
             }
 
             @Override
