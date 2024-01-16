@@ -7,11 +7,10 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -111,11 +110,13 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         dropdownManager.setupDropdown();
 
         if (employee) {
-            schluesselAbgleichen();
+            checkKey();
         }
+
+        mapFragment.setRetainInstance(true);
     }
 
-    private void schluesselAbgleichen() {
+    private void checkKey() {
         SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
         String inputKey = sharedPreferences.getString("KEY_SCHLUESSEL", "");
 
@@ -158,10 +159,6 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
                     if (keyFound) {
                         break;
                     }
-                }
-
-                if (!keyFound) {
-                    Toast.makeText(Startseite.this, "Schlüssel falsch", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -240,6 +237,9 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         MyLocationListener locationListener = new MyLocationListener(this, gMap, this);
+        LatLng preLoadLatLng = new LatLng(47.795044385251785, 9.48099664856038); // Beispielkoordinaten
+        float preLoadZoomLevel = 12;
+        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(preLoadLatLng, preLoadZoomLevel));
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -248,14 +248,21 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
             locationListener.getLastKnownLocation(locationManager);
 
-            // Enable the location layer
             gMap.setMyLocationEnabled(true);
         }
         addRestaurantsOnMap();
-        int padding = 100; // replace with desired padding in pixels
+        int padding = 100;
         gMap.setPadding(0, padding, 0, 0);
 
+        googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+            @Override
+            public void onMapLoaded() {
+                MapHolder.getInstance().setGoogleMap(googleMap);
+            }
+        });
     }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
