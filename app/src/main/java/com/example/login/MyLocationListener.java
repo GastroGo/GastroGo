@@ -40,13 +40,8 @@ public class MyLocationListener implements LocationListener {
             // Vorherigen Marker entfernen, wenn vorhanden
             if (startseite.currentLocationMarker != null) {
                 startseite.currentLocationMarker.remove();
+                startseite.currentLocationMarker = null;
             }
-
-            // Neuen Marker hinzufügen und Referenz speichern
-            startseite.currentLocationMarker = gMap.addMarker(new MarkerOptions()
-                    .icon(BitmapDescriptorFactory.defaultMarker(200))
-                    .position(latLng)
-                    .title("Sie befinden sich hier"));
         } else {
             return;
         }

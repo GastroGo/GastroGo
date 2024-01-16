@@ -60,10 +60,6 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         searchButton = findViewById(R.id.search);
         searchView = findViewById(R.id.searchView);
 
-
-        SharedPreferences sharedPreferences = getSharedPreferences("AppData", MODE_PRIVATE);
-        boolean isFirstRun = sharedPreferences.getBoolean("IS_FIRST_RUN", true);
-
         user = auth.getCurrentUser();
         if (user == null) {
             Intent intent = new Intent(getApplicationContext(), Login.class);
@@ -99,7 +95,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
             @Override
             public void onClick(View view) {
                 if (GoogleMap.MAP_TYPE_NORMAL == gMap.getMapType()) {
-                    gMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                    gMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
                 } else {
                     gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                 }
@@ -189,11 +185,13 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         } else {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
             locationListener.getLastKnownLocation(locationManager);
+
+            // Enable the location layer
+            gMap.setMyLocationEnabled(true);
         }
         addRestaurantsOnMap();
         int padding = 100; // replace with desired padding in pixels
         gMap.setPadding(0, padding, 0, 0);
-
 
     }
 
@@ -220,15 +218,10 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
                         Daten daten = restaurant.getDaten();
                         String address = daten.getStrasse() + " " + daten.getHausnr() + ", " + daten.getPlz() + " " + daten.getOrt();
                         LatLng latLng = getLatLngFromAddress(address);
-                        if (latLng != null && currentLocationMarker != null) {
-                            float[] results = new float[1];
-                            Location.distanceBetween(currentLocationMarker.getPosition().latitude, currentLocationMarker.getPosition().longitude,
-                                    latLng.latitude, latLng.longitude, results);
-                            int distanceInMeters = (int) results[0];
+                        if (latLng != null) {
                             Marker marker = gMap.addMarker(new MarkerOptions()
                                     .position(latLng)
-                                    .title(daten.getName())
-                                    .snippet("Entfernung: " + distanceInMeters / 1000 + "km"));
+                                    .title(daten.getName()));
                             allMarkers.add(marker);
                         }
                     }
