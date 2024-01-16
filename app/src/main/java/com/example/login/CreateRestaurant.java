@@ -130,20 +130,20 @@ public class CreateRestaurant extends AppCompatActivity {
 
         Map<String, Speisekarte> speisekarte = new HashMap<>();
         speisekarte.put("G001", new Speisekarte("1", 0.0, new HashMap<String, Boolean>() {{
-            put("gluten", false);
-            put("nüsse", false);
+            put("gluten", true);
+            put("nüsse", true);
         }}, new HashMap<String, Boolean>() {{
-            put("eier", false);
-            put("fleisch", false);
-            put("milch", false);
+            put("eier", true);
+            put("fleisch", true);
+            put("milch", true);
         }}));
         speisekarte.put("G002", new Speisekarte("2", 0.0, new HashMap<String, Boolean>() {{
-            put("gluten", false);
-            put("nüsse", false);
+            put("gluten", true);
+            put("nüsse", true);
         }}, new HashMap<String, Boolean>() {{
-            put("eier", false);
-            put("fleisch", false);
-            put("milch", false);
+            put("eier", true);
+            put("fleisch", true);
+            put("milch", true);
         }}));
 
         Map<String, Integer> ordersMap = new HashMap<String, Integer>() {{
