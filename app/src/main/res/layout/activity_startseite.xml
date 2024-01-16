@@ -21,9 +21,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintTop_toBottomOf="@+id/header">
 
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:map="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <androidx.fragment.app.FragmentContainerView xmlns:map="http://schemas.android.com/apk/res-auto"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:id="@+id/map"
             android:layout_width="match_parent"
@@ -51,7 +49,8 @@
                 app:elevation="10dp"
                 app:fabSize="mini"
                 app:rippleColor="@color/light_second"
-                app:srcCompat="@drawable/ic_menu_map_type" />
+                app:srcCompat="@drawable/ic_menu_map_type"
+                android:contentDescription="TODO" />
 
 
         </LinearLayout>
