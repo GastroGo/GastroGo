@@ -92,6 +92,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         });
 
         FloatingActionButton fab = findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,16 +104,17 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
             }
         });
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
         DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
         dropdownManager.setupDropdown();
 
         if (employee) {
             checkKey();
         }
+    }
 
+    private void loadMap() {
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
         mapFragment.setRetainInstance(true);
     }
 
@@ -219,6 +221,8 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
                     startActivity(intent);
                     overridePendingTransition(0, 0);
                     finish();
+                } else {
+                    loadMap();
                 }
             }
 
