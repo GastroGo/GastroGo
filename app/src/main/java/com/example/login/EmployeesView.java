@@ -45,6 +45,7 @@ public class EmployeesView extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Startseite.class);
+                intent.putExtra("employee", getIntent().getBooleanExtra("employee", false));
                 startActivity(intent);
             }
         });
@@ -62,6 +63,7 @@ public class EmployeesView extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Startseite.class);
+                intent.putExtra("employee", getIntent().getBooleanExtra("employee", false));
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 finish();

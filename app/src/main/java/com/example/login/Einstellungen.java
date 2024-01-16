@@ -48,7 +48,7 @@ public class Einstellungen extends AppCompatActivity {
         back = findViewById(R.id.btn_back);
 
         back.setOnClickListener(v -> {
-            onBackPressed();
+            finish();
         });
 
         TextView headerText = findViewById(R.id.text);

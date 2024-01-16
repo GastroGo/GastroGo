@@ -51,6 +51,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
     FloatingActionButton searchButton;
     SearchView searchView;
     List<Marker> allMarkers = new ArrayList<>();
+    boolean employee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         auth = FirebaseAuth.getInstance();
         searchButton = findViewById(R.id.search);
         searchView = findViewById(R.id.searchView);
+        employee = getIntent().getBooleanExtra("employee", true);
 
         user = auth.getCurrentUser();
         if (user == null) {
@@ -107,6 +109,66 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
 
         DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
         dropdownManager.setupDropdown();
+
+        if (employee) {
+            schluesselAbgleichen();
+        }
+    }
+
+    private void schluesselAbgleichen() {
+        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+        String inputKey = sharedPreferences.getString("KEY_SCHLUESSEL", "");
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Schluessel");
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean keyFound = false;
+
+                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                    for (DataSnapshot grandChildSnapshot : childSnapshot.getChildren()) {
+                        for (DataSnapshot greatGrandChildSnapshot : grandChildSnapshot.getChildren()) {
+                            String firebaseKey = greatGrandChildSnapshot.getValue(String.class);
+
+                            if (inputKey.equals(firebaseKey)) {
+
+                                DatabaseReference grandChildRef = greatGrandChildSnapshot.getRef().getParent();
+                                if (grandChildRef != null) {
+
+                                    DatabaseReference childRef = grandChildRef.getParent();
+                                    if (childRef != null) {
+                                        Intent intent = new Intent(getApplicationContext(), EmployeesView.class);
+                                        employee= true;
+                                        startActivity(intent);
+                                        overridePendingTransition(0, 0);
+                                        finish();
+                                    }
+                                }
+                                keyFound = true;
+                                break;
+                            }
+                        }
+
+                        if (keyFound) {
+                            break;
+                        }
+                    }
+
+                    if (keyFound) {
+                        break;
+                    }
+                }
+
+                if (!keyFound) {
+                    Toast.makeText(Startseite.this, "Schlüssel falsch", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
     private void searchRestaurants(String searchText) {
