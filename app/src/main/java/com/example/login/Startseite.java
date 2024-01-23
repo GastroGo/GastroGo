@@ -263,7 +263,9 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
-                MapHolder.getInstance().setGoogleMap(googleMap);
+                if (MapHolder.getInstance()!=null) {
+                    MapHolder.getInstance().setGoogleMap(googleMap);
+                }
             }
         });
     }
