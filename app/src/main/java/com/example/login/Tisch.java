@@ -6,6 +6,7 @@ public class Tisch {
     private Map<String, Integer> bestellungen;
     private Map<String, Integer> geschlosseneBestellungen;
     private int personen;
+    private String letzteBestellung;
 
     public Tisch(Map<String, Integer> bestellungen, Map<String, Integer> geschlosseneBestellungen, int personen) {
         this.bestellungen = bestellungen;
@@ -38,5 +39,13 @@ public class Tisch {
 
     public void setPersonen(int personen) {
         this.personen = personen;
+    }
+
+    public String getLetzteBestellung() {
+        return letzteBestellung;
+    }
+
+    public void setLetzteBestellung(String letzteBestellung) {
+        this.letzteBestellung = letzteBestellung;
     }
 }

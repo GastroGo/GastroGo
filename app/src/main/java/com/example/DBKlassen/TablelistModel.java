@@ -1,6 +1,8 @@
 package com.example.DBKlassen;
 import com.example.login.Tisch;
 
+import java.util.Map;
+
 public class TablelistModel {
 
     private static TablelistModel instance;
@@ -70,6 +72,16 @@ public class TablelistModel {
         iNummer = Integer.parseInt(sNummer);
 
         return iNummer;
+    }
+
+    public int getNumberOrders(int tableNumber){
+        int counter = 0;
+        for (Map.Entry<String, Integer> entry : getTischeArray()[tableNumber-1].getBestellungen().entrySet()) {
+            if(entry.getValue() != 0){
+                counter ++;
+            }
+        }
+        return counter;
     }
 
 }
