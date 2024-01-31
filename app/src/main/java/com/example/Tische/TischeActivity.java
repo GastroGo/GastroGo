@@ -2,7 +2,8 @@ package com.example.Tische;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
+import android.os.Handler;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,7 +15,6 @@ import com.example.Bestellungen.BestellungenActivity;
 import com.example.DBKlassen.Gericht;
 import com.example.DBKlassen.GerichteModel;
 import com.example.DBKlassen.TablelistModel;
-import com.example.DBKlassen.Tische;
 import com.example.login.DropdownManager;
 import com.example.login.R;
 import com.example.login.Tisch;
@@ -25,6 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tische.OnItemClickListener {
@@ -39,6 +41,10 @@ public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tisc
     int NumberOfTables = 20;
     int NumberOfGerichte;
     String restaurantId;
+
+    private Handler handler;
+    private Runnable runnable;
+    private RV_Adapter_Tische adapterTische;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,8 @@ public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tisc
         recyclerView.setAdapter(adapterTische);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         FloatingActionButton returnButton = findViewById(R.id.btn_back);
+
+
 
         returnButton.setOnClickListener(view -> finish());
 
@@ -88,7 +96,30 @@ public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tisc
             }
         });
 
+        handler = new Handler();
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                adapterTische.notifyDataSetChanged();
+                long currentTimeMillis = System.currentTimeMillis();
+                long delay = 60000 - (currentTimeMillis % 60000);
+                handler.postDelayed(this, delay);
+            }
+        };
+        handler.post(runnable);
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        handler.post(runnable);
     }
 
     @Override

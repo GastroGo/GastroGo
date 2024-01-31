@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,14 +12,17 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.DBKlassen.TablelistModel;
-import com.example.DBKlassen.Tische;
 import com.example.login.R;
 import com.example.login.Tisch;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
+import java.time.Duration;
+import java.time.LocalTime;
+
 
 public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.ViewHolder> {
 
@@ -46,12 +48,18 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         int pos = position;
         holder.tableNr.setText("Tisch " + (pos + 1));
+        if (tableListO.getNumberOrders(pos+1) == 0){
+            holder.timer.setText("-");
+        }
+        else {
+            holder.timer.setText(getElapsedTime(tableListO.getTischeArray()[pos].getLetzteBestellung()));
+        }
+
 
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 resetAllOrders(pos + 1);
-
             }
         });
 
@@ -91,6 +99,45 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
     }
 
 
+    public String getCurrentTime(){
+        ZonedDateTime now = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            now = ZonedDateTime.now(ZoneId.of("Europe/Berlin"));
+        }
+        DateTimeFormatter formatter = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            formatter = DateTimeFormatter.ofPattern("HH:mm");
+        }
+        String currentTime = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            currentTime = now.format(formatter);
+        }
+        return currentTime;
+    }
+
+    public String getElapsedTime(String startingTime){
+        LocalTime startTime = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            startTime = LocalTime.parse(startingTime, DateTimeFormatter.ofPattern("HH:mm"));
+        }
+        LocalTime now = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            now = LocalTime.parse(getCurrentTime(), DateTimeFormatter.ofPattern("HH:mm"));
+        }
+        Duration duration = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            duration = Duration.between(startTime, now);
+        }
+        long hours = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            hours = duration.toHours();
+        }
+        long minutes = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            minutes = duration.toMinutes() % 60;
+        }
+        return String.format("%02d:%02d", hours, minutes);
+    }
 
     @Override
     public int getItemCount() {

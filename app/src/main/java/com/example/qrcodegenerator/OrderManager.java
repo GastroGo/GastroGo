@@ -3,6 +3,7 @@ package com.example.qrcodegenerator;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -19,8 +20,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 
 public class OrderManager extends AppCompatActivity implements AmountChangeListener {
@@ -160,6 +167,14 @@ public class OrderManager extends AppCompatActivity implements AmountChangeListe
             bestellungenRef.child("G" + formattedIndex).setValue(gericht.getFinalAmount());
             index++;
         }
+
+        bestellungenRef = FirebaseDatabase.getInstance()
+                .getReference("Restaurants")
+                .child(idRestaurant)
+                .child("tische")
+                .child("T" + idSelectedTable);
+        bestellungenRef.child("letzteBestellung").setValue(getCurrentTime());
+
     }
 
 
@@ -178,6 +193,22 @@ public class OrderManager extends AppCompatActivity implements AmountChangeListe
         } else {
             totalPrice.setText("");
         }
+    }
+
+    public String getCurrentTime(){
+        ZonedDateTime now = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            now = ZonedDateTime.now(ZoneId.of("Europe/Berlin"));
+        }
+        DateTimeFormatter formatter = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            formatter = DateTimeFormatter.ofPattern("HH:mm");
+        }
+        String currentTime = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            currentTime = now.format(formatter);
+        }
+        return currentTime;
     }
 
 }
