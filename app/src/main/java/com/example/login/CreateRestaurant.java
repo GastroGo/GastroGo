@@ -1,6 +1,13 @@
 package com.example.login;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,8 +17,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
@@ -20,17 +29,22 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class CreateRestaurant extends AppCompatActivity {
 
     TextInputEditText editTextEmail, editTextPassword, editTextName, editTextPlace, editTextZip, editTextStreet, editTextHousenr;
-    Button buttonReg, buttonBack;
+    Button buttonReg, buttonBack, buttonLocation;
     FirebaseAuth mAuth;
     DatabaseReference dbRef;
     ProgressBar progressBar;
     InputValidator inputValidator;
+    FusedLocationProviderClient fusedLocationClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +61,7 @@ public class CreateRestaurant extends AppCompatActivity {
         editTextHousenr = findViewById(R.id.housenr);
         buttonReg = findViewById(R.id.btn_register);
         buttonBack = findViewById(R.id.btn_back);
+        buttonLocation = findViewById(R.id.btn_location);
         progressBar = findViewById(R.id.progressBar);
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +128,39 @@ public class CreateRestaurant extends AppCompatActivity {
             }
         });
 
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        buttonLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ActivityCompat.checkSelfPermission(CreateRestaurant.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(CreateRestaurant.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                } else {
+                    fusedLocationClient.getLastLocation()
+                            .addOnSuccessListener(CreateRestaurant.this, new OnSuccessListener<Location>() {
+                                @Override
+                                public void onSuccess(Location location) {
+                                    if (location != null) {
+                                        Geocoder geocoder = new Geocoder(CreateRestaurant.this, Locale.getDefault());
+                                        try {
+                                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                                            if (!addresses.isEmpty()) {
+                                                Address address = addresses.get(0);
+                                                editTextPlace.setText(address.getLocality());
+                                                editTextStreet.setText(address.getThoroughfare());
+                                                editTextZip.setText(address.getPostalCode());
+                                                editTextHousenr.setText(address.getSubThoroughfare());
+                                            }
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                            });
+                }
+            }
+        });
+
     }
 
     public void createRestaurant(String name, String place, int zip, String street, int housnr, String uid) {
@@ -130,20 +178,20 @@ public class CreateRestaurant extends AppCompatActivity {
 
         Map<String, Speisekarte> speisekarte = new HashMap<>();
         speisekarte.put("G001", new Speisekarte("1", 0.0, new HashMap<String, Boolean>() {{
-            put("gluten", false);
-            put("nüsse", false);
+            put("gluten", true);
+            put("nüsse", true);
         }}, new HashMap<String, Boolean>() {{
-            put("eier", false);
-            put("fleisch", false);
-            put("milch", false);
+            put("eier", true);
+            put("fleisch", true);
+            put("milch", true);
         }}));
         speisekarte.put("G002", new Speisekarte("2", 0.0, new HashMap<String, Boolean>() {{
-            put("gluten", false);
-            put("nüsse", false);
+            put("gluten", true);
+            put("nüsse", true);
         }}, new HashMap<String, Boolean>() {{
-            put("eier", false);
-            put("fleisch", false);
-            put("milch", false);
+            put("eier", true);
+            put("fleisch", true);
+            put("milch", true);
         }}));
 
         Map<String, Integer> ordersMap = new HashMap<String, Integer>() {{

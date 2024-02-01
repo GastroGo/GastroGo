@@ -7,11 +7,10 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -51,6 +50,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
     FloatingActionButton searchButton;
     SearchView searchView;
     List<Marker> allMarkers = new ArrayList<>();
+    boolean employee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +59,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         auth = FirebaseAuth.getInstance();
         searchButton = findViewById(R.id.search);
         searchView = findViewById(R.id.searchView);
-
-
-        SharedPreferences sharedPreferences = getSharedPreferences("AppData", MODE_PRIVATE);
-        boolean isFirstRun = sharedPreferences.getBoolean("IS_FIRST_RUN", true);
+        employee = getIntent().getBooleanExtra("employee", true);
 
         user = auth.getCurrentUser();
         if (user == null) {
@@ -95,22 +92,84 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         });
 
         FloatingActionButton fab = findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (GoogleMap.MAP_TYPE_NORMAL == gMap.getMapType()) {
-                    gMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                    gMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
                 } else {
                     gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                 }
             }
         });
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
         DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
         dropdownManager.setupDropdown();
+
+        if (employee) {
+            checkKey();
+        }
+    }
+
+    private void loadMap() {
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+        mapFragment.setRetainInstance(true);
+    }
+
+    private void checkKey() {
+        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+        String inputKey = sharedPreferences.getString("KEY_SCHLUESSEL", "");
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Schluessel");
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean keyFound = false;
+
+                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                    for (DataSnapshot grandChildSnapshot : childSnapshot.getChildren()) {
+                        for (DataSnapshot greatGrandChildSnapshot : grandChildSnapshot.getChildren()) {
+                            String firebaseKey = greatGrandChildSnapshot.getValue(String.class);
+
+                            if (inputKey.equals(firebaseKey)) {
+
+                                DatabaseReference grandChildRef = greatGrandChildSnapshot.getRef().getParent();
+                                if (grandChildRef != null) {
+
+                                    DatabaseReference childRef = grandChildRef.getParent();
+                                    if (childRef != null) {
+                                        String parentKey = childRef.getKey();
+                                        Intent intent = new Intent(getApplicationContext(), EmployeesView.class);
+                                        employee= true;
+                                        intent.putExtra("restaurantId", parentKey); //Übergabe der RestaurantId
+                                        startActivity(intent);
+                                        overridePendingTransition(0, 0);
+                                        finish();
+                                    }
+                                }
+                                keyFound = true;
+                                break;
+                            }
+                        }
+
+                        if (keyFound) {
+                            break;
+                        }
+                    }
+
+                    if (keyFound) {
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
     private void searchRestaurants(String searchText) {
@@ -164,6 +223,8 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
                     startActivity(intent);
                     overridePendingTransition(0, 0);
                     finish();
+                } else {
+                    loadMap();
                 }
             }
 
@@ -182,6 +243,9 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         MyLocationListener locationListener = new MyLocationListener(this, gMap, this);
+        LatLng preLoadLatLng = new LatLng(47.795044385251785, 9.48099664856038); // Beispielkoordinaten
+        float preLoadZoomLevel = 12;
+        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(preLoadLatLng, preLoadZoomLevel));
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -189,13 +253,24 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         } else {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
             locationListener.getLastKnownLocation(locationManager);
+
+            gMap.setMyLocationEnabled(true);
         }
         addRestaurantsOnMap();
-        int padding = 100; // replace with desired padding in pixels
+        int padding = 100;
         gMap.setPadding(0, padding, 0, 0);
 
-
+        googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+            @Override
+            public void onMapLoaded() {
+                if (MapHolder.getInstance()!=null) {
+                    MapHolder.getInstance().setGoogleMap(googleMap);
+                }
+            }
+        });
     }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -220,15 +295,10 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
                         Daten daten = restaurant.getDaten();
                         String address = daten.getStrasse() + " " + daten.getHausnr() + ", " + daten.getPlz() + " " + daten.getOrt();
                         LatLng latLng = getLatLngFromAddress(address);
-                        if (latLng != null && currentLocationMarker != null) {
-                            float[] results = new float[1];
-                            Location.distanceBetween(currentLocationMarker.getPosition().latitude, currentLocationMarker.getPosition().longitude,
-                                    latLng.latitude, latLng.longitude, results);
-                            int distanceInMeters = (int) results[0];
+                        if (latLng != null) {
                             Marker marker = gMap.addMarker(new MarkerOptions()
                                     .position(latLng)
-                                    .title(daten.getName())
-                                    .snippet("Entfernung: " + distanceInMeters / 1000 + "km"));
+                                    .title(daten.getName()));
                             allMarkers.add(marker);
                         }
                     }

@@ -74,9 +74,9 @@ public class ManageMenu extends AppCompatActivity {
 
                 //Erstellen Sie eine vordefinierte Liste von Zutaten
                 Map<String, Boolean> zutaten = new HashMap<>();
-                zutaten.put("eier", false);
-                zutaten.put("fleisch", false);
-                zutaten.put("milch", false);
+                zutaten.put("eier", true);
+                zutaten.put("fleisch", true);
+                zutaten.put("milch", true);
 
                 Speisekarte gericht = new Speisekarte(name, price, null, zutaten);
 

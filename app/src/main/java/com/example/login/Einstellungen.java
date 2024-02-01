@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +37,8 @@ public class Einstellungen extends AppCompatActivity {
     FloatingActionButton back;
     Startseite sRef = new Startseite();
 
+    private GoogleMap gMap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,10 +48,12 @@ public class Einstellungen extends AppCompatActivity {
         darkmode = findViewById(R.id.darkmode);
         spinner_languages = findViewById(R.id.spinner_languages);
 
+        gMap = MapHolder.getInstance().getGoogleMap();
+
         back = findViewById(R.id.btn_back);
 
         back.setOnClickListener(v -> {
-            onBackPressed();
+            finish();
         });
 
         TextView headerText = findViewById(R.id.text);
@@ -66,7 +71,7 @@ public class Einstellungen extends AppCompatActivity {
 
         FloatingActionButton mitarbeiterLogin = findViewById(R.id.mitarbeiterLogin);
 
-// Überprüfen Sie den Zustand des FloatingActionButton
+        // Überprüfen Sie den Zustand des FloatingActionButton
         if (!mitarbeiterLogin.isEnabled()) {
             // Wenn der Button deaktiviert ist, ändern Sie die Farbe auf Grau
             mitarbeiterLogin.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, android.R.color.darker_gray)));
@@ -74,7 +79,6 @@ public class Einstellungen extends AppCompatActivity {
             // Wenn der Button aktiviert ist, ändern Sie die Farbe auf die ursprüngliche Farbe
             mitarbeiterLogin.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.light_third)));
         }
-
     }
 
     private void setupListeners() {

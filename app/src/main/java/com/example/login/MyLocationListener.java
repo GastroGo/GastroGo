@@ -21,34 +21,31 @@ public class MyLocationListener implements LocationListener {
     Startseite startseite;
     GoogleMap gMap;
     Context context;
+    LatLng latLng;
 
     public MyLocationListener(Startseite startseite, GoogleMap gMap, Context context) {
         this.startseite = startseite;
         this.gMap = gMap;
         this.context = context;
-    }
-
-    public MyLocationListener() {
+        this.latLng = new LatLng(0, 0); // Initialize it here
     }
 
     @Override
     public void onLocationChanged(Location loc) {
         if (loc != null) {
-            LatLng latLng = new LatLng(loc.getLatitude(), loc.getLongitude());
-            gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 10));
+            if (latLng == null) {
+                latLng = new LatLng(loc.getLatitude(), loc.getLongitude());
+            } else {
+                double latitude = loc.getLatitude();
+                double longitude = loc.getLongitude();
+                latLng = new LatLng(latitude, longitude);
+            }
+            gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
 
-            // Vorherigen Marker entfernen, wenn vorhanden
             if (startseite.currentLocationMarker != null) {
                 startseite.currentLocationMarker.remove();
+                startseite.currentLocationMarker = null;
             }
-
-            // Neuen Marker hinzufügen und Referenz speichern
-            startseite.currentLocationMarker = gMap.addMarker(new MarkerOptions()
-                    .icon(BitmapDescriptorFactory.defaultMarker(200))
-                    .position(latLng)
-                    .title("Sie befinden sich hier"));
-        } else {
-            return;
         }
     }
 
