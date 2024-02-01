@@ -1,5 +1,7 @@
 package com.example.Tische;
 
+import android.os.Build;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,20 +19,26 @@ import com.example.login.Tisch;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.ZoneId;
 import java.time.Duration;
 import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.ViewHolder> {
 
-    private final TablelistModel tableListO = TablelistModel.getInstance();
+    private static final TablelistModel tableListO = TablelistModel.getInstance();
     private final Tisch[] tischeArray = TablelistModel.getInstance().getTischeArray();
     private final OnItemClickListener onItemClickListener;
     private String restaurantID;
     private int numberOfGerichte;
+    private static Handler handler = new Handler();
+
 
     public RV_Adapter_Tische(OnItemClickListener onItemClickListener, String restaurantID) {
         this.onItemClickListener = onItemClickListener;
@@ -46,6 +54,11 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        // Cancel any existing updates to the timer TextView
+        handler.removeCallbacksAndMessages(holder);
+
+        // Schedule the first update
+        holder.updateTimer.run();
         int pos = position;
         holder.tableNr.setText("Tisch " + (pos + 1));
         if (tableListO.getNumberOrders(pos+1) == 0){
@@ -69,6 +82,14 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
                 onItemClickListener.onItemClick(pos + 1);
             }
         });
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull ViewHolder holder) {
+        super.onViewRecycled(holder);
+
+        // Cancel any updates to the timer TextView when the view is recycled
+        handler.removeCallbacksAndMessages(holder);
     }
 
     private void resetAllOrders(int tableNum){
@@ -99,14 +120,14 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
     }
 
 
-    public String getCurrentTime(){
+    public static String getCurrentTime(){
         ZonedDateTime now = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             now = ZonedDateTime.now(ZoneId.of("Europe/Berlin"));
         }
         DateTimeFormatter formatter = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            formatter = DateTimeFormatter.ofPattern("HH:mm");
+            formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         }
         String currentTime = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -115,29 +136,32 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
         return currentTime;
     }
 
-    public String getElapsedTime(String startingTime){
-        LocalTime startTime = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            startTime = LocalTime.parse(startingTime, DateTimeFormatter.ofPattern("HH:mm"));
-        }
-        LocalTime now = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            now = LocalTime.parse(getCurrentTime(), DateTimeFormatter.ofPattern("HH:mm"));
-        }
-        Duration duration = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            duration = Duration.between(startTime, now);
-        }
-        long hours = 0;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            hours = duration.toHours();
-        }
-        long minutes = 0;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            minutes = duration.toMinutes() % 60;
-        }
-        return String.format("%02d:%02d", hours, minutes);
+public static String getElapsedTime(String startingTime){
+    SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+    Date date1 = null;
+    Date date2 = null;
+    try {
+        date1 = format.parse(startingTime);
+        date2 = format.parse(getCurrentTime());
+    } catch (ParseException e) {
+        e.printStackTrace();
     }
+
+    long difference = date2.getTime() - date1.getTime();
+    if (difference < 0) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date2);
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        date2 = calendar.getTime();
+        difference = date2.getTime() - date1.getTime();
+    }
+
+    long seconds = (difference / 1000) % 60;
+    long minutes = (difference / (1000 * 60)) % 60;
+    long hours = (difference / (1000 * 60 * 60)) % 24;
+
+    return String.format("%02d:%02d", minutes, seconds);
+}
 
     @Override
     public int getItemCount() {
@@ -162,5 +186,23 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
             this.checkBox = itemView.findViewById(R.id.RV_CB_CheckBoxTische);
             cardView = itemView.findViewById(R.id.RV_CardView);
         }
+
+
+        private Runnable updateTimer = new Runnable() {
+            @Override
+            public void run() {
+
+                int pos = getAdapterPosition();
+
+                if (tableListO.getNumberOrders(pos+1) == 0){
+                    timer.setText("-");
+                }
+                else {
+                    timer.setText(getElapsedTime(tableListO.getTischeArray()[pos].getLetzteBestellung()));
+                }
+
+                handler.postDelayed(this, 1000);
+            }
+        };
     }
 }

@@ -96,30 +96,6 @@ public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tisc
             }
         });
 
-        handler = new Handler();
-        runnable = new Runnable() {
-            @Override
-            public void run() {
-                adapterTische.notifyDataSetChanged();
-                long currentTimeMillis = System.currentTimeMillis();
-                long delay = 60000 - (currentTimeMillis % 60000);
-                handler.postDelayed(this, delay);
-            }
-        };
-        handler.post(runnable);
-
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        handler.removeCallbacks(runnable);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        handler.post(runnable);
     }
 
     @Override

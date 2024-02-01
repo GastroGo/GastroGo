@@ -202,7 +202,7 @@ public class OrderManager extends AppCompatActivity implements AmountChangeListe
         }
         DateTimeFormatter formatter = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            formatter = DateTimeFormatter.ofPattern("HH:mm");
+            formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         }
         String currentTime = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
