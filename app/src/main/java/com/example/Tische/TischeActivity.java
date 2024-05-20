@@ -99,6 +99,7 @@ public class TischeActivity extends AppCompatActivity {
         return tableNumAndLetzteBestellung;
     }
 
+
     private void setupAdapter(){
         recyclerView = findViewById(R.id.mRecyclerView);
         adapter = new RV_Adapter_Tische(restaurantId);

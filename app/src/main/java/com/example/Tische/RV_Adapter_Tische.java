@@ -16,7 +16,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.DBKlassen.TablelistModel;
 import com.example.login.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -44,13 +53,37 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
         List<String> keys = new ArrayList<>(tableModel.getTableNumAndTimerMap().keySet());
 
         holder.tableNr.setText(keys.get(position));
-        holder.timer.setText(tableModel.getTableNumAndTimerMap().get(keys.get(position)));
+        holder.timer.setText(getElapsedTime(tableModel.getTableNumAndTimerMap().get(keys.get(position))));
     }
 
     @Override
     public int getItemCount() {
         return tableModel.getTableNumAndTimerMap() != null ? tableModel.getTableNumAndTimerMap().size() : 0;
     }
+
+    private String getElapsedTime(String lastOrderTime) {
+        if (lastOrderTime.equals("-")) {
+            return "-";
+        }
+
+        long minutes = 0;
+        long seconds = 0;
+
+        DateTimeFormatter formatter = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            formatter = DateTimeFormatter.ofPattern("HH:mm");
+            LocalTime lastOrder = LocalTime.parse(lastOrderTime, formatter);
+            LocalTime now = LocalTime.now();
+
+            minutes = ChronoUnit.MINUTES.between(lastOrder, now);
+            seconds = ChronoUnit.SECONDS.between(lastOrder, now) % 60;
+        }
+
+
+        return String.format("%02d:%02d", minutes, seconds);
+    }
+
+
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
