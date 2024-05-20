@@ -1,8 +1,7 @@
-package com.example.Bestellungen;
+package com.example.bestellungen;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,9 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.DBKlassen.Gericht;
-import com.example.DBKlassen.GerichteModel;
-import com.example.DBKlassen.TablelistModel;
+import com.example.datenbank.Gericht;
+import com.example.datenbank.GerichteModel;
+import com.example.datenbank.TablelistModel;
 import com.example.login.DropdownManager;
 import com.example.login.Tisch;
 import com.example.login.R;
@@ -24,8 +23,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.List;
 
 public class BestellungenActivity extends AppCompatActivity {
 

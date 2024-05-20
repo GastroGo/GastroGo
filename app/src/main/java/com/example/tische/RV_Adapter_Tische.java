@@ -1,6 +1,5 @@
-package com.example.Tische;
+package com.example.tische;
 
-import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.DBKlassen.TablelistModel;
+import com.example.datenbank.TablelistModel;
 import com.example.login.R;
 import com.example.login.Tisch;
 import com.google.firebase.database.DatabaseReference;
@@ -24,8 +23,6 @@ import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.ZoneId;
-import java.time.Duration;
-import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 

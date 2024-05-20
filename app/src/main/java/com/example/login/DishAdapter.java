@@ -142,7 +142,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
                     dishes.remove(currentPosition);
                     notifyItemRemoved(currentPosition);
 
-                    //Aktualisieren der Bestellungen in den Tischen
+                    //Aktualisieren der bestellungen in den Tischen
                     dbRefTables.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {

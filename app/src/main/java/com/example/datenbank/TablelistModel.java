@@ -1,4 +1,4 @@
-package com.example.DBKlassen;
+package com.example.datenbank;
 import com.example.login.Tisch;
 
 import java.util.Map;

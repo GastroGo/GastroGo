@@ -1,9 +1,8 @@
-package com.example.Tische;
+package com.example.tische;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,10 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.Bestellungen.BestellungenActivity;
-import com.example.DBKlassen.Gericht;
-import com.example.DBKlassen.GerichteModel;
-import com.example.DBKlassen.TablelistModel;
+import com.example.bestellungen.BestellungenActivity;
+import com.example.datenbank.Gericht;
+import com.example.datenbank.GerichteModel;
+import com.example.datenbank.TablelistModel;
 import com.example.login.DropdownManager;
 import com.example.login.R;
 import com.example.login.Tisch;
@@ -24,9 +23,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.Calendar;
-import java.util.Date;
 
 
 public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tische.OnItemClickListener {

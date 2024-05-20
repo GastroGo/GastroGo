@@ -1,4 +1,4 @@
-package com.example.DBKlassen;
+package com.example.datenbank;
 
 public class Daten {
     private int hausnr, plz;

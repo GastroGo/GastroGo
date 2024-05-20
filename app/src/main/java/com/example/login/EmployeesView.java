@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.Tische.TischeActivity;
+import com.example.tische.TischeActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class EmployeesView extends AppCompatActivity {

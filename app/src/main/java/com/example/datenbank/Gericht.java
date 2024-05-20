@@ -1,4 +1,4 @@
-package com.example.DBKlassen;
+package com.example.datenbank;
 
 import java.util.Map;
 

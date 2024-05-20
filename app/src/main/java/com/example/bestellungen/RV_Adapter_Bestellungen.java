@@ -1,4 +1,4 @@
-package com.example.Bestellungen;
+package com.example.bestellungen;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,18 +10,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.DBKlassen.GerichteModel;
-import com.example.DBKlassen.TablelistModel;
+import com.example.datenbank.GerichteModel;
+import com.example.datenbank.TablelistModel;
 import com.example.login.R;
-import com.example.qrcodegenerator.Gericht;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import android.content.Context;
-import android.widget.Toast;
 
 public class RV_Adapter_Bestellungen extends RecyclerView.Adapter<RV_Adapter_Bestellungen.ViewHolder>{
 

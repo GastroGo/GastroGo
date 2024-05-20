@@ -75,10 +75,10 @@
             android:name="com.example.qrcodepdf.PdfActivity"
             android:exported="true"></activity>
         <activity
-            android:name="com.example.Bestellungen.BestellungenActivity"
+            android:name="com.example.bestellungen.BestellungenActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.Tische.TischeActivity"
+            android:name="com.example.tische.TischeActivity"
             android:exported="true" />
 
         <meta-data

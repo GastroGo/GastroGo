@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "sortierte-Bestellungen-2"
+rootProject.name = "sortierte-bestellungen-2"
 include(":app")
