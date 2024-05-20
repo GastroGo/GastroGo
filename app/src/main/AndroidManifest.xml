@@ -43,12 +43,16 @@
         <activity
             android:name=".Einstellungen"
             android:exported="false" />
+        <activity android:name=".Register"
+            android:theme="@style/AppTheme.ActionBarWhite">
+        </activity>
+
         <activity android:name=".Login"
             android:theme="@style/AppTheme.ActionBarWhite">
         </activity>
 
-        <activity android:name=".Register"
-            android:theme="@style/AppTheme.ActionBarWhite"
+        <activity android:name=".MainActivity"
+            android:theme="@style/Theme.Login.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
