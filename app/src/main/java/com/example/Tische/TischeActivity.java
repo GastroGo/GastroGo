@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.Bestellungen.OrdersActivity;
 import com.example.DBKlassen.TablelistModel;
-import com.example.DBKlassen.sortState;
+import com.example.DBKlassen.states;
 import com.example.login.DropdownManager;
 import com.example.login.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -62,8 +62,8 @@ public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tisc
         sortTimerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tableModel.curState = sortState.SORTTIMER;
-                tableModel.setTableNumAndTimerMap(tableModel.curState == sortState.SORTNUMBER ? sortWithNumber(tableModel.getTableNumAndTimerMap()) : sortWithTimer(tableModel.getTableNumAndTimerMap()));
+                tableModel.curState = states.SORTTIMER;
+                tableModel.setTableNumAndTimerMap(tableModel.curState == states.SORTNUMBER ? sortWithNumber(tableModel.getTableNumAndTimerMap()) : sortWithTimer(tableModel.getTableNumAndTimerMap()));
                 setupAdapter();
                 updateStyle();
             }
@@ -72,8 +72,8 @@ public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tisc
         sortTableButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tableModel.curState = sortState.SORTNUMBER;
-                tableModel.setTableNumAndTimerMap(tableModel.curState == sortState.SORTNUMBER ? sortWithNumber(tableModel.getTableNumAndTimerMap()) : sortWithTimer(tableModel.getTableNumAndTimerMap()));
+                tableModel.curState = states.SORTNUMBER;
+                tableModel.setTableNumAndTimerMap(tableModel.curState == states.SORTNUMBER ? sortWithNumber(tableModel.getTableNumAndTimerMap()) : sortWithTimer(tableModel.getTableNumAndTimerMap()));
                 setupAdapter();
                 updateStyle();
             }
@@ -91,7 +91,7 @@ public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tisc
                     String letzteBestellung = (String) tableProperties.get("letzteBestellung");
                     tableNumAndLetzteBestellung.put(tableNum, letzteBestellung);
                 }
-                tableModel.setTableNumAndTimerMap(tableModel.curState == sortState.SORTNUMBER ? sortWithNumber(tableNumAndLetzteBestellung) : sortWithTimer(tableNumAndLetzteBestellung));
+                tableModel.setTableNumAndTimerMap(tableModel.curState == states.SORTNUMBER ? sortWithNumber(tableNumAndLetzteBestellung) : sortWithTimer(tableNumAndLetzteBestellung));
                 adapter.notifyDataSetChanged();
             }
 
@@ -156,12 +156,12 @@ public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tisc
     }
 
     private void updateStyle(){
-        if (tableModel.curState == sortState.SORTNUMBER){
+        if (tableModel.curState == states.SORTNUMBER){
             sortTableButton.setTextColor(Color.WHITE);
             sortTimerButton.setTextColor(Color.BLACK);
             sortTableButton.setBackgroundResource(R.drawable.roundstyle);
             sortTimerButton.setBackgroundColor(Color.TRANSPARENT);
-        } else if (tableModel.curState == sortState.SORTTIMER) {
+        } else if (tableModel.curState == states.SORTTIMER) {
             sortTimerButton.setTextColor(Color.WHITE);
             sortTableButton.setTextColor(Color.BLACK);
             sortTimerButton.setBackgroundResource(R.drawable.roundstyle);
