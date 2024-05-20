@@ -4,10 +4,11 @@
         android:id="@+id/menuHome"
         android:icon="@drawable/ic_home"
         android:title="Starseite" />
+
     <item
-    android:id="@+id/qrCode"
-    android:icon="@drawable/qr_scan"
-    android:title="Scannen" />
+        android:title=""
+        android:enabled="false" />
+
     <item
         android:id="@+id/menuSettings"
         android:icon="@drawable/ic_settings"

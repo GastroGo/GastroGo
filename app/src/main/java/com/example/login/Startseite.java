@@ -1,6 +1,9 @@
 package com.example.login;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -47,7 +50,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
     FirebaseUser user;
     GoogleMap gMap;
     Marker currentLocationMarker;
-    FloatingActionButton searchButton;
+    FloatingActionButton searchButton, qrcodeButton;
     SearchView searchView;
     List<Marker> allMarkers = new ArrayList<>();
     boolean employee;
@@ -59,6 +62,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         auth = FirebaseAuth.getInstance();
         searchButton = findViewById(R.id.search);
         searchView = findViewById(R.id.searchView);
+        qrcodeButton = findViewById(R.id.fabQrCode);
         employee = getIntent().getBooleanExtra("employee", true);
 
         user = auth.getCurrentUser();
@@ -81,6 +85,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setBackground(null);
         NavigationManager.setupBottomNavigationView(bottomNavigationView, this);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +106,25 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
                 } else {
                     gMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                 }
+            }
+        });
+
+        qrcodeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ObjectAnimator jumpAnimation = ObjectAnimator.ofFloat(qrcodeButton, "translationY", 0f, 30f, 0f);
+                jumpAnimation.setDuration(300);
+
+                jumpAnimation.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        Intent intent = new Intent(getApplicationContext(), com.example.qrcodegenerator.QRCodeReader.class);
+                        startActivity(intent);
+                    }
+                });
+
+                jumpAnimation.start();
             }
         });
 
@@ -257,8 +281,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
             gMap.setMyLocationEnabled(true);
         }
         addRestaurantsOnMap();
-        int padding = 100;
-        gMap.setPadding(0, padding, 0, 0);
+        gMap.setPadding(0, 350, 0, 150);
 
         googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override

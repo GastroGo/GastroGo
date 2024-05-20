@@ -22,17 +22,13 @@ public class NavigationManager {
                     context.startActivity(intent);
                     if(context instanceof Activity) {
                         ((Activity) context).finish();
+                        ((Activity) context).overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     }
                     return true;
                 } else if (id == R.id.menuSettings) {
                     Intent intent = new Intent(context, Einstellungen.class);
                     context.startActivity(intent);
                     return true;
-                } else if (id == R.id.qrCode) {
-                    Intent intent = new Intent(context, com.example.qrcodegenerator.QRCodeReader.class);
-                    context.startActivity(intent);
-                    return true;
-                    //Weitere If Anweisungen für andere Icons
                 } return false;
             }
         });
