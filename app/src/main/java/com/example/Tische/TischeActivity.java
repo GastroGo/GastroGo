@@ -1,7 +1,10 @@
 package com.example.Tische;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -9,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.Bestellungen.OrdersActivity;
 import com.example.DBKlassen.TablelistModel;
 import com.example.DBKlassen.sortState;
 import com.example.login.DropdownManager;
@@ -26,7 +30,7 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 
-public class TischeActivity extends AppCompatActivity {
+public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tische.OnItemClickListener{
     TablelistModel tableModel = TablelistModel.getInstance();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference dbRef = database.getReference("Restaurants");
@@ -34,10 +38,13 @@ public class TischeActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RV_Adapter_Tische adapter;
 
+    Button sortTimerButton;
+    Button sortTableButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tische);
+        setContentView(R.layout.activity_tables);
         TextView headerText = findViewById(R.id.text);
         headerText.setText("Tische");
 
@@ -48,6 +55,29 @@ public class TischeActivity extends AppCompatActivity {
         returnButton.setOnClickListener(view -> finish());
 
         restaurantId = getIntent().getStringExtra("restaurantId");
+
+        sortTimerButton = findViewById(R.id.btn_sortByTimer);
+        sortTableButton = findViewById(R.id.btn_sortByNumber);
+
+        sortTimerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tableModel.curState = sortState.SORTTIMER;
+                tableModel.setTableNumAndTimerMap(tableModel.curState == sortState.SORTNUMBER ? sortWithNumber(tableModel.getTableNumAndTimerMap()) : sortWithTimer(tableModel.getTableNumAndTimerMap()));
+                setupAdapter();
+                updateStyle();
+            }
+        });
+
+        sortTableButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tableModel.curState = sortState.SORTNUMBER;
+                tableModel.setTableNumAndTimerMap(tableModel.curState == sortState.SORTNUMBER ? sortWithNumber(tableModel.getTableNumAndTimerMap()) : sortWithTimer(tableModel.getTableNumAndTimerMap()));
+                setupAdapter();
+                updateStyle();
+            }
+        });
 
         dbRef.child(restaurantId).addValueEventListener(new ValueEventListener() {
             @Override
@@ -61,7 +91,7 @@ public class TischeActivity extends AppCompatActivity {
                     String letzteBestellung = (String) tableProperties.get("letzteBestellung");
                     tableNumAndLetzteBestellung.put(tableNum, letzteBestellung);
                 }
-                tableModel.setTableNumAndTimerMap(tableModel.curState == sortState.SORTNUMBER ? sortWithNumber(values) : sortWithTimer(values));
+                tableModel.setTableNumAndTimerMap(tableModel.curState == sortState.SORTNUMBER ? sortWithNumber(tableNumAndLetzteBestellung) : sortWithTimer(tableNumAndLetzteBestellung));
                 adapter.notifyDataSetChanged();
             }
 
@@ -72,28 +102,25 @@ public class TischeActivity extends AppCompatActivity {
         });
 
         setupAdapter();
-
     }
 
-    private Map<String, String> sortWithNumber(Map<String, Map<String, Object>> values){
+    private Map<String, String> sortWithNumber(Map<String, String> values){
 
         Map<String, String> tableNumAndLetzteBestellung = new TreeMap<>();
-        for (Map.Entry<String, Map<String, Object>> entry : values.entrySet()) {
+        for (Map.Entry<String, String> entry : values.entrySet()) {
             String tableNum = entry.getKey();
-            Map<String, Object> tableProperties = entry.getValue();
-            String letzteBestellung = (String) tableProperties.get("letzteBestellung");
+            String letzteBestellung = entry.getValue();
             tableNumAndLetzteBestellung.put(tableNum, letzteBestellung);
         }
 
         return tableNumAndLetzteBestellung;
     }
 
-    private Map<String, String> sortWithTimer(Map<String, Map<String, Object>> values){
+    private Map<String, String> sortWithTimer(Map<String, String> values){
         Map<String, String> tableNumAndLetzteBestellung = new LinkedHashMap<>();
-        for (Map.Entry<String, Map<String, Object>> entry : values.entrySet()) {
+        for (Map.Entry<String, String> entry : values.entrySet()) {
             String tableNum = entry.getKey();
-            Map<String, Object> tableProperties = entry.getValue();
-            String letzteBestellung = (String) tableProperties.get("letzteBestellung");
+            String letzteBestellung = entry.getValue();
             tableNumAndLetzteBestellung.put(tableNum, letzteBestellung);
         }
 
@@ -123,9 +150,32 @@ public class TischeActivity extends AppCompatActivity {
 
     private void setupAdapter(){
         recyclerView = findViewById(R.id.mRecyclerView);
-        adapter = new RV_Adapter_Tische(restaurantId);
+        adapter = new RV_Adapter_Tische(restaurantId, this::onItemClick);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+    }
+
+    private void updateStyle(){
+        if (tableModel.curState == sortState.SORTNUMBER){
+            sortTableButton.setTextColor(Color.WHITE);
+            sortTimerButton.setTextColor(Color.BLACK);
+            sortTableButton.setBackgroundResource(R.drawable.roundstyle);
+            sortTimerButton.setBackgroundColor(Color.TRANSPARENT);
+        } else if (tableModel.curState == sortState.SORTTIMER) {
+            sortTimerButton.setTextColor(Color.WHITE);
+            sortTableButton.setTextColor(Color.BLACK);
+            sortTimerButton.setBackgroundResource(R.drawable.roundstyle);
+            sortTableButton.setBackgroundColor(Color.TRANSPARENT);
+        }
+    }
+
+    @Override
+    public void onItemClick(int tableNumber) {
+        Intent intent = new Intent(this, OrdersActivity.class);
+        intent.putExtra("TableNr", tableNumber);
+        intent.putExtra("restaurantId", restaurantId);
+
+        startActivity(intent);
     }
 
 }

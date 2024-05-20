@@ -36,11 +36,13 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
 
     private Handler handler = new Handler();
     private Runnable runnable;
+    private final OnItemClickListener onItemClickListener;
 
 
 
-    public RV_Adapter_Tische(String restaurantID) {
+    public RV_Adapter_Tische(String restaurantID, OnItemClickListener onItemClickListener) {
         this.restaurantID = restaurantID;
+        this.onItemClickListener = onItemClickListener;
     }
 
     @NonNull
@@ -52,13 +54,14 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        int pos = position;
         List<String> keys = new ArrayList<>(tableModel.getTableNumAndTimerMap().keySet());
 
-        holder.tableNr.setText(keys.get(position));
-        holder.timer.setText(getElapsedTime(tableModel.getTableNumAndTimerMap().get(keys.get(position))));
+        holder.tableNr.setText(keys.get(pos));
+        holder.timer.setText(getElapsedTime(tableModel.getTableNumAndTimerMap().get(keys.get(pos))));
 
         // Start the timer for this item
-        final int currentPosition = position;
+        final int currentPosition = pos;
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -67,6 +70,14 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
             }
         };
         handler.post(runnable);
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onItemClickListener.onItemClick(Integer.parseInt(keys.get(pos).substring(1)));
+            }
+        });
+
     }
 
 
@@ -105,7 +116,9 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
         return String.format("%02d:%02d", minutes, seconds);
     }
 
-
+    public interface OnItemClickListener {
+        void onItemClick(int tableNumber);
+    }
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

@@ -5,7 +5,7 @@ import java.util.Map;
 public class TablelistModel {
 
 
-    public sortState curState = sortState.SORTTIMER;
+    public sortState curState = sortState.SORTNUMBER;
 
     private static TablelistModel instance;
 
