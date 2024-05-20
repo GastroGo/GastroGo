@@ -34,6 +34,9 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
     private static final TablelistModel tableModel = TablelistModel.getInstance();
     private String restaurantID;
 
+    private Handler handler = new Handler();
+    private Runnable runnable;
+
 
 
     public RV_Adapter_Tische(String restaurantID) {
@@ -49,17 +52,35 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
         List<String> keys = new ArrayList<>(tableModel.getTableNumAndTimerMap().keySet());
 
         holder.tableNr.setText(keys.get(position));
         holder.timer.setText(getElapsedTime(tableModel.getTableNumAndTimerMap().get(keys.get(position))));
+
+        // Start the timer for this item
+        final int currentPosition = position;
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                holder.timer.setText(getElapsedTime(tableModel.getTableNumAndTimerMap().get(keys.get(currentPosition))));
+                handler.postDelayed(this, 1000); // Update the timer every second
+            }
+        };
+        handler.post(runnable);
     }
+
 
     @Override
     public int getItemCount() {
         return tableModel.getTableNumAndTimerMap() != null ? tableModel.getTableNumAndTimerMap().size() : 0;
     }
+
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        handler.removeCallbacks(runnable);
+    }
+
 
     private String getElapsedTime(String lastOrderTime) {
         if (lastOrderTime.equals("-")) {
@@ -74,6 +95,7 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
             formatter = DateTimeFormatter.ofPattern("HH:mm");
             LocalTime lastOrder = LocalTime.parse(lastOrderTime, formatter);
             LocalTime now = LocalTime.now();
+            now = now.plusHours(2);
 
             minutes = ChronoUnit.MINUTES.between(lastOrder, now);
             seconds = ChronoUnit.SECONDS.between(lastOrder, now) % 60;

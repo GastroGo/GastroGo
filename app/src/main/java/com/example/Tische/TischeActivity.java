@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 
 public class TischeActivity extends AppCompatActivity {
@@ -95,6 +96,26 @@ public class TischeActivity extends AppCompatActivity {
             String letzteBestellung = (String) tableProperties.get("letzteBestellung");
             tableNumAndLetzteBestellung.put(tableNum, letzteBestellung);
         }
+
+        // Sort the map by values in ascending order, with "-" at the bottom
+        tableNumAndLetzteBestellung = tableNumAndLetzteBestellung.entrySet().stream()
+                .sorted((entry1, entry2) -> {
+                    String value1 = entry1.getValue();
+                    String value2 = entry2.getValue();
+                    if ("-".equals(value1)) {
+                        return 1;
+                    } else if ("-".equals(value2)) {
+                        return -1;
+                    } else {
+                        return value1.compareTo(value2);
+                    }
+                })
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue,
+                        LinkedHashMap::new
+                ));
 
         return tableNumAndLetzteBestellung;
     }
