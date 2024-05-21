@@ -1,5 +1,6 @@
 package com.example.DBKlassen;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,7 +9,7 @@ public class DishModel {
     public states curState = states.OPEN;
     private Map<String, Long> orders;
     private Map<String, String> dishNames;
-    private List<String> closingDishes;
+    private List<String> closingDishes = new ArrayList<>();
 
     private DishModel() {}
 
@@ -42,4 +43,17 @@ public class DishModel {
     public void setClosingDishes(List<String> closingDishes) {
         this.closingDishes = closingDishes;
     }
+
+    public void addClosingDish(String dish){
+        closingDishes.add(dish);
+    }
+
+    public void removeClosingDish(String dish){
+        closingDishes.remove(dish);
+    }
+
+    public void resetClosingDishes(){
+        closingDishes = new ArrayList<>();
+    }
+
 }
