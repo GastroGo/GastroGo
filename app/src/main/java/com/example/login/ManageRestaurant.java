@@ -6,16 +6,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.tables.TablesActivity;
 import com.example.mitarbeiterverwaltung.MitarbeiterVerwalten;
 import com.example.qrcodepdf.PdfActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -116,7 +115,7 @@ public class ManageRestaurant extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (restaurantDaten != null && restaurantDaten.getId() != null) {
-                    Intent intent = new Intent(getApplicationContext(), com.example.Tische.TischeActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), TablesActivity.class);
                     intent.putExtra("restaurantId", restaurantDaten.getId()); // Pass the restaurant ID to TischeActivity activity
                     startActivity(intent);
                 } else {}
