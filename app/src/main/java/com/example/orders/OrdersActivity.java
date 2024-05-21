@@ -1,4 +1,4 @@
-package com.example.Bestellungen;
+package com.example.orders;
 
 import android.graphics.Color;
 import android.os.Bundle;

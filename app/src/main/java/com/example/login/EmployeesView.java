@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.Tische.TischeActivity;
+import com.example.tables.TablesActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class EmployeesView extends AppCompatActivity {
@@ -53,7 +53,7 @@ public class EmployeesView extends AppCompatActivity {
         work.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), TischeActivity.class);
+                Intent intent = new Intent(getApplicationContext(), TablesActivity.class);
                 intent.putExtra("restaurantId", getIntent().getStringExtra("restaurantId"));
                 startActivity(intent);
             }

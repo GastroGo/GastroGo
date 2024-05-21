@@ -1,4 +1,4 @@
-package com.example.Bestellungen;
+package com.example.orders;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -17,7 +17,6 @@ import com.example.DBKlassen.states;
 import com.example.login.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RV_Adapter_Orders extends RecyclerView.Adapter<RV_Adapter_Orders.ViewHolder>{
 
@@ -31,7 +30,7 @@ public class RV_Adapter_Orders extends RecyclerView.Adapter<RV_Adapter_Orders.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_row_bestellung, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_row_orders, parent, false);
         return new RV_Adapter_Orders.ViewHolder(view);
     }
 

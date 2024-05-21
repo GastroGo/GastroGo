@@ -1,4 +1,4 @@
-package com.example.Tische;
+package com.example.tables;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.Bestellungen.OrdersActivity;
+import com.example.orders.OrdersActivity;
 import com.example.DBKlassen.TablelistModel;
 import com.example.DBKlassen.states;
 import com.example.login.DropdownManager;
@@ -30,13 +30,13 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 
-public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tische.OnItemClickListener{
+public class TablesActivity extends AppCompatActivity implements RV_Adapter_Tables.OnItemClickListener{
     TablelistModel tableModel = TablelistModel.getInstance();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference dbRef = database.getReference("Restaurants");
     String restaurantId;
     RecyclerView recyclerView;
-    RV_Adapter_Tische adapter;
+    RV_Adapter_Tables adapter;
 
     Button sortTimerButton;
     Button sortTableButton;
@@ -150,7 +150,7 @@ public class TischeActivity extends AppCompatActivity implements RV_Adapter_Tisc
 
     private void setupAdapter(){
         recyclerView = findViewById(R.id.mRecyclerView);
-        adapter = new RV_Adapter_Tische(restaurantId, this::onItemClick);
+        adapter = new RV_Adapter_Tables(restaurantId, this::onItemClick);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
     }

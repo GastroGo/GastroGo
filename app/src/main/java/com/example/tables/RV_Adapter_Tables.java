@@ -1,12 +1,10 @@
-package com.example.Tische;
+package com.example.tables;
 
 import android.os.Build;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,20 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.DBKlassen.TablelistModel;
 import com.example.login.R;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 
-public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.ViewHolder> {
+public class RV_Adapter_Tables extends RecyclerView.Adapter<RV_Adapter_Tables.ViewHolder> {
 
     private static final TablelistModel tableModel = TablelistModel.getInstance();
     private String restaurantID;
@@ -40,7 +32,7 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
 
 
 
-    public RV_Adapter_Tische(String restaurantID, OnItemClickListener onItemClickListener) {
+    public RV_Adapter_Tables(String restaurantID, OnItemClickListener onItemClickListener) {
         this.restaurantID = restaurantID;
         this.onItemClickListener = onItemClickListener;
     }
@@ -48,7 +40,7 @@ public class RV_Adapter_Tische extends RecyclerView.Adapter<RV_Adapter_Tische.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_row_tische, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_row_tables, parent, false);
         return new ViewHolder(view);
     }
 
