@@ -30,7 +30,7 @@ public class Login extends AppCompatActivity {
     InputValidator inputValidator;
 
     @Override
-    public void onStart() {     //Prüft ob User bereits eingeloggt ist und ruft ggf. PdfActivity auf
+    public void onStart() {     //Prüft ob User bereits eingeloggt ist und ruft ggf. Startseite auf
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {

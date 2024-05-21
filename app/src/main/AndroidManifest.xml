@@ -20,8 +20,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.Login"
+        android:supportsRtl="false"
+        android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
             android:name=".EmployeesView"
@@ -38,25 +38,19 @@
             android:hardwareAccelerated="true" />
         <activity
             android:name=".CreateRestaurant"
-            android:theme="@style/AppTheme.ActionBarWhite"
             android:exported="false" />
         <activity
             android:name=".Einstellungen"
             android:exported="false" />
-        <activity android:name=".Register"
-            android:theme="@style/AppTheme.ActionBarWhite">
-        </activity>
+        <activity android:name=".Register" />
 
-        <activity android:name=".Login"
-            android:theme="@style/AppTheme.ActionBarWhite">
-        </activity>
+        <activity android:name=".Login" />
 
         <activity android:name=".MainActivity"
             android:theme="@style/Theme.Login.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
@@ -74,10 +68,10 @@
             android:exported="false" />
         <activity
             android:name="com.example.qrcodereader.QRCodeReader"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name="com.example.qrcodepdf.PdfActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name="com.example.bestellungen.BestellungenActivity"
             android:exported="false" />
