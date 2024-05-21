@@ -1,4 +1,4 @@
-package com.example.qrcodegenerator;
+package com.example.qrcodereader;
 
 import android.text.Editable;
 import android.text.TextWatcher;

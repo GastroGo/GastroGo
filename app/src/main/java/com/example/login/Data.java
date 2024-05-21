@@ -1,11 +1,11 @@
 package com.example.login;
 
-public class Daten {
+public class Data {
     private int hausnr, plz;
     private String id, name, ort, strasse, uid;
     private boolean speisekarte;
 
-    public Daten(int hausnr, int plz, String id, String name, String ort, String strasse, String uid, boolean speisekarte) {
+    public Data(int hausnr, int plz, String id, String name, String ort, String strasse, String uid, boolean speisekarte) {
         this.hausnr = hausnr;
         this.plz = plz;
         this.id = id;
@@ -16,11 +16,11 @@ public class Daten {
         this.uid = uid;
     }
 
-    public Daten(String id) {
+    public Data(String id) {
         this.id = id;
     }
 
-    public Daten() {
+    public Data() {
 
     }
 

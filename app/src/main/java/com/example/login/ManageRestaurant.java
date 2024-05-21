@@ -33,7 +33,7 @@ public class ManageRestaurant extends AppCompatActivity {
     ConstraintLayout menu, schluessel, qrcode, orders;
     Button delete;
     FloatingActionButton back;
-    Daten restaurantDaten;
+    Data restaurantData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class ManageRestaurant extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ManageMenu.class);
-                intent.putExtra("restaurantId", restaurantDaten.getId());
+                intent.putExtra("restaurantId", restaurantData.getId());
                 startActivity(intent);
             }
         });
@@ -72,7 +72,7 @@ public class ManageRestaurant extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MitarbeiterVerwalten.class);
-                intent.putExtra("restaurantId", restaurantDaten.getId());
+                intent.putExtra("restaurantId", restaurantData.getId());
                 startActivity(intent);
             }
         });
@@ -103,9 +103,9 @@ public class ManageRestaurant extends AppCompatActivity {
         qrcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (restaurantDaten != null && restaurantDaten.getId() != null) {
+                if (restaurantData != null && restaurantData.getId() != null) {
                     Intent intent = new Intent(ManageRestaurant.this, PdfActivity.class);
-                    intent.putExtra("restaurantId", restaurantDaten.getId());
+                    intent.putExtra("restaurantId", restaurantData.getId());
                     startActivity(intent);
                 } else {}
             }
@@ -113,9 +113,9 @@ public class ManageRestaurant extends AppCompatActivity {
         orders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (restaurantDaten != null && restaurantDaten.getId() != null) {
+                if (restaurantData != null && restaurantData.getId() != null) {
                     Intent intent = new Intent(getApplicationContext(), com.example.tische.TischeActivity.class);
-                    intent.putExtra("restaurantId", restaurantDaten.getId()); // Pass the restaurant ID to TischeActivity activity
+                    intent.putExtra("restaurantId", restaurantData.getId()); // Pass the restaurant ID to TischeActivity activity
                     startActivity(intent);
                 } else {}
             }
@@ -137,7 +137,7 @@ public class ManageRestaurant extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot restaurantSnapshot : dataSnapshot.getChildren()) {
                         Restaurant restaurant = restaurantSnapshot.getValue(Restaurant.class);
-                        restaurantDaten = restaurant.getDaten();
+                        restaurantData = restaurant.getDaten();
                         Map<String, Speisekarte> speisekarte = restaurant.getSpeisekarte();
                         Map<String, Tisch> tische = restaurant.getTische();
                     }
@@ -152,8 +152,8 @@ public class ManageRestaurant extends AppCompatActivity {
     }
 
     private void displayData() {
-        if (restaurantDaten != null) {
-            name.setText(restaurantDaten.getName());
+        if (restaurantData != null) {
+            name.setText(restaurantData.getName());
             FloatingActionButton icon = findViewById(R.id.btn_back);
             icon.setImageResource(R.drawable.ic_manage);
             TextView dashboard = findViewById(R.id.textViewBack);
@@ -164,7 +164,7 @@ public class ManageRestaurant extends AppCompatActivity {
     private void deleteRestaurant(String uid) {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Restaurants");
         DatabaseReference dbRef2 = FirebaseDatabase.getInstance().getReference("Schluessel");
-        dbRef2.child(restaurantDaten.getId()).removeValue();
+        dbRef2.child(restaurantData.getId()).removeValue();
         dbRef.orderByChild("daten/uid").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

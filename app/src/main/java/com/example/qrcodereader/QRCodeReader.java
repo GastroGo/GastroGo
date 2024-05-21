@@ -1,4 +1,4 @@
-package com.example.qrcodegenerator;
+package com.example.qrcodereader;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.login.DropdownManager;
 import com.example.login.R;
+import com.example.utility.AnimationUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -61,7 +62,7 @@ public class QRCodeReader extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_qr_code_reader);
         initViews();
         TextView headerText = findViewById(R.id.text);
         headerText.setText("Tisch QR Code scannen");
@@ -87,15 +88,8 @@ public class QRCodeReader extends AppCompatActivity {
 
     private void initViews() {
         FloatingActionButton btn = findViewById(R.id.fab);
-        Button skip = findViewById(R.id.button_skip);
-        btn.setOnClickListener(view -> {
+        AnimationUtil.applyButtonAnimation(btn, this, () -> {
             checkPermissionAndShowActivity(this);
-        });
-
-        skip.setOnClickListener(view -> {
-            String idScanned = "-NnEe9pHqGgDIdtocR-d001";
-            idTable = idScanned.substring(idScanned.length() - 3);
-            getAllGerichte(idScanned.substring(0, idScanned.length() - 3));
         });
     }
 

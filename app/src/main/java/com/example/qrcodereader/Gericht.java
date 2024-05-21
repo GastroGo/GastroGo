@@ -1,4 +1,4 @@
-package com.example.qrcodegenerator;
+package com.example.qrcodereader;
 
 import java.io.Serializable;
 import java.util.List;

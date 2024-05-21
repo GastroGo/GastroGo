@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class NavigationManager {
 
@@ -18,7 +17,7 @@ public class NavigationManager {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 if (id == R.id.menuHome) {
-                    Intent intent = new Intent(context, Startseite.class);
+                    Intent intent = new Intent(context, Homepage.class);
                     context.startActivity(intent);
                     if(context instanceof Activity) {
                         ((Activity) context).finish();

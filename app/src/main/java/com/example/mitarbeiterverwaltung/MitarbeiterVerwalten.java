@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.login.DropdownManager;
 import com.example.login.R;
+import com.example.utility.AnimationUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -97,7 +98,7 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
             finish();
         });
 
-        mAnlegen.setOnClickListener(v -> {
+        AnimationUtil.applyButtonAnimation(mAnlegen, this, () -> {
             dialog.show();
         });
 

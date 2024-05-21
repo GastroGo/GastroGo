@@ -1,6 +1,5 @@
 package com.example.login;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -21,7 +20,6 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,7 +33,7 @@ public class Einstellungen extends AppCompatActivity {
     private Spinner spinner_languages;
     FloatingActionButton logout;
     FloatingActionButton back;
-    Startseite sRef = new Startseite();
+    Homepage sRef = new Homepage();
 
     private GoogleMap gMap;
 

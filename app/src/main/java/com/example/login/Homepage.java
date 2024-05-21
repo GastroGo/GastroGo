@@ -1,9 +1,6 @@
 package com.example.login;
 
 import android.Manifest;
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,7 +10,6 @@ import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 
+import com.example.qrcodereader.QRCodeReader;
+import com.example.utility.AnimationUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
@@ -43,14 +41,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Startseite extends AppCompatActivity implements OnMapReadyCallback {
+public class Homepage extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     FirebaseAuth auth;
     FirebaseUser user;
     GoogleMap gMap;
     Marker currentLocationMarker;
-    FloatingActionButton searchButton, qrcodeButton;
+    FloatingActionButton searchButton, qrCodeButton;
     SearchView searchView;
     List<Marker> allMarkers = new ArrayList<>();
     boolean employee;
@@ -62,7 +60,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         auth = FirebaseAuth.getInstance();
         searchButton = findViewById(R.id.search);
         searchView = findViewById(R.id.searchView);
-        qrcodeButton = findViewById(R.id.fabQrCode);
+        qrCodeButton = findViewById(R.id.fabQrCode);
         employee = getIntent().getBooleanExtra("employee", true);
 
         user = auth.getCurrentUser();
@@ -109,24 +107,8 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
             }
         });
 
-        qrcodeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ObjectAnimator jumpAnimation = ObjectAnimator.ofFloat(qrcodeButton, "translationY", 0f, 30f, 0f);
-                jumpAnimation.setDuration(300);
-
-                jumpAnimation.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        super.onAnimationEnd(animation);
-                        Intent intent = new Intent(getApplicationContext(), com.example.qrcodegenerator.QRCodeReader.class);
-                        startActivity(intent);
-                    }
-                });
-
-                jumpAnimation.start();
-            }
-        });
+        Intent qrCodeIntent = new Intent(Homepage.this, QRCodeReader.class);
+        AnimationUtil.applyButtonAnimation(qrCodeButton, this, () -> startActivity(qrCodeIntent));
 
         DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
         dropdownManager.setupDropdown();
@@ -315,13 +297,13 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot restaurantSnapshot : dataSnapshot.getChildren()) {
                         Restaurant restaurant = restaurantSnapshot.getValue(Restaurant.class);
-                        Daten daten = restaurant.getDaten();
-                        String address = daten.getStrasse() + " " + daten.getHausnr() + ", " + daten.getPlz() + " " + daten.getOrt();
+                        Data data = restaurant.getDaten();
+                        String address = data.getStrasse() + " " + data.getHausnr() + ", " + data.getPlz() + " " + data.getOrt();
                         LatLng latLng = getLatLngFromAddress(address);
                         if (latLng != null) {
                             Marker marker = gMap.addMarker(new MarkerOptions()
                                     .position(latLng)
-                                    .title(daten.getName()));
+                                    .title(data.getName()));
                             allMarkers.add(marker);
                         }
                     }

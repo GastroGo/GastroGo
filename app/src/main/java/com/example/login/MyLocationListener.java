@@ -12,19 +12,16 @@ import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MyLocationListener implements LocationListener {
-    Startseite startseite;
+    Homepage homepage;
     GoogleMap gMap;
     Context context;
     LatLng latLng;
 
-    public MyLocationListener(Startseite startseite, GoogleMap gMap, Context context) {
-        this.startseite = startseite;
+    public MyLocationListener(Homepage homepage, GoogleMap gMap, Context context) {
+        this.homepage = homepage;
         this.gMap = gMap;
         this.context = context;
         this.latLng = new LatLng(0, 0); // Initialize it here
@@ -42,9 +39,9 @@ public class MyLocationListener implements LocationListener {
             }
             gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
 
-            if (startseite.currentLocationMarker != null) {
-                startseite.currentLocationMarker.remove();
-                startseite.currentLocationMarker = null;
+            if (homepage.currentLocationMarker != null) {
+                homepage.currentLocationMarker.remove();
+                homepage.currentLocationMarker = null;
             }
         }
     }

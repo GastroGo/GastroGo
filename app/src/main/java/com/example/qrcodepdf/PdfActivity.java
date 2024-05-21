@@ -19,6 +19,7 @@ import androidx.core.content.FileProvider;
 import com.example.login.DropdownManager;
 import com.example.login.R;
 import com.example.login.Tisch;
+import com.example.utility.AnimationUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.slider.Slider;
 import com.google.firebase.database.DataSnapshot;
@@ -70,13 +71,10 @@ public class PdfActivity extends AppCompatActivity {
         });
 
         FloatingActionButton btnDownloadPDF = findViewById(R.id.btnDownloadPDF);
-        btnDownloadPDF.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addTables(anzahl);
-                downloadAndOpenPDF();
-                generateTables();
-            }
+        AnimationUtil.applyButtonAnimation(btnDownloadPDF, this, () -> {
+            addTables(anzahl);
+            downloadAndOpenPDF();
+            generateTables();
         });
     }
 

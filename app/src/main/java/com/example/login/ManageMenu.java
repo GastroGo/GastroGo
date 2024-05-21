@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.utility.AnimationUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +32,7 @@ public class ManageMenu extends AppCompatActivity {
     FloatingActionButton back;
     private DishAdapter dishAdapter;
     private List<Speisekarte> dishes;
+    String restaurantId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,96 +44,13 @@ public class ManageMenu extends AppCompatActivity {
 
         back = findViewById(R.id.btn_back);
         buttonAdd = findViewById(R.id.buttonAdd);
-        String restaurantId = getIntent().getStringExtra("restaurantId");   //Übergabe der Restaurant ID
+        restaurantId = getIntent().getStringExtra("restaurantId");   //Übergabe der Restaurant ID
 
         back.setOnClickListener(v -> {
             onBackPressed();
         });
 
-        buttonAdd.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(ManageMenu.this, R.style.RoundedDialog);
-            LayoutInflater inflater = getLayoutInflater();
-            View view = inflater.inflate(R.layout.dialog_add_dish, null);
-            builder.setView(view);
-
-            EditText dishName = view.findViewById(R.id.dish_name);
-            EditText dishPrice = view.findViewById(R.id.dish_price);
-            Button addDishButton = view.findViewById(R.id.add_dish_button);
-            Button cancelButton = view.findViewById(R.id.cancel_button);
-
-            AlertDialog dialog = builder.create();
-
-            addDishButton.setOnClickListener(v1 -> {
-                String name = dishName.getText().toString();
-                String priceString = dishPrice.getText().toString();
-
-                if (name.isEmpty() || priceString.isEmpty()) {
-                    Toast.makeText(ManageMenu.this, "Eingabe unvollständig", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                double price = Double.parseDouble(priceString);
-
-                //Erstellen Sie eine vordefinierte Liste von Zutaten
-                Map<String, Boolean> zutaten = new HashMap<>();
-                zutaten.put("eier", true);
-                zutaten.put("fleisch", true);
-                zutaten.put("milch", true);
-
-                Speisekarte gericht = new Speisekarte(name, price, null, zutaten);
-
-                DatabaseReference dbRefDishes = FirebaseDatabase.getInstance()
-                        .getReference("Restaurants")
-                        .child(restaurantId)
-                        .child("speisekarte");
-                dbRefDishes.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        long count = dataSnapshot.getChildrenCount();
-                        String dishKey = "G" + String.format("%03d", count + 1);
-
-                        dbRefDishes.child(dishKey).setValue(gericht);
-
-                        dishes.add(gericht);
-                        dishAdapter.notifyDataSetChanged();
-
-                        DatabaseReference dbRefTables = FirebaseDatabase.getInstance()
-                                .getReference("Restaurants")
-                                .child(restaurantId)
-                                .child("tische");
-                        dbRefTables.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                for (DataSnapshot tableSnapshot : dataSnapshot.getChildren()) {
-                                    tableSnapshot.getRef()
-                                            .child("bestellungen")
-                                            .child(dishKey)
-                                            .setValue(0);
-                                    tableSnapshot.getRef()
-                                            .child("geschlosseneBestellungen")
-                                            .child(dishKey)
-                                            .setValue(0);
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                            }
-                        });
-
-                        dialog.dismiss();
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
-            });
-
-            cancelButton.setOnClickListener(v2 -> dialog.dismiss());
-
-            dialog.show();
-        });
+        AnimationUtil.applyButtonAnimation(buttonAdd, this, this::addDishes);
 
         dishes = new ArrayList<>();
         dishAdapter = new DishAdapter(dishes, restaurantId);
@@ -164,6 +83,91 @@ public class ManageMenu extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }     //Carglass
         });
+    }
+
+    private void addDishes() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(ManageMenu.this, R.style.RoundedDialog);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_add_dish, null);
+        builder.setView(view);
+
+        EditText dishName = view.findViewById(R.id.dish_name);
+        EditText dishPrice = view.findViewById(R.id.dish_price);
+        Button addDishButton = view.findViewById(R.id.add_dish_button);
+        Button cancelButton = view.findViewById(R.id.cancel_button);
+
+        AlertDialog dialog = builder.create();
+
+        addDishButton.setOnClickListener(v1 -> {
+            String name = dishName.getText().toString();
+            String priceString = dishPrice.getText().toString();
+
+            if (name.isEmpty() || priceString.isEmpty()) {
+                Toast.makeText(ManageMenu.this, "Eingabe unvollständig", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            double price = Double.parseDouble(priceString);
+
+            //Erstellen Sie eine vordefinierte Liste von Zutaten
+            Map<String, Boolean> zutaten = new HashMap<>();
+            zutaten.put("eier", true);
+            zutaten.put("fleisch", true);
+            zutaten.put("milch", true);
+
+            Speisekarte gericht = new Speisekarte(name, price, null, zutaten);
+
+            DatabaseReference dbRefDishes = FirebaseDatabase.getInstance()
+                    .getReference("Restaurants")
+                    .child(restaurantId)
+                    .child("speisekarte");
+            dbRefDishes.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    long count = dataSnapshot.getChildrenCount();
+                    String dishKey = "G" + String.format("%03d", count + 1);
+
+                    dbRefDishes.child(dishKey).setValue(gericht);
+
+                    dishes.add(gericht);
+                    dishAdapter.notifyDataSetChanged();
+
+                    DatabaseReference dbRefTables = FirebaseDatabase.getInstance()
+                            .getReference("Restaurants")
+                            .child(restaurantId)
+                            .child("tische");
+                    dbRefTables.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot tableSnapshot : dataSnapshot.getChildren()) {
+                                tableSnapshot.getRef()
+                                        .child("bestellungen")
+                                        .child(dishKey)
+                                        .setValue(0);
+                                tableSnapshot.getRef()
+                                        .child("geschlosseneBestellungen")
+                                        .child(dishKey)
+                                        .setValue(0);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+
+                    dialog.dismiss();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        });
+
+        cancelButton.setOnClickListener(v2 -> dialog.dismiss());
+
+        dialog.show();
     }
 
     private void loadDishes() {

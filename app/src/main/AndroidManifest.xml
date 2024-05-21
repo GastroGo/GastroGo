@@ -33,7 +33,7 @@
             android:name=".ManageRestaurant"
             android:exported="false" />
         <activity
-            android:name=".Startseite"
+            android:name=".Homepage"
             android:exported="false"
             android:hardwareAccelerated="true" />
         <activity
@@ -70,10 +70,10 @@
             android:stateNotNeeded="true"
             tools:replace="android:screenOrientation" />
         <activity
-            android:name="com.example.qrcodegenerator.OrderManager"
+            android:name="com.example.qrcodereader.OrderManager"
             android:exported="false" />
         <activity
-            android:name="com.example.qrcodegenerator.QRCodeReader"
+            android:name="com.example.qrcodereader.QRCodeReader"
             android:exported="true"></activity>
         <activity
             android:name="com.example.qrcodepdf.PdfActivity"
