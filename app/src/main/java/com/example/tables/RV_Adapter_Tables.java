@@ -27,13 +27,13 @@ public class RV_Adapter_Tables extends RecyclerView.Adapter<RV_Adapter_Tables.Vi
 
     private Handler handler = new Handler();
     private Runnable runnable;
-    private final OnItemClickListener onItemClickListener;
+    private final TablesActivity mainActivity;
 
 
 
-    public RV_Adapter_Tables(String restaurantID, OnItemClickListener onItemClickListener) {
+    public RV_Adapter_Tables(String restaurantID, TablesActivity mainActivity) {
         this.restaurantID = restaurantID;
-        this.onItemClickListener = onItemClickListener;
+        this.mainActivity = mainActivity;
     }
 
     @NonNull
@@ -47,16 +47,26 @@ public class RV_Adapter_Tables extends RecyclerView.Adapter<RV_Adapter_Tables.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         int pos = position;
         List<String> keys = new ArrayList<>(tableModel.getTableNumAndTimerMap().keySet());
+        String key = keys.get(pos);
 
-        holder.tableNr.setText(keys.get(pos));
-        holder.timer.setText(getElapsedTime(tableModel.getTableNumAndTimerMap().get(keys.get(pos))));
+        holder.tableNr.setText(key);
+        holder.timer.setText(getElapsedTime(tableModel.getTableNumAndTimerMap().get(key)));
 
-        // Start the timer for this item
-        final int currentPosition = pos;
+        switch (tableModel.getTableNumAndStatus().get(key)){
+            case 0:
+
+                break;
+
+            case 1:
+
+                break;
+                
+        }
+
         runnable = new Runnable() {
             @Override
             public void run() {
-                holder.timer.setText(getElapsedTime(tableModel.getTableNumAndTimerMap().get(keys.get(currentPosition))));
+                holder.timer.setText(getElapsedTime(tableModel.getTableNumAndTimerMap().get(key)));
                 handler.postDelayed(this, 1000); // Update the timer every second
             }
         };
@@ -65,7 +75,7 @@ public class RV_Adapter_Tables extends RecyclerView.Adapter<RV_Adapter_Tables.Vi
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onItemClickListener.onItemClick(Integer.parseInt(keys.get(pos).substring(1)));
+                mainActivity.onItemClick(Integer.parseInt(key.substring(1)));
             }
         });
 
@@ -107,9 +117,6 @@ public class RV_Adapter_Tables extends RecyclerView.Adapter<RV_Adapter_Tables.Vi
         return String.format("%02d:%02d", minutes, seconds);
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(int tableNumber);
-    }
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

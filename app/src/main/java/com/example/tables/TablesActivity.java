@@ -29,7 +29,7 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 
-public class TablesActivity extends AppCompatActivity implements RV_Adapter_Tables.OnItemClickListener{
+public class TablesActivity extends AppCompatActivity{
     TablelistModel tableModel = TablelistModel.getInstance();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference dbRef = database.getReference("Restaurants");
@@ -84,13 +84,17 @@ public class TablesActivity extends AppCompatActivity implements RV_Adapter_Tabl
                 Map<String, Map<String, Object>> values = (Map<String, Map<String, Object>>) snapshot.child("/tische").getValue();
 
                 Map<String, String> tableNumAndLetzteBestellung = new TreeMap<>();
+                Map<String, Integer> tableNumAndStatus = new TreeMap<>();
                 for (Map.Entry<String, Map<String, Object>> entry : values.entrySet()) {
                     String tableNum = entry.getKey();
                     Map<String, Object> tableProperties = entry.getValue();
                     String letzteBestellung = (String) tableProperties.get("letzteBestellung");
+                    int status = (Integer) tableProperties.get("status");
                     tableNumAndLetzteBestellung.put(tableNum, letzteBestellung);
+                    tableNumAndStatus.put(tableNum, status);
                 }
                 tableModel.setTableNumAndTimerMap(tableModel.curState == states.SORTNUMBER ? sortWithNumber(tableNumAndLetzteBestellung) : sortWithTimer(tableNumAndLetzteBestellung));
+                tableModel.setTableNumAndStatus(tableNumAndStatus);
                 adapter.notifyDataSetChanged();
             }
 
@@ -149,7 +153,7 @@ public class TablesActivity extends AppCompatActivity implements RV_Adapter_Tabl
 
     private void setupAdapter(){
         recyclerView = findViewById(R.id.mRecyclerView);
-        adapter = new RV_Adapter_Tables(restaurantId, this::onItemClick);
+        adapter = new RV_Adapter_Tables(restaurantId, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
     }
@@ -168,7 +172,7 @@ public class TablesActivity extends AppCompatActivity implements RV_Adapter_Tabl
         }
     }
 
-    @Override
+
     public void onItemClick(int tableNumber) {
         Intent intent = new Intent(this, OrdersActivity.class);
         intent.putExtra("TableNr", tableNumber);
