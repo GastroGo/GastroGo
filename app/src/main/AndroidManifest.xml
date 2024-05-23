@@ -29,7 +29,8 @@
         </activity>
         <activity
             android:name=".WelcomeScreen"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Base.Theme.Welcome">
         </activity>
         <activity
             android:name=".EmployeesView"

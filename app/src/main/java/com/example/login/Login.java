@@ -2,12 +2,10 @@ package com.example.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +19,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
 
@@ -30,7 +29,7 @@ public class Login extends AppCompatActivity {
     ProgressBar progressBar;
     TextView textView;
     InputValidator inputValidator;
-    ScrollView scrollView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,29 +40,8 @@ public class Login extends AppCompatActivity {
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
         buttonLogin = findViewById(R.id.loginButton);
-        scrollView = findViewById(R.id.scrollView);
+
         inputValidator = new InputValidator(this);
-
-        View.OnFocusChangeListener focusChangeListener = new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                Log.d("FocusChange", "Focus changed. Has focus: " + hasFocus);
-                if (hasFocus) {
-                    scrollView.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            int bottom = view.getBottom() + 20;
-                            Log.d("FocusChange", "Scrolling to position: " + bottom);
-                            scrollView.smoothScrollTo(0, bottom);
-                        }
-                    });
-                }
-            }
-        };
-
-        editTextEmail.setOnFocusChangeListener(focusChangeListener);
-        editTextPassword.setOnFocusChangeListener(focusChangeListener);
-
         /*textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
