@@ -12,7 +12,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent(getApplicationContext(), Login.class);
+        Intent intent = new Intent(getApplicationContext(), WelcomeScreen.class);
         startActivity(intent);
         overridePendingTransition(0, 0);
         finish();

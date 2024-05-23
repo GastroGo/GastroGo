@@ -63,9 +63,9 @@
                 android:backgroundTint="@color/white"
                 android:padding="12dp"
                 android:text="@string/speichern"
-                android:textColor="@color/blue"
+                android:textColor="@color/green"
                 android:textSize="12sp"
-                app:strokeColor="@color/blue"
+                app:strokeColor="@color/green"
                 app:strokeWidth="2dp" />
 
             <com.google.android.material.button.MaterialButton

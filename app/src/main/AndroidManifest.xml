@@ -24,6 +24,10 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".WelcomeScreen"
+            android:exported="true">
+        </activity>
+        <activity
             android:name=".EmployeesView"
             android:exported="false" />
         <activity
@@ -43,14 +47,14 @@
             android:name=".Einstellungen"
             android:exported="false" />
         <activity android:name=".Register" />
-
         <activity android:name=".Login" />
-
-        <activity android:name=".MainActivity"
-            android:theme="@style/Theme.Login.SplashScreen"
-            android:exported="true">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Login.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 

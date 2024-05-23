@@ -29,16 +29,6 @@ public class Login extends AppCompatActivity {
     TextView textView;
     InputValidator inputValidator;
 
-    @Override
-    public void onStart() {     //Prüft ob User bereits eingeloggt ist und ruft ggf. Startseite auf
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            Intent intent = new Intent(getApplicationContext(), Homepage.class);
-            startActivity(intent);
-            finish();
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
