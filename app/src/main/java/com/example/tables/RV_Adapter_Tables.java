@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.DBKlassen.TablelistModel;
 import com.example.login.R;
 
 import java.time.LocalTime;

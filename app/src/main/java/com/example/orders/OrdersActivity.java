@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.DBKlassen.DishModel;
 import com.example.DBKlassen.states;
 import com.example.login.DropdownManager;
 import com.example.login.R;

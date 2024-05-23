@@ -12,7 +12,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.example.DBKlassen.DishModel;
 import com.example.DBKlassen.states;
 import com.example.login.R;
 

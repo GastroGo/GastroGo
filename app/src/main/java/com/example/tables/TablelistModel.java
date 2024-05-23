@@ -1,4 +1,6 @@
-package com.example.DBKlassen;
+package com.example.tables;
+
+import com.example.DBKlassen.states;
 
 import java.util.Map;
 
@@ -10,6 +12,7 @@ public class TablelistModel {
     private static TablelistModel instance;
 
     private Map<String, String> tableNumAndTimer;
+    private Map<String, Integer> tableNumAndStatus;
 
     private TablelistModel() {
     }
@@ -29,4 +32,11 @@ public class TablelistModel {
         return this.tableNumAndTimer;
     }
 
+    public Map<String, Integer> getTableNumAndStatus() {
+        return tableNumAndStatus;
+    }
+
+    public void setTableNumAndStatus(Map<String, Integer> tableNumAndStatus) {
+        this.tableNumAndStatus = tableNumAndStatus;
+    }
 }

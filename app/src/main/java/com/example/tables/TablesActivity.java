@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.orders.OrdersActivity;
-import com.example.DBKlassen.TablelistModel;
 import com.example.DBKlassen.states;
 import com.example.login.DropdownManager;
 import com.example.login.R;
