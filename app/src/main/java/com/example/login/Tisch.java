@@ -7,11 +7,14 @@ public class Tisch {
     private Map<String, Integer> geschlosseneBestellungen;
     private int personen;
     private String letzteBestellung;
+    private int status;
 
-    public Tisch(Map<String, Integer> bestellungen, Map<String, Integer> geschlosseneBestellungen, int personen) {
+    public Tisch(Map<String, Integer> bestellungen, Map<String, Integer> geschlosseneBestellungen, int personen, String letzteBestellung, int Status) {
         this.bestellungen = bestellungen;
         this.geschlosseneBestellungen = geschlosseneBestellungen;
         this.personen = personen;
+        this.letzteBestellung = letzteBestellung;
+        this.status = Status;
     }
 
     public Tisch() {
@@ -47,5 +50,13 @@ public class Tisch {
 
     public void setLetzteBestellung(String letzteBestellung) {
         this.letzteBestellung = letzteBestellung;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

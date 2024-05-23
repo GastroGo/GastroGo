@@ -201,8 +201,8 @@ public class CreateRestaurant extends AppCompatActivity {
 
         Map<String, Tisch> tische = new HashMap<>();
 
-        tische.put("T001", new Tisch(ordersMap, new HashMap<>(ordersMap), 0));
-        tische.put("T002", new Tisch(ordersMap, new HashMap<>(ordersMap), 0));
+        tische.put("T001", new Tisch(ordersMap, new HashMap<>(ordersMap), 0, "-", 0));
+        tische.put("T002", new Tisch(ordersMap, new HashMap<>(ordersMap), 0, "-", 0));
 
         Restaurant restaurant = new Restaurant(daten, speisekarte, tische); //ruft Standardkonstruktor auf in Restaurant Klasse
         dbRef.child(restaurantId).setValue(restaurant); //fügt gesetzte Restaurantklasse in Datenbank ein unter der erstellten Id

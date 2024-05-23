@@ -94,7 +94,7 @@ public class PdfActivity extends AppCompatActivity {
                 put("G002", 0);
             }};
 
-            Tisch newTable = new Tisch(ordersMap, new HashMap<>(ordersMap), 0);
+            Tisch newTable = new Tisch(ordersMap, new HashMap<>(ordersMap), 0, "-", 0);
 
             dbRefTables.child(tableKey).setValue(newTable);
         }
