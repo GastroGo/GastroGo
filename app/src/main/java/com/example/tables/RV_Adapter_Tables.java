@@ -1,5 +1,6 @@
 package com.example.tables;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -52,15 +53,13 @@ public class RV_Adapter_Tables extends RecyclerView.Adapter<RV_Adapter_Tables.Vi
         holder.tableNr.setText(key);
         holder.timer.setText(getElapsedTime(tableModel.getTableNumAndTimerMap().get(key)));
 
-        switch (tableModel.getTableNumAndStatus().get(key)){
-            case 0:
-
-                break;
-
-            case 1:
-
-                break;
-                
+        Long l = tableModel.getTableNumAndStatus().get(key);
+        if (l == 0) {
+            holder.cardView.setCardBackgroundColor(Color.LTGRAY);
+        } else if (l == 1) {
+            holder.cardView.setCardBackgroundColor(Color.WHITE);
+        } else if (l == 2) {
+            holder.cardView.setCardBackgroundColor(Color.RED);
         }
 
         runnable = new Runnable() {

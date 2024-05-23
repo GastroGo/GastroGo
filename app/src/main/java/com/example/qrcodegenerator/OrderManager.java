@@ -174,6 +174,7 @@ public class OrderManager extends AppCompatActivity implements AmountChangeListe
                 .child("tische")
                 .child("T" + idSelectedTable);
         bestellungenRef.child("letzteBestellung").setValue(getCurrentTime());
+        bestellungenRef.child("status").setValue((long) 1);
 
     }
 

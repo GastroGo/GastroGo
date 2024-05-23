@@ -84,12 +84,12 @@ public class TablesActivity extends AppCompatActivity{
                 Map<String, Map<String, Object>> values = (Map<String, Map<String, Object>>) snapshot.child("/tische").getValue();
 
                 Map<String, String> tableNumAndLetzteBestellung = new TreeMap<>();
-                Map<String, Integer> tableNumAndStatus = new TreeMap<>();
+                Map<String, Long> tableNumAndStatus = new TreeMap<>();
                 for (Map.Entry<String, Map<String, Object>> entry : values.entrySet()) {
                     String tableNum = entry.getKey();
                     Map<String, Object> tableProperties = entry.getValue();
                     String letzteBestellung = (String) tableProperties.get("letzteBestellung");
-                    int status = (Integer) tableProperties.get("status");
+                    long status = (long) tableProperties.get("status");
                     tableNumAndLetzteBestellung.put(tableNum, letzteBestellung);
                     tableNumAndStatus.put(tableNum, status);
                 }

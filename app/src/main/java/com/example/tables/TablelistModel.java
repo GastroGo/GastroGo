@@ -12,7 +12,7 @@ public class TablelistModel {
     private static TablelistModel instance;
 
     private Map<String, String> tableNumAndTimer;
-    private Map<String, Integer> tableNumAndStatus;
+    private Map<String, Long> tableNumAndStatus;
 
     private TablelistModel() {
     }
@@ -32,11 +32,11 @@ public class TablelistModel {
         return this.tableNumAndTimer;
     }
 
-    public Map<String, Integer> getTableNumAndStatus() {
+    public Map<String, Long> getTableNumAndStatus() {
         return tableNumAndStatus;
     }
 
-    public void setTableNumAndStatus(Map<String, Integer> tableNumAndStatus) {
+    public void setTableNumAndStatus(Map<String, Long> tableNumAndStatus) {
         this.tableNumAndStatus = tableNumAndStatus;
     }
 }
