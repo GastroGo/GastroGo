@@ -26,7 +26,11 @@
         <activity android:name=".Login"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustPan|stateVisible">
-    </activity>
+        </activity>
+        <activity android:name=".Register"
+            android:theme="@style/LoginTheme"
+            android:windowSoftInputMode="adjustPan|stateVisible">
+        </activity>
         <activity
             android:name=".WelcomeScreen"
             android:exported="true"
@@ -47,11 +51,11 @@
             android:hardwareAccelerated="true" />
         <activity
             android:name=".CreateRestaurant"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/LoginTheme"/>
         <activity
             android:name=".Settings"
             android:exported="false" />
-        <activity android:name=".Register" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

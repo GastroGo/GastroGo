@@ -11,6 +11,7 @@ import com.google.android.gms.location.LocationServices;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import androidx.core.app.ActivityCompat;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,10 +40,10 @@ import java.util.Map;
 public class CreateRestaurant extends AppCompatActivity {
 
     TextInputEditText editTextEmail, editTextPassword, editTextName, editTextPlace, editTextZip, editTextStreet, editTextHousenr;
-    Button buttonReg, buttonBack, buttonLocation;
+    Button buttonReg;
+    FloatingActionButton buttonLocation;
     FirebaseAuth mAuth;
     DatabaseReference dbRef;
-    ProgressBar progressBar;
     InputValidator inputValidator;
     FusedLocationProviderClient fusedLocationClient;
 
@@ -49,6 +51,7 @@ public class CreateRestaurant extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         setContentView(R.layout.activity_create_restaurant);
         mAuth = FirebaseAuth.getInstance();
         dbRef = FirebaseDatabase.getInstance().getReference("Restaurants");
@@ -59,25 +62,14 @@ public class CreateRestaurant extends AppCompatActivity {
         editTextZip = findViewById(R.id.zip);
         editTextStreet = findViewById(R.id.street);
         editTextHousenr = findViewById(R.id.housenr);
-        buttonReg = findViewById(R.id.btn_register);
-        buttonBack = findViewById(R.id.btn_back);
-        buttonLocation = findViewById(R.id.btn_location);
-        progressBar = findViewById(R.id.progressBar);
+        buttonReg = findViewById(R.id.registerButton);
+        buttonLocation = findViewById(R.id.locationButton);
 
-        buttonBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplication(), Register.class);
-                startActivity(intent);
-                finish();
-            }
-        });
         inputValidator = new InputValidator(this);
 
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
                 String email = String.valueOf(editTextEmail.getText());
                 String password = String.valueOf(editTextPassword.getText());
                 String name = String.valueOf(editTextName.getText());
@@ -95,7 +87,6 @@ public class CreateRestaurant extends AppCompatActivity {
                         !inputValidator.validateInput(editTextHousenr, "Hausnummer eingeben") ||
                         !inputValidator.isNumeric(zipString, "Postleitzahl muss eine Zahl sein") ||
                         !inputValidator.isNumeric(housenrString, "Hausnummer muss eine Zahl sein")) {
-                    progressBar.setVisibility(View.GONE);
                     return;
                 }
 
@@ -106,7 +97,6 @@ public class CreateRestaurant extends AppCompatActivity {
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
                                     String uid = mAuth.getCurrentUser().getUid();
                                     Toast.makeText(CreateRestaurant.this, "Account erstellt", Toast.LENGTH_SHORT).show();
