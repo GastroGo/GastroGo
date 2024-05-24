@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.example.mitarbeiterverwaltung.MitarbeiterVerwalten;
+import com.example.employeemanager.EmployeeManager;
 import com.example.qrcodepdf.PdfActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -71,7 +71,7 @@ public class ManageRestaurant extends AppCompatActivity {
         schluessel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MitarbeiterVerwalten.class);
+                Intent intent = new Intent(getApplicationContext(), EmployeeManager.class);
                 intent.putExtra("restaurantId", restaurantData.getId());
                 startActivity(intent);
             }
@@ -123,7 +123,7 @@ public class ManageRestaurant extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Einstellungen.class);
+                Intent intent = new Intent(getApplicationContext(), Settings.class);
                 startActivity(intent);
             }
         });

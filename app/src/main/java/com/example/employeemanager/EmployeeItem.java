@@ -1,13 +1,13 @@
-package com.example.mitarbeiterverwaltung;
+package com.example.employeemanager;
 
-public class User {
+public class EmployeeItem {
 
     String name, key;
 
-    public User() {
+    public EmployeeItem() {
     }
 
-    public User(String key, String name) {
+    public EmployeeItem(String key, String name) {
         this.name = name;
         this.key = key;
     }

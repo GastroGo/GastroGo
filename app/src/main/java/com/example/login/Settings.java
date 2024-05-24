@@ -26,7 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class Einstellungen extends AppCompatActivity {
+public class Settings extends AppCompatActivity {
 
     private EditText schluesselEingabe;
     private Switch benachrichtigungen, darkmode;
@@ -40,7 +40,7 @@ public class Einstellungen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_einstellungen);
+        setContentView(R.layout.activity_settings);
         schluesselEingabe = findViewById(R.id.schluesselEingabe);
         benachrichtigungen = findViewById(R.id.benachrichtigungen);
         darkmode = findViewById(R.id.darkmode);
@@ -178,7 +178,7 @@ public class Einstellungen extends AppCompatActivity {
                 }
 
                 if (!keyFound) {
-                    Toast.makeText(Einstellungen.this, "Schlüssel falsch", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Settings.this, "Schlüssel falsch", Toast.LENGTH_SHORT).show();
                 }
             }
 

@@ -1,6 +1,6 @@
-package com.example.mitarbeiterverwaltung;
+package com.example.employeemanager;
 
-public class Model {
+public class EmployeeModel {
     private static final String KEY_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final int KEY_LENGTH = 6;
 

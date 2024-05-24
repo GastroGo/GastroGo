@@ -49,7 +49,7 @@
             android:name=".CreateRestaurant"
             android:exported="false" />
         <activity
-            android:name=".Einstellungen"
+            android:name=".Settings"
             android:exported="false" />
         <activity android:name=".Register" />
         <activity
@@ -91,7 +91,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBmTdKR4YI0DqvIGoQlNlZOmuBtjbnScVY" />
 
-        <activity android:name="com.example.mitarbeiterverwaltung.MitarbeiterVerwalten" />
+        <activity android:name="com.example.employeemanager.EmployeeManager" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
