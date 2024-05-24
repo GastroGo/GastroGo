@@ -144,8 +144,6 @@ public class Homepage extends AppCompatActivity implements OnMapReadyCallback {
                             } catch (Exception e){
                                 break;
                             }
-
-
                             if (inputKey.equals(firebaseKey)) {
 
                                 DatabaseReference grandChildRef = greatGrandChildSnapshot.getRef().getParent();
@@ -153,13 +151,19 @@ public class Homepage extends AppCompatActivity implements OnMapReadyCallback {
 
                                     DatabaseReference childRef = grandChildRef.getParent();
                                     if (childRef != null) {
+                                        String childKey = grandChildRef.getKey();
                                         String parentKey = childRef.getKey();
-                                        Intent intent = new Intent(getApplicationContext(), EmployeesView.class);
-                                        employee= true;
-                                        intent.putExtra("restaurantId", parentKey); //Übergabe der RestaurantId
-                                        startActivity(intent);
-                                        overridePendingTransition(0, 0);
-                                        finish();
+                                        String uid = getUserId();
+                                        DataSnapshot snap = dataSnapshot.child(parentKey).child(childKey).child("UID");
+                                        String idc = snap.getValue(String.class);
+                                        if (idc.equals(uid)) {
+                                            Intent intent = new Intent(getApplicationContext(), EmployeesView.class);
+                                            employee = true;
+                                            intent.putExtra("restaurantId", parentKey);
+                                            startActivity(intent);
+                                            overridePendingTransition(0, 0);
+                                            finish();
+                                        }
                                     }
                                 }
                                 keyFound = true;

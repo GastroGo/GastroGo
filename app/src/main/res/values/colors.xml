@@ -20,6 +20,7 @@
     <color name="zxing_transparent">#00000000</color>
     <color name="green">#0D470F</color>
     <color name="welcomeRed">#E56176</color>
+    <color name="light_gray">#7f7f7f</color>
     //2f59fb
     <color name="red">#e05136</color>
 </resources>
