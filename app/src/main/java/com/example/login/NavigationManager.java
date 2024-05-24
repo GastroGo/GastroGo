@@ -25,7 +25,7 @@ public class NavigationManager {
                     }
                     return true;
                 } else if (id == R.id.menuSettings) {
-                    Intent intent = new Intent(context, Einstellungen.class);
+                    Intent intent = new Intent(context, Settings.class);
                     context.startActivity(intent);
                     return true;
                 } return false;

@@ -1,4 +1,4 @@
-package com.example.mitarbeiterverwaltung;
+package com.example.employeemanager;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -27,13 +27,13 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class MitarbeiterVerwalten extends AppCompatActivity {
+public class EmployeeManager extends AppCompatActivity {
 
     public long count;
     RecyclerView recyclerView;
     DatabaseReference database;
-    MyAdapter myadapter;
-    ArrayList<User> list;
+    EmployeeAdapter myadapter;
+    ArrayList<EmployeeItem> list;
     HashSet<String> keysSet;
     FloatingActionButton mAnlegen;
     Dialog dialog;
@@ -45,7 +45,7 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
     public static String generateKey() {
         SecureRandom random = new SecureRandom();
         StringBuilder key = new StringBuilder();
-        Model model = new Model();
+        EmployeeModel model = new EmployeeModel();
 
         for (int i = 0; i < model.getKeyLength(); i++) {
             int randomIndex = random.nextInt(model.getKeyCharacters().length());
@@ -68,8 +68,8 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
         DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
         dropdownManager.setupDropdown();
 
-        dialog = new Dialog(MitarbeiterVerwalten.this);
-        dialog.setContentView(R.layout.m_anlegen);
+        dialog = new Dialog(EmployeeManager.this);
+        dialog.setContentView(R.layout.dialog_new_employee);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.m_anlegen_bg));
         dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
@@ -104,7 +104,7 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
 
         list = new ArrayList<>();
         keysSet = new HashSet<>();
-        myadapter = new MyAdapter(this, list, restaurantId);
+        myadapter = new EmployeeAdapter(this, list, restaurantId);
         recyclerView.setAdapter(myadapter);
 
         database.addValueEventListener(new ValueEventListener() {
@@ -113,7 +113,7 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
                 count = snapshot.getChildrenCount();
                 list.clear(); // Clear the list
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    User user = dataSnapshot.getValue(User.class);
+                    EmployeeItem user = dataSnapshot.getValue(EmployeeItem.class);
                     list.add(user);
                 }
                 myadapter.notifyDataSetChanged();

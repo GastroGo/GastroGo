@@ -1,4 +1,4 @@
-package com.example.mitarbeiterverwaltung;
+package com.example.employeemanager;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,21 +22,21 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.MyViewHolder> {
 
     Context context;
-    ArrayList<User> list;
+    ArrayList<EmployeeItem> list;
     String restaurantId;
     DatabaseReference dbRef;
 
-    public MyAdapter(Context context, ArrayList<User> list, String restaurantId) {
+    public EmployeeAdapter(Context context, ArrayList<EmployeeItem> list, String restaurantId) {
         this.context = context;
         this.list = list;
         this.restaurantId = restaurantId;
         this.dbRef = FirebaseDatabase.getInstance().getReference("Schluessel").child(restaurantId);
     }
 
-    public void deleteEmployee(String employeeId, final List<User> employees) {
+    public void deleteEmployee(String employeeId, final List<EmployeeItem> employees) {
         dbRef.child(employeeId).removeValue().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 renumberEmployees(employees);
@@ -44,7 +44,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         });
     }
 
-    private void renumberEmployees(final List<User> employees) {
+    private void renumberEmployees(final List<EmployeeItem> employees) {
         final DatabaseReference reference = dbRef;
 
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -54,13 +54,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
                 for (DataSnapshot employeeSnapshot : dataSnapshot.getChildren()) {
                     String oldEmployeeId = employeeSnapshot.getKey();
-                    User oldEmployeeData = employeeSnapshot.getValue(User.class);
+                    EmployeeItem oldEmployeeData = employeeSnapshot.getValue(EmployeeItem.class);
 
                     if (oldEmployeeData != null) {
                         dbRef.child(oldEmployeeId).removeValue(); // Delete the old numbered entry first
 
                         String newEmployeeId = "M" + String.format("%03d", index + 1);
-                        User newEmployeeData = new User(
+                        EmployeeItem newEmployeeData = new EmployeeItem(
                                 oldEmployeeData.getKey(),
                                 oldEmployeeData.getName()
                         );
@@ -80,7 +80,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.item, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.item_employee, parent, false);
         return new MyViewHolder(v);
     }
 
@@ -95,7 +95,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         if (position >= 0 && position < list.size()) {
-            User user = list.get(position);
+            EmployeeItem user = list.get(position);
             holder.mName.setText(user.getName());
             holder.mKey.setText(user.getKey());
 
