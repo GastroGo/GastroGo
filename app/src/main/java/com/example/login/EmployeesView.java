@@ -19,7 +19,7 @@ public class EmployeesView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_employees_view);
+        setContentView(R.layout.activity_employees_menu);
 
         settings = findViewById(R.id.settingButtonEmployees);
         user = findViewById(R.id.toUserPage);
