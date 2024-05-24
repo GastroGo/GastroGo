@@ -44,7 +44,7 @@ public class RV_Adapter_EmployeeWorkDay extends RecyclerView.Adapter<RV_Adapter_
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                context.showEditDialog();
             }
         });
 

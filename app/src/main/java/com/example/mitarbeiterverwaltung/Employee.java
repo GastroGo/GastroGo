@@ -1,7 +1,10 @@
 package com.example.mitarbeiterverwaltung;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -60,7 +63,6 @@ public class Employee extends AppCompatActivity {
                 headerText.setText(employee.name);
                 employeeModel.setEmployee(employee);
                 adapter.notifyDataSetChanged();
-                Log.i("zeiten", employeeModel.employee.getArbeitsZeiten() + "");
             }
 
             @Override
@@ -85,6 +87,11 @@ public class Employee extends AppCompatActivity {
     }
 
     public void showEditDialog(){
+        Dialog dialog = new Dialog(this, R.style.RoundedDialog);
+        dialog.setContentView(R.layout.dialog_add_edit_workday);
 
+        Button saveButton = dialog.findViewById(R.id.dialog_add_edit_workday_save_button);
+        Button cacelButton = dialog.findViewById(R.id.dialog_add_edit_workday_cancel_button);
+        dialog.show();
     }
 }
