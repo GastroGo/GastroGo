@@ -1,7 +1,6 @@
 package com.example.login;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,9 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatDelegate;
 
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,22 +29,27 @@ public class Settings extends AppCompatActivity {
     private EditText schluesselEingabe;
     private Switch benachrichtigungen, darkmode;
     private Spinner spinner_languages;
-    FloatingActionButton logout;
     FloatingActionButton back;
     Homepage sRef = new Homepage();
+    boolean inEmployee;
 
-    private GoogleMap gMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
         schluesselEingabe = findViewById(R.id.schluesselEingabe);
         benachrichtigungen = findViewById(R.id.benachrichtigungen);
         darkmode = findViewById(R.id.darkmode);
         spinner_languages = findViewById(R.id.spinner_languages);
 
-        gMap = MapHolder.getInstance().getGoogleMap();
+
+
+        inEmployee = getIntent().getBooleanExtra("inEmployee", false);
+        if (inEmployee) {
+            findViewById(R.id.mitarbeiterLogin).setVisibility(View.GONE);
+        }
 
         back = findViewById(R.id.btn_back);
 
@@ -57,7 +60,7 @@ public class Settings extends AppCompatActivity {
         TextView headerText = findViewById(R.id.text);
         headerText.setText("Einstellungen");
 
-        DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
+        DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu_settings, R.id.imageMenu);
         dropdownManager.setupDropdown();
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.languages, android.R.layout.simple_spinner_item);
@@ -66,17 +69,6 @@ public class Settings extends AppCompatActivity {
 
         setupListeners();
         loadModelData();
-
-        FloatingActionButton mitarbeiterLogin = findViewById(R.id.mitarbeiterLogin);
-
-        // Überprüfen Sie den Zustand des FloatingActionButton
-        if (!mitarbeiterLogin.isEnabled()) {
-            // Wenn der Button deaktiviert ist, ändern Sie die Farbe auf Grau
-            mitarbeiterLogin.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, android.R.color.darker_gray)));
-        } else {
-            // Wenn der Button aktiviert ist, ändern Sie die Farbe auf die ursprüngliche Farbe
-            mitarbeiterLogin.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.light_third)));
-        }
     }
 
     private void setupListeners() {
@@ -101,7 +93,6 @@ public class Settings extends AppCompatActivity {
             saveSchluessel();
             schluesselAbgleichen();
         });
-
         darkmode.setOnCheckedChangeListener(this::onDarkModeChanged);
         benachrichtigungen.setOnCheckedChangeListener(this::onBenachrichtigungenChanged);
         spinner_languages.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -117,17 +108,17 @@ public class Settings extends AppCompatActivity {
     }
 
     private void loadModelData() {
-        Model model = Model.getInstance();
+        SettingsModel model = SettingsModel.getInstance();
         model.load(this);
 
         benachrichtigungen.setChecked(model.getBenachrichtigungen() == 1);
-        darkmode.setChecked(model.getDarkmode() == 1);
+        darkmode.setChecked(model.getDarkmode());
         spinner_languages.setSelection(model.getLanguage());
         schluesselEingabe.setText(model.getSchluessel());
     }
 
     private void saveSchluessel() {
-        Model model = Model.getInstance();
+        SettingsModel model = SettingsModel.getInstance();
         model.setSchluessel(schluesselEingabe.getText().toString());
         model.save(this);
     }
@@ -156,10 +147,20 @@ public class Settings extends AppCompatActivity {
                                         String childKey = grandChildRef.getKey();
                                         String parentKey = childRef.getKey();
                                         String uid = sRef.getUserId();
-                                        Intent intent = new Intent(getApplicationContext(), EmployeesView.class);
-                                        intent.putExtra("restaurantId", parentKey); // Pass the restaurant ID to CreateMenu activity
-                                        startActivity(intent);
-                                        ref.child(parentKey).child(childKey).child("UID").setValue(uid);
+                                        DataSnapshot snap = dataSnapshot.child(parentKey).child(childKey).child("UID");
+                                        String idc = snap.getValue(String.class);
+                                        if (idc.equals("")) {
+                                            Intent intent = new Intent(getApplicationContext(), EmployeesView.class);
+                                            intent.putExtra("restaurantId", parentKey);
+                                            startActivity(intent);
+                                            ref.child(parentKey).child(childKey).child("UID").setValue(uid);
+                                        } else if (idc.equals(uid)) {
+                                            Intent intent = new Intent(getApplicationContext(), EmployeesView.class);
+                                            intent.putExtra("restaurantId", parentKey);
+                                            startActivity(intent);
+                                        } else {
+                                            Toast.makeText(Settings.this, "Schlüssel bereits verwendet", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
                                 }
                                 keyFound = true;
@@ -190,21 +191,27 @@ public class Settings extends AppCompatActivity {
     }
 
     private void onDarkModeChanged(CompoundButton buttonView, boolean isChecked) {
-        Model model = Model.getInstance();
-        model.setDarkmode(isChecked ? 1 : 0);
+        SettingsModel model = SettingsModel.getInstance();
+        model.setDarkmode(isChecked);
         model.save(this);
+        if (isChecked) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
     private void onBenachrichtigungenChanged(CompoundButton buttonView, boolean isChecked) {
-        Model model = Model.getInstance();
+        SettingsModel model = SettingsModel.getInstance();
         model.setBenachrichtigungen(isChecked ? 1 : 0);
         model.save(this);
     }
 
     private void saveLanguage(int language) {
-        Model model = Model.getInstance();
+        SettingsModel model = SettingsModel.getInstance();
         model.setLanguage(language);
         model.save(this);
     }
+
 
 }

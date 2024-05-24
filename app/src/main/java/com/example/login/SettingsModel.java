@@ -3,53 +3,55 @@ package com.example.login;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class Model {
+public class SettingsModel {
     private static final String PREF_NAME = "UserData";
-    private static final int KEY_DARKMODE = 0;
+    private static final boolean KEY_DARKMODE = false;
     private static final int KEY_BENACHRICHTIGUNGEN = 0;
     private static final int KEY_LANGUAGE = 0;
     private static final String KEY_SCHLUESSEL = null;
-    private static Model instance;
-    private int darkmode;
+    private static SettingsModel instance;
+    private boolean darkmode;
     private int benachrichtigungen;
     private int language;
     private String schluessel;
 
-    private Model() {
+    private SettingsModel() {
     }
 
-    public static Model getInstance() {
+    public static SettingsModel getInstance() {
         if (instance == null) {
-            instance = new Model();
+            instance = new SettingsModel();
         }
         return instance;
     }
 
     public void save(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("UserData", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("KEY_DARKMODE", darkmode); // Use "KEY_DARKMODE" instead of String.valueOf(KEY_DARKMODE)
-        editor.putInt("KEY_BENACHRICHTIGUNGEN", benachrichtigungen); // Similarly update other keys if needed
+
+        editor.putBoolean("KEY_DARKMODE", darkmode);
+        editor.putInt("KEY_BENACHRICHTIGUNGEN", benachrichtigungen);
         editor.putInt("KEY_LANGUAGE", language);
         editor.putString("KEY_SCHLUESSEL", schluessel);
+
         editor.apply();
     }
 
-
     public void load(Context context) {
-        SharedPreferences sharedPref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        darkmode = sharedPref.getInt("KEY_DARKMODE", KEY_DARKMODE);
-        benachrichtigungen = sharedPref.getInt("KEY_BENACHRICHTIGUNGEN", KEY_BENACHRICHTIGUNGEN);
-        language = sharedPref.getInt("KEY_LANGUAGE", KEY_LANGUAGE);
-        schluessel = sharedPref.getString("KEY_SCHLUESSEL", KEY_SCHLUESSEL);
+        SharedPreferences sharedPreferences = context.getSharedPreferences("UserData", Context.MODE_PRIVATE);
+
+        darkmode = sharedPreferences.getBoolean("KEY_DARKMODE", KEY_DARKMODE);
+        benachrichtigungen = sharedPreferences.getInt("KEY_BENACHRICHTIGUNGEN", KEY_BENACHRICHTIGUNGEN);
+        language = sharedPreferences.getInt("KEY_LANGUAGE", KEY_LANGUAGE);
+        schluessel = sharedPreferences.getString("KEY_SCHLUESSEL", KEY_SCHLUESSEL);
     }
 
-    public int getDarkmode() {
-        return darkmode;
-    }
-
-    public void setDarkmode(int darkmode) {
+    public void setDarkmode(boolean darkmode) {
         this.darkmode = darkmode;
+    }
+
+    public boolean getDarkmode() {
+        return this.darkmode;
     }
 
     public int getBenachrichtigungen() {
