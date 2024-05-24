@@ -132,7 +132,13 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                     for (DataSnapshot grandChildSnapshot : childSnapshot.getChildren()) {
                         for (DataSnapshot greatGrandChildSnapshot : grandChildSnapshot.getChildren()) {
-                            String firebaseKey = greatGrandChildSnapshot.getValue(String.class);
+                            String firebaseKey;
+                            try {
+                                firebaseKey = greatGrandChildSnapshot.getValue(String.class);
+                            } catch (Exception e){
+                                break;
+                            }
+
 
                             if (inputKey.equals(firebaseKey)) {
 
