@@ -13,11 +13,15 @@ import com.example.login.R;
 import com.example.tables.RV_Adapter_Tables;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class RV_Adapter_EmployeeWorkDay extends RecyclerView.Adapter<RV_Adapter_EmployeeWorkDay.ViewHolder>{
-    User employee;
+import java.util.ArrayList;
+import java.util.List;
 
-    public RV_Adapter_EmployeeWorkDay(User employee){
-        this.employee = employee;
+public class RV_Adapter_EmployeeWorkDay extends RecyclerView.Adapter<RV_Adapter_EmployeeWorkDay.ViewHolder>{
+    EmployeeModel employeeModel = EmployeeModel.getInstance();
+    Employee context;
+
+    public RV_Adapter_EmployeeWorkDay(Employee context){
+        this.context = context;
     }
 
     @NonNull
@@ -29,24 +33,46 @@ public class RV_Adapter_EmployeeWorkDay extends RecyclerView.Adapter<RV_Adapter_
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        int pos = position;
 
+        List<String> keys = new ArrayList<>(employeeModel.employee.arbeitsZeiten.keySet());
+        String key = keys.get(pos);
+
+        holder.hours.setText(employeeModel.employee.arbeitsZeiten.get(key));
+        holder.date.setText(key.substring(0, 2) + "." + key.substring(2, 4) + "." + key.substring(4));
+
+        holder.edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.deleteWorkday(key);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return employee.getArbeitsZeiten().size();
+        try{
+            return employeeModel.employee.arbeitsZeiten.size();
+        } catch (Exception e){
+            return 0;
+        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView hours, date;
         FloatingActionButton delete, edit;
-        CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            cardView = itemView.findViewById(R.id.employees_rv_cardview);
             hours = itemView.findViewById(R.id.rv_employeeworkday_hours);
             date = itemView.findViewById(R.id.rv_employeeworkday_date);
             delete = itemView.findViewById(R.id.buttonDeleteWorkday);

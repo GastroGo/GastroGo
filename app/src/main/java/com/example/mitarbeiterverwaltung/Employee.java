@@ -10,9 +10,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.login.DropdownManager;
 import com.example.login.R;
+import com.example.tables.RV_Adapter_Tables;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.Firebase;
 import com.google.firebase.database.DataSnapshot;
@@ -28,7 +32,9 @@ public class Employee extends AppCompatActivity {
     FloatingActionButton back;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference dbRef = database.getReference();
-    User employee;
+    RecyclerView recyclerView;
+    EmployeeModel employeeModel = EmployeeModel.getInstance();
+    RV_Adapter_EmployeeWorkDay adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +56,11 @@ public class Employee extends AppCompatActivity {
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                employee = snapshot.child("/Schluessel/" + restaurantID + "/" + employeeID).getValue(User.class);
+                User employee = snapshot.child("/Schluessel/" + restaurantID + "/" + employeeID).getValue(User.class);
                 headerText.setText(employee.name);
-                Log.i("zeiten", "" + employee.getArbeitsZeiten());
+                employeeModel.setEmployee(employee);
+                adapter.notifyDataSetChanged();
+                Log.i("zeiten", employeeModel.employee.getArbeitsZeiten() + "");
             }
 
             @Override
@@ -60,6 +68,23 @@ public class Employee extends AppCompatActivity {
 
             }
         });
+
+        setupAdapter();
+
+    }
+
+    private void setupAdapter(){
+        recyclerView = findViewById(R.id.mListe);
+        adapter = new RV_Adapter_EmployeeWorkDay(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    public void deleteWorkday(String day){
+        dbRef.child("/Schluessel/" + restaurantID + "/" + employeeID + "/arbeitsZeiten/" + day).removeValue();
+    }
+
+    public void showEditDialog(){
 
     }
 }
