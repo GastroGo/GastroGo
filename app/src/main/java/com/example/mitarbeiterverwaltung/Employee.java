@@ -1,10 +1,13 @@
 package com.example.mitarbeiterverwaltung;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -24,6 +27,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.util.Calendar;
 
@@ -273,6 +278,32 @@ public class Employee extends AppCompatActivity {
         }, curHour, curMin, true);
 
         timePicker.show();
+    }
+
+    public void showDeleteDialog(String date){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.RoundedDialog);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View view = inflater.inflate(R.layout.dialog_delete_dish, null);
+        builder.setView(view);
+
+        Button deleteButton = view.findViewById(R.id.delete_button);
+        Button cancelButton = view.findViewById(R.id.cancel_button);
+        TextView text = view.findViewById(R.id.confirm);
+
+        text.setText(date.substring(0, 2) + "." + date.substring(2, 4) + "." + date.substring(4) + " wirklich Löschen?");
+        text.setGravity(Gravity.CENTER);
+
+        AlertDialog dialog = builder.create();
+
+        deleteButton.setOnClickListener(view1 -> {
+            deleteWorkday(date);
+            dialog.dismiss();
+        });
+
+        cancelButton.setOnClickListener(view1 -> dialog.cancel());
+
+        dialog.show();
+
     }
 
     public void uploadData(){
