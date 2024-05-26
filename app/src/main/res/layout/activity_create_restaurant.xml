@@ -1,30 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".CreateRestaurant"
     android:background="@drawable/redbar"
+    android:fillViewport="true"
     android:fitsSystemWindows="true"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:id="@+id/rootLayout">
+    tools:context=".CreateRestaurant">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/backButton"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="left|top"
-        android:clickable="true"
-        android:focusable="true"
-        app:backgroundTint="@color/zxing_transparent"
-        app:srcCompat="@drawable/ic_return"
-        android:tint="#121212"
-        app:fabSize="auto"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="25dp"
-        app:elevation="200dp"/>
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/backButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|top"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="25dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:tint="#121212"
+            app:backgroundTint="@color/zxing_transparent"
+            app:elevation="200dp"
+            app:fabSize="auto"
+            app:srcCompat="@drawable/ic_return" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-75dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/restaurant" />
 
         <TextView
             android:id="@+id/textView5"
@@ -35,7 +47,7 @@
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="36sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
@@ -103,8 +115,7 @@
                     app:fabSize="mini"
                     app:srcCompat="@drawable/ic_location"
                     android:layout_gravity="left"
-                    android:layout_marginLeft="30dp"
-                    />
+                    android:layout_marginLeft="30dp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/place_layout"
@@ -172,7 +183,7 @@
                     android:textStyle="normal" />
 
             </LinearLayout>
-
         </androidx.cardview.widget.CardView>
 
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

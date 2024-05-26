@@ -17,6 +17,7 @@
     <style name="Theme.MyApplication" parent="Base.Theme.MyApplication" />
 
     <style name="LoginTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
-        <item name="android:statusBarColor">@color/welcomeRed</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
     </style>
 </resources>

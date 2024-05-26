@@ -38,13 +38,11 @@ public class Login extends AppCompatActivity {
     ProgressBar progressBar;
     InputValidator inputValidator;
     CardView cardView;
-    LinearLayout rootLayout;
     FloatingActionButton back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
         editTextEmail = findViewById(R.id.email);
@@ -52,24 +50,13 @@ public class Login extends AppCompatActivity {
         buttonLogin = findViewById(R.id.loginButton);
         inputValidator = new InputValidator(this);
         cardView = findViewById(R.id.cardView);
-        rootLayout = findViewById(R.id.rootLayout);
         back = findViewById(R.id.backButton);
 
         back.setOnClickListener(v -> {
             finish();
         });
 
-        View.OnFocusChangeListener focusChangeListener = new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    moveCardViewUp();
-                }
-            }
-        };
 
-        editTextEmail.setOnFocusChangeListener(focusChangeListener);
-        editTextPassword.setOnFocusChangeListener(focusChangeListener);
 
 
         //progressBar = findViewById(R.id.progressBar);
@@ -112,24 +99,4 @@ public class Login extends AppCompatActivity {
             }
         });
     }
-
-    private void moveCardViewUp() {
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        int screenHeight = displayMetrics.heightPixels;
-
-        int marginInPx = (int) (30 * displayMetrics.density);
-
-        int cardViewHeight = cardView.getHeight();
-        int targetY = (screenHeight / 2) - (cardViewHeight / 2) - marginInPx;
-
-        int cardViewTop = cardView.getTop();
-
-        int translationY = targetY - cardViewTop;
-
-        ObjectAnimator animator = ObjectAnimator.ofFloat(cardView, "translationY", translationY);
-        animator.setInterpolator(new DecelerateInterpolator());
-        animator.setDuration(300);
-        animator.start();
-    }
-
 }

@@ -24,20 +24,17 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".Test"
-            android:exported="false" />
-        <activity
             android:name=".Login"
             android:theme="@style/LoginTheme"
-            android:windowSoftInputMode="adjustPan|stateVisible"></activity>
+            android:windowSoftInputMode="adjustPan|stateVisible" />
         <activity
             android:name=".Register"
             android:theme="@style/LoginTheme"
-            android:windowSoftInputMode="adjustPan|stateVisible"></activity>
+            android:windowSoftInputMode="adjustPan|stateVisible" />
         <activity
             android:name=".WelcomeScreen"
             android:exported="true"
-            android:theme="@style/Base.Theme.Welcome"></activity>
+            android:theme="@style/Base.Theme.Welcome" />
         <activity
             android:name=".EmployeesView"
             android:exported="false" />
@@ -53,8 +50,8 @@
             android:hardwareAccelerated="true" />
         <activity
             android:name=".CreateRestaurant"
-            android:exported="false"
-            android:theme="@style/LoginTheme" />
+            android:theme="@style/LoginTheme"
+            android:windowSoftInputMode="adjustPan|stateVisible" />
         <activity
             android:name=".Settings"
             android:exported="false" />
