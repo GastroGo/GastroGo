@@ -18,6 +18,10 @@
     <string name="speichern">Speichern</string>
     <string name="hinzufügen">Hinzufügen</string>
     <string name="löschen">Löschen\n</string>
+    <string name="zeit">zeit</string>
+    <string name="datum">Datum</string>
+    <string name="beginn">beginn</string>
+    <string name="ende">ende</string>
     <string-array name="languages">
         <item>Deutsch</item>
         <item>Englisch</item>"

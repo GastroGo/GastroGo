@@ -24,10 +24,13 @@
         android:theme="@style/Theme.Login"
         tools:targetApi="31">
         <activity
+            android:name="com.example.mitarbeiterverwaltung.Employee"
+            android:exported="false" />
+        <activity
             android:name="com.example.orders.OrdersActivity"
             android:exported="false" />
         <activity
-            android:name=".EmployeesView"
+            android:name=".EmployeesMenu"
             android:exported="false" />
         <activity
             android:name=".ManageMenu"
@@ -48,7 +51,7 @@
             android:exported="false" />
         <activity
             android:name=".Login"
-            android:theme="@style/AppTheme.ActionBarWhite"></activity>
+            android:theme="@style/AppTheme.ActionBarWhite" />
         <activity
             android:name=".Register"
             android:exported="true"

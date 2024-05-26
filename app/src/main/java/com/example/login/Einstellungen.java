@@ -1,11 +1,11 @@
 package com.example.login;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,7 +21,6 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -146,7 +145,13 @@ public class Einstellungen extends AppCompatActivity {
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                     for (DataSnapshot grandChildSnapshot : childSnapshot.getChildren()) {
                         for (DataSnapshot greatGrandChildSnapshot : grandChildSnapshot.getChildren()) {
-                            String firebaseKey = greatGrandChildSnapshot.getValue(String.class);
+                            String firebaseKey;
+                            try {
+                                firebaseKey = greatGrandChildSnapshot.getValue(String.class);
+                            } catch (Exception e){
+                                Log.i("exception", e + "");
+                                firebaseKey = "";
+                            }
 
                             if (inputKey.equals(firebaseKey)) {
 
@@ -158,7 +163,7 @@ public class Einstellungen extends AppCompatActivity {
                                         String childKey = grandChildRef.getKey();
                                         String parentKey = childRef.getKey();
                                         String uid = sRef.getUserId();
-                                        Intent intent = new Intent(getApplicationContext(), EmployeesView.class);
+                                        Intent intent = new Intent(getApplicationContext(), EmployeesMenu.class);
                                         intent.putExtra("restaurantId", parentKey); // Pass the restaurant ID to CreateMenu activity
                                         startActivity(intent);
                                         ref.child(parentKey).child(childKey).child("UID").setValue(uid);

@@ -1,8 +1,12 @@
 package com.example.tables;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,6 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -32,13 +38,15 @@ import java.util.stream.Collectors;
 public class TablesActivity extends AppCompatActivity{
     TablelistModel tableModel = TablelistModel.getInstance();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference dbRef = database.getReference("Restaurants");
+    DatabaseReference dbRef = database.getReference();
     String restaurantId;
+    String employeeId;
     RecyclerView recyclerView;
     RV_Adapter_Tables adapter;
-
     Button sortTimerButton;
     Button sortTableButton;
+    Calendar calendar = Calendar.getInstance();
+    Map<String, String> workData = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +58,18 @@ public class TablesActivity extends AppCompatActivity{
         DropdownManager dropdownManager = new DropdownManager(this, R.menu.dropdown_menu, R.id.imageMenu);
         dropdownManager.setupDropdown();
 
-        FloatingActionButton returnButton = findViewById(R.id.btn_back);
-        returnButton.setOnClickListener(view -> finish());
-
         restaurantId = getIntent().getStringExtra("restaurantId");
+        employeeId = getIntent().getStringExtra("employeeId");
+
+        FloatingActionButton returnButton = findViewById(R.id.btn_back);
+        returnButton.setOnClickListener(view -> {
+            if (employeeId != null){
+                showEndWorkDialog();
+                Log.i("dialog", "true");
+            } else {
+                finish();
+            }
+        });
 
         sortTimerButton = findViewById(R.id.btn_sortByTimer);
         sortTableButton = findViewById(R.id.btn_sortByNumber);
@@ -78,7 +94,7 @@ public class TablesActivity extends AppCompatActivity{
             }
         });
 
-        dbRef.child(restaurantId).addValueEventListener(new ValueEventListener() {
+        dbRef.child("/Restaurants/" + restaurantId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Map<String, Map<String, Object>> values = (Map<String, Map<String, Object>>) snapshot.child("/tische").getValue();
@@ -181,4 +197,49 @@ public class TablesActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
+    private void showEndWorkDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.RoundedDialog);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View view = inflater.inflate(R.layout.dialog_delete_dish, null);
+        builder.setView(view);
+
+        Button confirmButton = view.findViewById(R.id.delete_button);
+        Button cancelButton = view.findViewById(R.id.cancel_button);
+        TextView text = view.findViewById(R.id.confirm);
+
+        text.setText("Arbeitstag beenden?");
+        text.setGravity(Gravity.CENTER);
+        confirmButton.setText("beenden");
+
+        AlertDialog dialog = builder.create();
+
+        confirmButton.setOnClickListener(view1 -> {
+            getWorkdays();
+            dialog.dismiss();
+        });
+
+        cancelButton.setOnClickListener(view1 -> dialog.cancel());
+
+        dialog.show();
+    }
+
+    private void getWorkdays(){
+        DatabaseReference arbeitsZeitenRef = dbRef.child("/Schluessel/" + restaurantId + "/" + employeeId + "/arbeitsZeiten");
+        arbeitsZeitenRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                workData = (Map<String, String>) dataSnapshot.getValue();
+                String date = String.format("%02d%02d%04d", calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
+                String workday = workData.get(date);
+                workday = String.format("%s%02d:%02d", workday.substring(0, 6), calendar.get(Calendar.HOUR_OF_DAY) + 2, calendar.get(Calendar.MINUTE));
+                workData.put(date, workday);
+                arbeitsZeitenRef.setValue(workData);
+                finish();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
 }

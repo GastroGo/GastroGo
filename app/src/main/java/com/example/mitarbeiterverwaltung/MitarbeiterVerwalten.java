@@ -1,6 +1,7 @@
 package com.example.mitarbeiterverwaltung;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -9,12 +10,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.login.DropdownManager;
 import com.example.login.R;
+import com.example.orders.OrdersActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,6 +43,7 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
     EditText etName;
     TextView tvName, tvKey;
     FloatingActionButton back;
+    String restaurantId;
 
     public static String generateKey() {
         SecureRandom random = new SecureRandom();
@@ -59,7 +63,7 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mitarbeiter_verwalten);
-        String restaurantId = getIntent().getStringExtra("restaurantId");
+        restaurantId = getIntent().getStringExtra("restaurantId");
 
         TextView headerText = findViewById(R.id.text);
         headerText.setText("Mitarbeiter");
@@ -126,4 +130,12 @@ public class MitarbeiterVerwalten extends AppCompatActivity {
 
 
     }
+
+    public void clickEmployee(String employeeID){
+        Intent intent = new Intent(this, Employee.class);
+        intent.putExtra("employeeID", employeeID);
+        intent.putExtra("restaurantID", restaurantId);
+        startActivity(intent);
+    }
+
 }

@@ -9,8 +9,8 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -123,6 +123,7 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
         String inputKey = sharedPreferences.getString("KEY_SCHLUESSEL", "");
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Schluessel");
+        Log.i("exception", inputKey);
 
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -132,7 +133,14 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                     for (DataSnapshot grandChildSnapshot : childSnapshot.getChildren()) {
                         for (DataSnapshot greatGrandChildSnapshot : grandChildSnapshot.getChildren()) {
-                            String firebaseKey = greatGrandChildSnapshot.getValue(String.class);
+                            String firebaseKey;
+                            try {
+                                firebaseKey = greatGrandChildSnapshot.getValue(String.class);
+                            } catch (Exception e){
+                                Log.i("exception", e + "");
+                                firebaseKey = "";
+                            }
+
 
                             if (inputKey.equals(firebaseKey)) {
 
@@ -142,9 +150,10 @@ public class Startseite extends AppCompatActivity implements OnMapReadyCallback 
                                     DatabaseReference childRef = grandChildRef.getParent();
                                     if (childRef != null) {
                                         String parentKey = childRef.getKey();
-                                        Intent intent = new Intent(getApplicationContext(), EmployeesView.class);
+                                        Intent intent = new Intent(getApplicationContext(), EmployeesMenu.class);
                                         employee= true;
-                                        intent.putExtra("restaurantId", parentKey); //Übergabe der RestaurantId
+                                        intent.putExtra("restaurantId", parentKey);//Übergabe der RestaurantId
+                                        intent.putExtra("employeeId", grandChildRef.getKey());//Übergabe der MitarbeiterId
                                         startActivity(intent);
                                         overridePendingTransition(0, 0);
                                         finish();

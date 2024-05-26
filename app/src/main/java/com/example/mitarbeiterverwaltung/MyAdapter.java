@@ -2,6 +2,7 @@ package com.example.mitarbeiterverwaltung;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.login.R;
@@ -24,12 +26,12 @@ import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
-    Context context;
+    MitarbeiterVerwalten context;
     ArrayList<User> list;
     String restaurantId;
     DatabaseReference dbRef;
 
-    public MyAdapter(Context context, ArrayList<User> list, String restaurantId) {
+    public MyAdapter(MitarbeiterVerwalten context, ArrayList<User> list, String restaurantId) {
         this.context = context;
         this.list = list;
         this.restaurantId = restaurantId;
@@ -132,6 +134,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
                 }
             });
+
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    context.clickEmployee("M" + String.format("%03d", holder.getAdapterPosition() + 1));
+                }
+            });
+
         }
     }
 
@@ -144,6 +154,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         TextView mName, mKey;
         FloatingActionButton fabDelete;
+        CardView cardView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -152,6 +163,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             mKey = itemView.findViewById(R.id.tvKey);
             mKey.setTextIsSelectable(true);
             fabDelete = itemView.findViewById(R.id.fabDelete);
+            cardView = itemView.findViewById(R.id.employees_rv_cardview);
         }
     }
 }
