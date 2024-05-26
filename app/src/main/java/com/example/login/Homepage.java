@@ -142,7 +142,7 @@ public class Homepage extends AppCompatActivity implements OnMapReadyCallback {
                             try {
                                 firebaseKey = greatGrandChildSnapshot.getValue(String.class);
                             } catch (Exception e){
-                                break;
+                                firebaseKey = "";
                             }
                             if (inputKey.equals(firebaseKey)) {
 

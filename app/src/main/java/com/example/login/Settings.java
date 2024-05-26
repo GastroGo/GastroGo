@@ -139,7 +139,7 @@ public class Settings extends AppCompatActivity {
                             try {
                                 firebaseKey = greatGrandChildSnapshot.getValue(String.class);
                             } catch (Exception e){
-                                break;
+                                firebaseKey = "";
                             }
                             if (inputKey.equals(firebaseKey)) {
 
