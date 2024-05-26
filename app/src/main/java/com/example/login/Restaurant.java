@@ -4,11 +4,11 @@ import java.util.Map;
 
 public class Restaurant {
 
-    private Daten daten;
+    private Data daten;
     private Map<String, Speisekarte> speisekarte;
     private Map<String, Tisch> tische;
 
-    public Restaurant(Daten daten, Map<String, Speisekarte> speisekarte, Map<String, Tisch> tische) {
+    public Restaurant(Data daten, Map<String, Speisekarte> speisekarte, Map<String, Tisch> tische) {
         this.daten = daten;
         this.speisekarte = speisekarte;
         this.tische = tische;
@@ -17,11 +17,11 @@ public class Restaurant {
     public Restaurant() {
     }
 
-    public Daten getDaten() {
+    public Data getDaten() {
         return daten;
     }
 
-    public void setDaten(Daten daten) {
+    public void setDaten(Data daten) {
         this.daten = daten;
     }
 

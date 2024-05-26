@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.example.tables.TablesActivity;
-import com.example.mitarbeiterverwaltung.MitarbeiterVerwalten;
+import com.example.tische.TischeActivity;
+import com.example.employeemanager.EmployeeManager;
 import com.example.qrcodepdf.PdfActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,7 +34,7 @@ public class ManageRestaurant extends AppCompatActivity {
     ConstraintLayout menu, schluessel, qrcode, orders;
     Button delete;
     FloatingActionButton back;
-    Daten restaurantDaten;
+    Data restaurantDaten;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +72,7 @@ public class ManageRestaurant extends AppCompatActivity {
         schluessel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MitarbeiterVerwalten.class);
+                Intent intent = new Intent(getApplicationContext(), EmployeeManager.class);
                 intent.putExtra("restaurantId", restaurantDaten.getId());
                 startActivity(intent);
             }
@@ -115,7 +115,7 @@ public class ManageRestaurant extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (restaurantDaten != null && restaurantDaten.getId() != null) {
-                    Intent intent = new Intent(getApplicationContext(), TablesActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), TischeActivity.class);
                     intent.putExtra("restaurantId", restaurantDaten.getId()); // Pass the restaurant ID to TischeActivity activity
                     startActivity(intent);
                 } else {}
@@ -124,7 +124,7 @@ public class ManageRestaurant extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), Einstellungen.class);
+                Intent intent = new Intent(getApplicationContext(), Settings.class);
                 startActivity(intent);
             }
         });

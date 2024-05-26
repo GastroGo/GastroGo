@@ -12,18 +12,15 @@ import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MyLocationListener implements LocationListener {
-    Startseite startseite;
+    Homepage startseite;
     GoogleMap gMap;
     Context context;
     LatLng latLng;
 
-    public MyLocationListener(Startseite startseite, GoogleMap gMap, Context context) {
+    public MyLocationListener(Homepage startseite, GoogleMap gMap, Context context) {
         this.startseite = startseite;
         this.gMap = gMap;
         this.context = context;

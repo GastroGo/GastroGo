@@ -24,13 +24,13 @@
         android:theme="@style/Theme.Login"
         tools:targetApi="31">
         <activity
-            android:name="com.example.mitarbeiterverwaltung.Employee"
+            android:name="com.example.employeemanager.Employee"
             android:exported="false" />
         <activity
-            android:name="com.example.orders.OrdersActivity"
+            android:name="com.example.bestellungen.BestellungenActivity"
             android:exported="false" />
         <activity
-            android:name=".EmployeesMenu"
+            android:name=".EmployeesView"
             android:exported="false" />
         <activity
             android:name=".ManageMenu"
@@ -39,7 +39,7 @@
             android:name=".ManageRestaurant"
             android:exported="false" />
         <activity
-            android:name=".Startseite"
+            android:name=".Homepage"
             android:exported="false"
             android:hardwareAccelerated="true" />
         <activity
@@ -47,7 +47,7 @@
             android:exported="false"
             android:theme="@style/AppTheme.ActionBarWhite" />
         <activity
-            android:name=".Einstellungen"
+            android:name=".Settings"
             android:exported="false" />
         <activity
             android:name=".Login"
@@ -72,26 +72,26 @@
             android:stateNotNeeded="true"
             tools:replace="android:screenOrientation" />
         <activity
-            android:name="com.example.qrcodegenerator.OrderManager"
+            android:name="com.example.qrcodereader.OrderManager"
             android:exported="false" />
         <activity
-            android:name="com.example.qrcodegenerator.QRCodeReader"
+            android:name="com.example.qrcodereader.QRCodeReader"
             android:exported="true" />
         <activity
             android:name="com.example.qrcodepdf.PdfActivity"
             android:exported="true" />
         <activity
-            android:name="com.example.orders.BestellungenActivity"
+            android:name="com.example.bestellungen.BestellungenActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.tables.TablesActivity"
+            android:name="com.example.tische.TischeActivity"
             android:exported="true" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBmTdKR4YI0DqvIGoQlNlZOmuBtjbnScVY" />
 
-        <activity android:name="com.example.mitarbeiterverwaltung.MitarbeiterVerwalten" />
+        <activity android:name="com.example.employeemanager.EmployeeManager" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

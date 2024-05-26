@@ -166,7 +166,7 @@ public class CreateRestaurant extends AppCompatActivity {
     public void createRestaurant(String name, String place, int zip, String street, int housnr, String uid) {
         String restaurantId = dbRef.push().getKey(); //Schlüssel erstellen
 
-        Daten daten = new Daten();
+        Data daten = new Data();
         daten.setHausnr(housnr);
         daten.setId(restaurantId);
         daten.setName(name);
