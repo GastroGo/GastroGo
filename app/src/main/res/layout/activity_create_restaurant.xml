@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/redbar"
+    android:background="@color/white"
     android:fillViewport="true"
     android:fitsSystemWindows="true"
     tools:context=".CreateRestaurant">
@@ -110,18 +110,20 @@
                     android:id="@+id/locationButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="left"
                     android:clickable="true"
+                    android:focusable="true"
+                    android:tint="#FFFFFF"
                     app:backgroundTint="#03A679"
                     app:fabSize="mini"
                     app:srcCompat="@drawable/ic_location"
-                    android:layout_gravity="left"
-                    android:layout_marginLeft="30dp" />
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="16dp"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/place_layout"
                     android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp">
+                    android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/place"
