@@ -11,18 +11,31 @@
     android:orientation="vertical"
     android:id="@+id/rootLayout">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/backButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|top"
+        android:clickable="true"
+        android:focusable="true"
+        app:backgroundTint="@color/zxing_transparent"
+        app:srcCompat="@drawable/ic_return"
+        android:tint="#121212"
+        app:fabSize="auto"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        app:elevation="200dp"/>
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
             android:fontFamily="sans-serif-light"
             android:text="@string/click_to_create_restaurant"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="36sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
@@ -55,14 +68,13 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/password_layout"
-
+                    app:passwordToggleEnabled="true"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/password"
-
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="*******"
@@ -79,7 +91,7 @@
                         android:id="@+id/name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/name" />
+                        android:hint="@string/restaurant_name" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton

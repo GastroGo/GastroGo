@@ -39,6 +39,7 @@ public class WelcomeScreen extends AppCompatActivity {
 
         Button btnLogin = findViewById(R.id.loginButton);
         Button btnRegister = findViewById(R.id.registerButton);
+        Button btnTest = findViewById(R.id.testButton);
         TextView btnCreateRestaurant = findViewById(R.id.restaurantButton);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +53,13 @@ public class WelcomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(WelcomeScreen.this, Register.class));
+            }
+        });
+
+        btnTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(WelcomeScreen.this, Test.class));
             }
         });
 

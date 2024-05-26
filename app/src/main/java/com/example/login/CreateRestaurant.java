@@ -46,6 +46,7 @@ public class CreateRestaurant extends AppCompatActivity {
     DatabaseReference dbRef;
     InputValidator inputValidator;
     FusedLocationProviderClient fusedLocationClient;
+    FloatingActionButton back;
 
 
     @Override
@@ -64,8 +65,12 @@ public class CreateRestaurant extends AppCompatActivity {
         editTextHousenr = findViewById(R.id.housenr);
         buttonReg = findViewById(R.id.registerButton);
         buttonLocation = findViewById(R.id.locationButton);
-
         inputValidator = new InputValidator(this);
+        back = findViewById(R.id.backButton);
+
+        back.setOnClickListener(v -> {
+            finish();
+        });
 
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override

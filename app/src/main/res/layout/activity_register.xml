@@ -11,12 +11,28 @@
     tools:context=".Login"
     android:id="@+id/rootLayout">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/backButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|top"
+        android:clickable="true"
+        android:focusable="true"
+        app:backgroundTint="@color/zxing_transparent"
+        app:srcCompat="@drawable/ic_return"
+        android:tint="#121212"
+        app:fabSize="auto"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        app:elevation="200dp"/>
+
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:src="@drawable/login" />
+        android:src="@drawable/login"
+        android:layout_marginTop="-25dp"/>
 
     <TextView
         android:id="@+id/textView5"
@@ -61,14 +77,13 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/password_layout"
-
+                app:passwordToggleEnabled="true"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password"
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="*******"

@@ -20,6 +20,7 @@ import androidx.cardview.widget.CardView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,6 +35,7 @@ public class Register extends AppCompatActivity {
     InputValidator inputValidator;
     CardView cardView;
     LinearLayout rootLayout;
+    FloatingActionButton back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,11 @@ public class Register extends AppCompatActivity {
         inputValidator = new InputValidator(this);
         cardView = findViewById(R.id.cardView);
         rootLayout = findViewById(R.id.rootLayout);
+        back = findViewById(R.id.backButton);
+
+        back.setOnClickListener(v -> {
+            finish();
+        });
 
         View.OnFocusChangeListener focusChangeListener = new View.OnFocusChangeListener() {
             @Override

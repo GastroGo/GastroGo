@@ -36,7 +36,7 @@ public class DropdownManager {
                             int id = item.getItemId();
                             if (id == R.id.logout) {
                                 FirebaseAuth.getInstance().signOut();
-                                Intent intent = new Intent(context, Login.class);
+                                Intent intent = new Intent(context, WelcomeScreen.class);
                                 context.startActivity(intent);
                                 ((Activity) context).finish();
                                 return true;
