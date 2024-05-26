@@ -30,7 +30,7 @@
             android:name="com.example.orders.OrdersActivity"
             android:exported="false" />
         <activity
-            android:name=".EmployeesView"
+            android:name=".EmployeesMenu"
             android:exported="false" />
         <activity
             android:name=".ManageMenu"

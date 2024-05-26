@@ -42,7 +42,6 @@ public class Employee extends AppCompatActivity {
     RecyclerView recyclerView;
     EmployeeModel employeeModel = EmployeeModel.getInstance();
     RV_Adapter_EmployeeWorkDay adapter;
-    Dialog editDialog;
     Calendar calendar = Calendar.getInstance();
 
     @Override
@@ -161,6 +160,7 @@ public class Employee extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String endTime = (String) selectEndTimeButton.getText();
+                endTime = endTime.contains("x") ? "00:00" : endTime;
                 showTimePickerDialog(Integer.parseInt(endTime.substring(0, 2)), Integer.parseInt(endTime.substring(3)), false, dialog);
             }
         });
