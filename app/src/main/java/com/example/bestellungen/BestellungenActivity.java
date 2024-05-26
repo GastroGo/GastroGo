@@ -114,14 +114,14 @@ public class BestellungenActivity extends AppCompatActivity {
     private void updateStyle(){
         if (tableListO.getBestellungsFilter() == 1){
             btnOpen.setTextColor(Color.WHITE);
-            btnClosed.setTextColor(Color.BLACK);
-            btnOpen.setBackgroundResource(R.drawable.roundstyle);
-            btnClosed.setBackgroundColor(Color.TRANSPARENT);
+            btnClosed.setTextColor(getResources().getColor(R.color.text_gray));
+            btnOpen.setBackgroundResource(R.drawable.modern_button_click_effect);
+            btnClosed.setBackgroundResource(R.drawable.modern_button_unselected_click_effect);
         } else if (tableListO.getBestellungsFilter() == 2) {
             btnClosed.setTextColor(Color.WHITE);
-            btnOpen.setTextColor(Color.BLACK);
-            btnClosed.setBackgroundResource(R.drawable.roundstyle);
-            btnOpen.setBackgroundColor(Color.TRANSPARENT);
+            btnOpen.setTextColor(getResources().getColor(R.color.text_gray));
+            btnClosed.setBackgroundResource(R.drawable.modern_button_click_effect);
+            btnOpen.setBackgroundResource(R.drawable.modern_button_unselected_click_effect);
         }
     }
 

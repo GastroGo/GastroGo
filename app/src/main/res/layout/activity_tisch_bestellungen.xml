@@ -17,10 +17,9 @@
 
         <LinearLayout
             android:id="@+id/linearLayout2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="279dp"
+            android:layout_height="58dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/shape"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,32 +27,28 @@
 
             <Button
                 android:id="@+id/btn_bestellungen_offen"
-                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_margin="5dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
-                android:background="@drawable/roundstyle"
+                android:background="@drawable/modern_button_click_effect"
                 android:text="Offen"
                 android:textColor="@color/white"
-                app:backgroundTint="@color/light_third" />
+                android:elevation="10dp"
+                />
 
             <Button
                 android:id="@+id/btn_bestellungen_geschl"
-                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_margin="5dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
-                android:background="@color/zxing_transparent"
-                android:text="Geschl"
-                android:textColor="@color/black"
-                app:backgroundTint="@color/light_third"
-                app:cornerRadius="8dp" />
+                android:background="@drawable/modern_button_unselected_click_effect"
+                android:text="Geschlossen"
+                android:textColor="@color/text_gray"
+                android:elevation="10dp"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

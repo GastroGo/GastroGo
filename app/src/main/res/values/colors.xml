@@ -23,4 +23,7 @@
     <color name="light_gray">#7f7f7f</color>
     //2f59fb
     <color name="red">#e05136</color>
+    <color name="text_gray">#67696a</color>
+    <color name="modern_green">#d9fdd3</color>
+    <color name="text_green">#15603e</color>
 </resources>

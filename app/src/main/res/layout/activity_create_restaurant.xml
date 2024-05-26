@@ -113,12 +113,13 @@
                     android:layout_gravity="left"
                     android:clickable="true"
                     android:focusable="true"
-                    android:tint="#FFFFFF"
-                    app:backgroundTint="#03A679"
+                    android:tint="@color/text_gray"
+                    app:backgroundTint="#f4f4f4"
                     app:fabSize="mini"
                     app:srcCompat="@drawable/ic_location"
                     android:layout_marginLeft="24dp"
-                    android:layout_marginTop="16dp"/>
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="6dp"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/place_layout"

@@ -56,9 +56,6 @@ public class Login extends AppCompatActivity {
             finish();
         });
 
-
-
-
         //progressBar = findViewById(R.id.progressBar);
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
