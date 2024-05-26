@@ -43,7 +43,7 @@ public class BestellungenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         tableNum = getIntent().getIntExtra("TableNr", -1);
         restaurantId = getIntent().getStringExtra("restaurantId");
-        setContentView(R.layout.activity_orders);
+        setContentView(R.layout.activity_tisch_bestellungen);
         TextView headerText = findViewById(R.id.text);
         headerText.setText("Table " + tableNum);
 

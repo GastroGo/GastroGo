@@ -51,7 +51,7 @@ public class TischeActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tables);
+        setContentView(R.layout.activity_tische);
         TextView headerText = findViewById(R.id.text);
         headerText.setText("Tische");
 

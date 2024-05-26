@@ -70,7 +70,7 @@ public class EmployeeManager extends AppCompatActivity {
         dropdownManager.setupDropdown();
 
         dialog = new Dialog(EmployeeManager.this);
-        dialog.setContentView(R.layout.m_anlegen);
+        dialog.setContentView(R.layout.dialog_new_employee);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.m_anlegen_bg));
         dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);

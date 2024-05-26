@@ -55,7 +55,7 @@ public class Homepage extends AppCompatActivity implements OnMapReadyCallback {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_startseite);
+        setContentView(R.layout.activity_homepage);
         auth = FirebaseAuth.getInstance();
         searchButton = findViewById(R.id.search);
         searchView = findViewById(R.id.searchView);

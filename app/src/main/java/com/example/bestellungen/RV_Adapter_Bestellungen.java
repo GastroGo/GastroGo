@@ -29,7 +29,7 @@ public class RV_Adapter_Bestellungen extends RecyclerView.Adapter<RV_Adapter_Bes
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_row_orders, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_row_bestellung, parent, false);
         return new RV_Adapter_Bestellungen.ViewHolder(view);
     }
 
