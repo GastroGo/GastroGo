@@ -1,0 +1,239 @@
+{
+  "project_info": {
+    "project_number": "383974186515",
+    "firebase_url": "https://gastr0-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "gastr0",
+    "storage_bucket": "gastr0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383974186515:android:a98bdb99830db4d6ffe9e6",
+        "android_client_info": {
+          "package_name": "com.example.datasave"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtWxdAN4OLPax5D3LDLGtaF_r3EPCy0Ic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383974186515:android:e3047d7ea266ff51ffe9e6",
+        "android_client_info": {
+          "package_name": "com.example.datenbeispiel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtWxdAN4OLPax5D3LDLGtaF_r3EPCy0Ic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383974186515:android:ee3e6851a981ee23ffe9e6",
+        "android_client_info": {
+          "package_name": "com.example.gastrogo_einstellungen_v1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtWxdAN4OLPax5D3LDLGtaF_r3EPCy0Ic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383974186515:android:b9744ecbf4f5319dffe9e6",
+        "android_client_info": {
+          "package_name": "com.example.login"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtWxdAN4OLPax5D3LDLGtaF_r3EPCy0Ic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383974186515:android:6c50a866630422a3ffe9e6",
+        "android_client_info": {
+          "package_name": "com.example.mitarbeiterverwaltung"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtWxdAN4OLPax5D3LDLGtaF_r3EPCy0Ic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383974186515:android:7e05c5122a3f545fffe9e6",
+        "android_client_info": {
+          "package_name": "com.example.qr_code"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtWxdAN4OLPax5D3LDLGtaF_r3EPCy0Ic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383974186515:android:dce2426d9131214cffe9e6",
+        "android_client_info": {
+          "package_name": "com.example.qrcodegenerator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtWxdAN4OLPax5D3LDLGtaF_r3EPCy0Ic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383974186515:android:2b8c8dc3ea7f4a44ffe9e6",
+        "android_client_info": {
+          "package_name": "com.example.searchbar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtWxdAN4OLPax5D3LDLGtaF_r3EPCy0Ic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383974186515:android:6aad7bb92a7b8f01ffe9e6",
+        "android_client_info": {
+          "package_name": "com.gastro.go"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtWxdAN4OLPax5D3LDLGtaF_r3EPCy0Ic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383974186515:android:ef069cadbfcacf05ffe9e6",
+        "android_client_info": {
+          "package_name": "com.gastro.login"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtWxdAN4OLPax5D3LDLGtaF_r3EPCy0Ic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383974186515:android:a698eaf1f47a958affe9e6",
+        "android_client_info": {
+          "package_name": "com.gastrogo.sortierte_bestellungen"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtWxdAN4OLPax5D3LDLGtaF_r3EPCy0Ic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383974186515:android:349fc55c1c3cfb8fffe9e6",
+        "android_client_info": {
+          "package_name": "com.gastrogo.sortierte_bestellungen_2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtWxdAN4OLPax5D3LDLGtaF_r3EPCy0Ic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

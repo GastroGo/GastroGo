@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "383974186515",
+    "firebase_url": "https://gastr0-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "gastr0",
+    "storage_bucket": "gastr0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383974186515:android:a98bdb99830db4d6ffe9e6",
+        "android_client_info": {
+          "package_name": "com.example.datasave"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtWxdAN4OLPax5D3LDLGtaF_r3EPCy0Ic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383974186515:android:ee3e6851a981ee23ffe9e6",
+        "android_client_info": {
+          "package_name": "com.example.gastrogo_einstellungen_v1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtWxdAN4OLPax5D3LDLGtaF_r3EPCy0Ic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383974186515:android:dce2426d9131214cffe9e6",
+        "android_client_info": {
+          "package_name": "com.example.qrcodegenerator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtWxdAN4OLPax5D3LDLGtaF_r3EPCy0Ic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

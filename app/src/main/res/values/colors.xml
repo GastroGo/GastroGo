@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#121212</color>
+    <color name="colorPrimaryDark">#121212</color>
+    <color name="colorAccent">#282828</color>
+    <color name="colorPrimaryLight">#E9F8F1</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBackground">#EBEBEB</color>
+    <color name="colorTrendingStart">#00B09B</color>
+    <color name="colorTrendingEnd">#96C93D</color>
+    <color name="colorDivider">#D6D6D6</color>
+    <color name="statusBarColor">#121212</color>
+    <color name="navigationBarColor">#181818</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="transparent_white">#90FFFFFF</color>
+    <color name="light_second">#C883AF8E</color>
+    <color name="light_third">#0D470F</color>
+    <color name="zxing_transparent">#00000000</color>
+    <color name="blue">#0D470F</color>
+    <color name="light_gray">#7f7f7f</color>
+    <color name="red">#e05136</color>
+    <color name="text_gray">#67696a</color>
+    <color name="modern_green">#03A679</color>
+    <color name="text_green">#15603e</color>
+    <color name="green">#0D470F</color>
+    <color name="welcomeRed">#E56176</color>
+    <color name="darkGrey">#ff424242</color>
+    <color name="lavender">#8692f7</color>
+    <color name="lightGreen">#C883AF8E</color>
+    <color name="item_titel">#0D470F</color>
+    <color name="item_text">#000000</color>
+    <color name="item_third">#0D470F</color>
+</resources>

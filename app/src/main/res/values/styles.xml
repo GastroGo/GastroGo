@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="BackButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="backgroundTint">@color/light_third</item>
+        <item name="srcCompat">@drawable/ic_arrow_back</item>
+        <item name="borderWidth">0dp</item>
+        <item name="fabCustomSize">30dp</item>
+        <item name="tint">@color/white</item>
+    </style>
+
+    <style name="HeaderStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">130dp</item>
+        <item name="android:background">@drawable/header_background</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:paddingTop">30dp</item>
+        <item name="android:paddingBottom">30dp</item>
+    </style>
+
+    <style name="HeaderTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">15dp</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:text">@string/menu</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="HeaderImageViewStyle">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_marginEnd">15dp</item>
+        <item name="android:contentDescription">@string/app_name</item>
+        <item name="android:src">@drawable/ic_menu</item>
+        <item name="android:tint">@color/colorWhite</item>
+    </style>
+
+    <style name="HeaderLinearLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">15dp</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginEnd">15dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:background">@drawable/white_rectangle_background</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="HeaderBackButtonStyle" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="backgroundTint">@color/light_third</item>
+        <item name="srcCompat">@drawable/ic_arrow_back</item>
+        <item name="borderWidth">0dp</item>
+        <item name="fabCustomSize">30dp</item>
+        <item name="tint">@color/white</item>
+        <item name="android:elevation">10dp</item>
+    </style>
+
+    <style name="HeaderSearchButtonStyle" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="backgroundTint">@color/light_third</item>
+        <item name="srcCompat">@drawable/ic_search</item>
+        <item name="borderWidth">0dp</item>
+        <item name="fabCustomSize">30dp</item>
+        <item name="tint">@color/white</item>
+        <item name="android:elevation">10dp</item>
+    </style>
+
+    <style name="HeaderBackButtonTextStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:text">@string/back</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="StartseiteTheme" parent="Theme.MaterialComponents">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/green</item>
+    </style>
+
+    <style name="RoundedDialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert.Bridge">
+        <item name="android:windowBackground">@drawable/rounded_dialog_background</item>
+    </style>
+
+
+</resources>
