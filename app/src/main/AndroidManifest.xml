@@ -47,12 +47,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.gastro.bill.BillActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.example.employeemanager.Employee"
-            android:exported="false" />
-        <activity
             android:name=".Welcome"
             android:exported="true"
             android:screenOrientation="portrait"
