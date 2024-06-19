@@ -15,7 +15,7 @@ The restaurant application you want to use.
 
 1. Clone the repository
     ```sh
-    git clone https://github.com/GastroGo/FirebaseLogin.git
+    git clone https://github.com/GastroGo/GastroGo.git
     ```
 2. Open the project in Android Studio.
 3. Build the project and run on an emulator or physical device.
